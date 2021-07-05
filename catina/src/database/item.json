@@ -1,0 +1,12 @@
+[
+    {
+        "name": "Pão de Queijo",
+        "price": 4,
+        "type": "assado"
+    },
+    {
+        "name": "Bolo",
+        "price": 2.5,
+        "type": "doce"
+    }    
+]
