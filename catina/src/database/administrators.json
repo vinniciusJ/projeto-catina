@@ -1,0 +1,12 @@
+[
+    {
+        "name": "Jimenez",
+        "password": "abc123abc",
+        "fullAcess": "false"
+    },
+    {
+        "name": "Dyogo",
+        "password": "123abc",
+        "fullAcess": "false"
+    }
+]
