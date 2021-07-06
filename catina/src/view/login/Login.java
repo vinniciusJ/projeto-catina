@@ -40,7 +40,10 @@ public class Login extends AbstractComponent{
     
     public void show(){
         var welcomeLabel = new JLabel("BEM-VINDO!", SwingConstants.CENTER);
-        var loginForm = new LoginForm();
+        
+        var loginForm = new LoginForm((user, pass) -> {
+            System.out.println(user + " " + pass);
+        });
         
         welcomeLabel.setFont(new Font("Sans-Serif", Font.BOLD, 28));
         welcomeLabel.setBorder(new EmptyBorder(15, 0, 15, 0));

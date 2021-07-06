@@ -5,45 +5,67 @@
  */
 package view.login;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.List;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Arrays;
+
+import java.util.HashMap;
+import java.util.function.BiConsumer;
+
+import java.util.function.Consumer;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import view.AbstractComponent;
 
 /**
  *
  * @author Vinicius Jimenez
  */
-public class LoginForm extends AbstractComponent{
-   private final JPanel container = new JPanel();
 
-   public LoginForm(){
-       this.init();
-       this.show();
+public class LoginForm implements ActionListener{
+   private final JPanel container;
+   private final JButton submitButton;
+   private final JTextField userInput;
+   private final JPasswordField passwordInput;
+   private final BiConsumer<String, String> onSubmit;
+   
+   public LoginForm(BiConsumer<String, String> onSubmit){
+        this.container = new JPanel();
+        this.submitButton = new JButton();
+        this.userInput = new JTextField();
+        this.passwordInput = new JPasswordField();
+        
+        this.onSubmit = onSubmit;
+        
+        this.init();
+        this.show();
    }
 
    public final void init(){
+       this.submitButton.setText("Entrar");
+       this.submitButton.setFont(new Font("Sans-Serif", Font.PLAIN, 18));
+       this.submitButton.addActionListener(this);
+       
+       this.userInput.setColumns(25);
+       this.passwordInput.setColumns(25);
+       
        this.container.setLayout(null);
    }
+  
 
    public final void show(){
         var userInputContainer = new JPanel();
-        var userInputLabel = new JLabel("Usuário:", SwingConstants.CENTER);
-        var userInput = new JTextField(25);
-        
         var passwordInputContainer = new JPanel();
-        var passwordInputLabel = new JLabel("Senha:", SwingConstants.LEFT);
-        var passwordInput = new JTextField(25);
         
-        var submitButton = new JButton("Entrar");
+        var userInputLabel = new JLabel("Usuário:", SwingConstants.CENTER);
+        var passwordInputLabel = new JLabel("Senha:", SwingConstants.LEFT);
 
         userInputLabel.setFont(new Font("Sans-Serif", Font.PLAIN, 18));
         userInputLabel.setBorder(new EmptyBorder(0, 0, 10, 0));
@@ -57,18 +79,16 @@ public class LoginForm extends AbstractComponent{
         passwordInputContainer.setBounds(100, 120, 560, 60);
         passwordInputContainer.setLayout(new BoxLayout(passwordInputContainer, BoxLayout.Y_AXIS));
 
-        submitButton.setFont(new Font("Sans-Serif", Font.PLAIN, 18));
-        submitButton.setBounds(320, 220, 120, 60);
+        this.submitButton.setBounds(320, 220, 120, 60);
         
         // Adicionando os elementos aos seus containers
         
         userInputContainer.add(userInputLabel);
-        userInputContainer.add(userInput);
         passwordInputContainer.add(passwordInputLabel);
-        passwordInputContainer.add(passwordInput);
-
-        this.addComponent("submit-button", submitButton);
-
+        
+        userInputContainer.add(this.userInput);
+        passwordInputContainer.add(this.passwordInput);
+        
         this.container.add(userInputContainer);
         this.container.add(passwordInputContainer); 
         this.container.add(submitButton);
@@ -79,6 +99,16 @@ public class LoginForm extends AbstractComponent{
      */
     public JPanel getContainer() {
         return container;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        var user = this.userInput.getText();
+        var password = new String(this.passwordInput.getPassword());
+        
+        System.out.println(password);
+        
+        this.onSubmit.accept(user, password);
     }
     
 }
