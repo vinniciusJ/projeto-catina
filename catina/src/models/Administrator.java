@@ -9,8 +9,10 @@ package models;
  *
  * @author Dyogo
  */
-public class Administrator extends User {
-    public Administrator(){
+public class Administrator extends User {    
+    public Administrator(String name, String password){
+        this.name = name;
+        this.password = password;
         this.fullAcess = false;
     }
 }
