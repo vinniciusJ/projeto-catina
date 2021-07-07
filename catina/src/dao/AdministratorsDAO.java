@@ -16,18 +16,18 @@ import models.Administrator;
  * @author Dyogo
  */
 public class AdministratorsDAO implements DAOInterface {    
-    Connection conexao = new Connection("administrators");
+    Connection connection = new Connection("administrators");
     JSONParser jsonParser = new JSONParser();
     
     @Override
     public void delete(Object object) {
         String data = object.toString();        
-        this.conexao.delete(data);        
+        this.connection.delete(data);        
     }
 
     @Override
     public ArrayList<Object> get() {
-        JSONArray data = this.conexao.read();
+        JSONArray data = this.connection.read();
         ArrayList<Object> admins = new ArrayList();
         
         data.forEach((admin) -> {
@@ -39,12 +39,12 @@ public class AdministratorsDAO implements DAOInterface {
 
     @Override
     public void post(Object object) {        
-        this.conexao.write(object.toString());
+        this.connection.write(object.toString());
     }
 
     @Override
     public void put(Object oldObject, Object newObject) {
-        this.conexao.replace(oldObject.toString(), newObject.toString());
+        this.connection.replace(oldObject.toString(), newObject.toString());
     }
     
     private Administrator parseAdministrators(JSONObject admin){

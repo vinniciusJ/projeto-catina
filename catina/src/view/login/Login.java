@@ -11,16 +11,15 @@ import java.awt.Font;
 import javax.swing.*;
 import java.util.function.BiConsumer;
 import javax.swing.border.EmptyBorder;
-import view.AbstractComponent;
 
 /**
  *
  * @author Vinicius Jimenez
  */
-public class Login extends AbstractComponent{
+public class Login{
     private final JFrame container;
     private final LoginForm loginForm;
-    
+
     public Login(){
         this.container = new JFrame();
         this.loginForm = new LoginForm();
