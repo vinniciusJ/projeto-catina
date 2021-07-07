@@ -6,11 +6,10 @@
 package view.login;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.*;
-import java.awt.event.ActionListener;
+import java.util.function.BiConsumer;
 import javax.swing.border.EmptyBorder;
 import view.AbstractComponent;
 
@@ -19,9 +18,13 @@ import view.AbstractComponent;
  * @author Vinicius Jimenez
  */
 public class Login extends AbstractComponent{
-    private final JFrame container = new JFrame();
+    private final JFrame container;
+    private final LoginForm loginForm;
     
     public Login(){
+        this.container = new JFrame();
+        this.loginForm = new LoginForm();
+        
         this.init();
     }
     
@@ -33,26 +36,19 @@ public class Login extends AbstractComponent{
         this.container.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
-    public void addSubmitEvent(ActionListener listener){
-        
+    public void addSubmitEvent(BiConsumer<String, String> callback){
+        this.loginForm.addSubmitEventHandler(callback);
     }
     
     
     public void show(){
         var welcomeLabel = new JLabel("BEM-VINDO!", SwingConstants.CENTER);
-        
-        var loginForm = new LoginForm((user, pass) -> {
-            System.out.println(user + " " + pass);
-        });
-        
+  
         welcomeLabel.setFont(new Font("Sans-Serif", Font.BOLD, 28));
         welcomeLabel.setBorder(new EmptyBorder(15, 0, 15, 0));
-
-        this.container.add(Box.createVerticalGlue(), BorderLayout.WEST);
-       
         
         this.container.add(welcomeLabel, BorderLayout.NORTH);
-        this.container.add(loginForm.getContainer(), BorderLayout.CENTER);
+        this.container.add(this.loginForm.getContainer(), BorderLayout.CENTER);
         
         this.container.setVisible(true);
     }

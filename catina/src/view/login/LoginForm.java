@@ -6,15 +6,9 @@
 package view.login;
 
 import java.awt.Font;
-import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
-
-import java.util.HashMap;
 import java.util.function.BiConsumer;
-
-import java.util.function.Consumer;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -34,15 +28,14 @@ public class LoginForm implements ActionListener{
    private final JButton submitButton;
    private final JTextField userInput;
    private final JPasswordField passwordInput;
-   private final BiConsumer<String, String> onSubmit;
+   private BiConsumer<String, String> onSubmit;
    
-   public LoginForm(BiConsumer<String, String> onSubmit){
+   public LoginForm(){
         this.container = new JPanel();
         this.submitButton = new JButton();
         this.userInput = new JTextField();
         this.passwordInput = new JPasswordField();
-        
-        this.onSubmit = onSubmit;
+        this.onSubmit = (user, password) -> {};
         
         this.init();
         this.show();
@@ -57,6 +50,10 @@ public class LoginForm implements ActionListener{
        this.passwordInput.setColumns(25);
        
        this.container.setLayout(null);
+   }
+   
+   public void addSubmitEventHandler(BiConsumer<String, String> onSubmit){
+       this.onSubmit = onSubmit;
    }
   
 
@@ -105,8 +102,6 @@ public class LoginForm implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         var user = this.userInput.getText();
         var password = new String(this.passwordInput.getPassword());
-        
-        System.out.println(password);
         
         this.onSubmit.accept(user, password);
     }
