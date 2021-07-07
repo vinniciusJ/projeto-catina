@@ -11,8 +11,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.*;
 import java.util.function.BiConsumer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.border.EmptyBorder;
 
 /**
@@ -37,13 +35,15 @@ public class Login{
         this.container.setResizable(false);
         this.container.setLocationRelativeTo(null);
         this.container.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
         this.addSubmitEvent((username, password) -> {
             try {
                 this.admController.login(username, password);
-                System.out.println("Deu tudo certo!");
+                this.container.setVisible(false);
+                this.container.dispose();
+                
             } catch (Exception ex) {
-                System.out.println("Deu tudo errado System.exit(0)");
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                this.loginForm.notifyUnmatchedCredentials();
             }
         });
     }
@@ -54,6 +54,7 @@ public class Login{
     
     
     public void show(){
+        var icon = new ImageIcon("src/images/user.png");
         var welcomeLabel = new JLabel("BEM-VINDO!", SwingConstants.CENTER);
   
         welcomeLabel.setFont(new Font("Sans-Serif", Font.BOLD, 28));
@@ -61,6 +62,10 @@ public class Login{
         
         this.container.add(welcomeLabel, BorderLayout.NORTH);
         this.container.add(this.loginForm.getContainer(), BorderLayout.CENTER);
+        
+        var iconLabel = new JLabel(icon);
+        
+        this.container.add(iconLabel, BorderLayout.SOUTH);
         
         this.container.setVisible(true);
     }

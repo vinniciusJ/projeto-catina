@@ -46,27 +46,31 @@ public class LoginForm implements ActionListener{
         this.show();
    }
 
-   public final void init(){
-       this.submitButton.setText("Entrar");
-       this.submitButton.setFont(new Font("Sans-Serif", Font.PLAIN, 18));
-       this.submitButton.addActionListener(this);
-       
-       this.unmatchedCredentials.setText("Usuário e/ou senha estão incorretos!");
-       this.unmatchedCredentials.setForeground(Color.red);
-       this.unmatchedCredentials.setFont(new Font("Sans-Serif", Font.PLAIN, 16));
-       this.unmatchedCredentials.setVisible(true);
-       
-       this.userInput.setColumns(20);
-       this.passwordInput.setColumns(20);
-       
-       this.container.setLayout(null);
-   }
-   
-   public void addSubmitEventHandler(BiConsumer<String, String> onSubmit){
-       this.onSubmit = onSubmit;
-   }
+    public final void init(){
+        this.submitButton.setText("Entrar");
+        this.submitButton.setFont(new Font("Sans-Serif", Font.PLAIN, 18));
+        this.submitButton.addActionListener(this);
 
-   public final void show(){
+        this.unmatchedCredentials.setText("Usuário e/ou senha estão incorretos!");
+        this.unmatchedCredentials.setForeground(Color.red);
+        this.unmatchedCredentials.setFont(new Font("Sans-Serif", Font.PLAIN, 16));
+        this.unmatchedCredentials.setVisible(false);
+
+        this.userInput.setColumns(20);
+        this.passwordInput.setColumns(20);
+
+        this.container.setLayout(null);
+    }
+   
+    public void addSubmitEventHandler(BiConsumer<String, String> onSubmit){
+        this.onSubmit = onSubmit;
+    }
+   
+    public void notifyUnmatchedCredentials(){
+        this.unmatchedCredentials.setVisible(true);
+    }
+
+    public final void show(){
         var userInputContainer = new JPanel();
         var passwordInputContainer = new JPanel();
         

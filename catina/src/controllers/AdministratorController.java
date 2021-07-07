@@ -36,7 +36,7 @@ public class AdministratorController {
             }
         }
                 
-       if(!allowed ){
+       if(!allowed){
            throw new Exception("Ta proibido de passa amizade");
        }
        
