@@ -21,7 +21,7 @@ public class Connection {
     String filename;
     
     public Connection(String filename){
-        this.filename = filename + ".json";
+        this.filename = "src/database/" + filename + ".json";
     }
     
     public JSONArray read(){

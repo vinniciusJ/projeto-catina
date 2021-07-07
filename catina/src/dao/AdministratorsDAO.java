@@ -26,8 +26,8 @@ public class AdministratorsDAO implements DAOInterface {
     }
 
     @Override
-    public ArrayList<Object> get() {
-        JSONArray data = this.connection.read();
+    public ArrayList<Object> get() {        
+        JSONArray data = this.connection.read();        
         ArrayList<Object> admins = new ArrayList();
         
         data.forEach((admin) -> {

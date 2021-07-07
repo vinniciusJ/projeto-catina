@@ -9,7 +9,7 @@ package models;
  *
  * @author Dyogo
  */
-public abstract class User {
+public class User {
     String name;
     String password;
     boolean fullAcess;

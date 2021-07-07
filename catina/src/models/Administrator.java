@@ -15,4 +15,15 @@ public class Administrator extends User {
         this.password = password;
         this.fullAcess = false;
     }
+
+    @Override
+    public String toString() {
+        return "Administrator{" 
+                + "name: " + this.name + "\n" +
+                "password: " + this.password + "\n" +
+                "fullAcess: " + this.fullAcess + "\n"
+                + '}';
+    }
+    
+    
 }

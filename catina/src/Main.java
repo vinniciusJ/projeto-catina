@@ -1,4 +1,5 @@
 
+import dao.AdministratorsDAO;
 import view.login.Login;
 
 /*
@@ -12,9 +13,9 @@ import view.login.Login;
  * @author Dyogo
  */
 public class Main {
-    public static void main(String[] args) {
-        var login = new Login();
-        
+    
+    public static void main(String[] args) {        
+        var login = new Login();        
         login.show();
     }
 }

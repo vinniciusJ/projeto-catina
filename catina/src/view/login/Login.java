@@ -5,11 +5,14 @@
  */
 package view.login;
 
+import controllers.AdministratorController;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.*;
 import java.util.function.BiConsumer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.border.EmptyBorder;
 
 /**
@@ -19,11 +22,12 @@ import javax.swing.border.EmptyBorder;
 public class Login{
     private final JFrame container;
     private final LoginForm loginForm;
+    private final AdministratorController admController;
 
     public Login(){
         this.container = new JFrame();
         this.loginForm = new LoginForm();
-        
+        this.admController =  new AdministratorController();
         this.init();
     }
     
@@ -33,6 +37,15 @@ public class Login{
         this.container.setResizable(false);
         this.container.setLocationRelativeTo(null);
         this.container.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.addSubmitEvent((username, password) -> {
+            try {
+                this.admController.login(username, password);
+                System.out.println("Deu tudo certo!");
+            } catch (Exception ex) {
+                System.out.println("Deu tudo errado System.exit(0)");
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
     }
     
     public void addSubmitEvent(BiConsumer<String, String> callback){
