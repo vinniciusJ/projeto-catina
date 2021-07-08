@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public interface DAOInterface {
     public void delete(Object object);
-    public ArrayList<Object> get();
+    public ArrayList<Object> get();    
     public void post(Object object);
     public void put (Object oldObject, Object newObject);
 }

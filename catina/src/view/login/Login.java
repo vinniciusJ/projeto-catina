@@ -5,7 +5,7 @@
  */
 package view.login;
 
-import controllers.AdministratorController;
+import controllers.ManagerController;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -25,13 +25,14 @@ import javax.swing.border.EmptyBorder;
 public class Login{
     private final JFrame container;
     private final LoginForm loginForm;
-    private final AdministratorController admController;
+    private final ManagerController admController;
 
     public Login(){
         this.container = new JFrame();
         this.loginForm = new LoginForm();
-        this.admController =  new AdministratorController();
-        
+
+        this.admController =  new ManagerController();
+
         this.init();
     }
     

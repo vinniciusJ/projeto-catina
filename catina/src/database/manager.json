@@ -6,7 +6,12 @@
     },
     {
         "name": "Dyogo",
-            "password": "123abc",
+        "password": "123abc",
         "fullAcess": "false"
-    }
+    },
+    {
+        "name": "Matheus",
+        "password": "abc123",
+        "fullAcess": "true"
+    }    
 ]

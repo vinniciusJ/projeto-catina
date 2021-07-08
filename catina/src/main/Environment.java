@@ -1,7 +1,7 @@
 package main;
 
 
-import models.User;
+import models.Manager;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -14,19 +14,19 @@ import models.User;
  * @author Vinicius Jimenez
  */
 public class Environment {
-    private static User USER;
+    private static Manager MANAGER;
 
     /**
-     * @return the USER
+     * @return the MANAGER
      */
-    public static User getUSER() {
-        return USER;
+    public static Manager getUSER() {
+        return MANAGER;
     }
 
     /**
-     * @param aUSER the USER to set
+     * @param USER the MANAGER to set
      */
-    public static void setUSER(User aUSER) {
-        USER = aUSER;
+    public static void setUSER(Manager USER) {
+        MANAGER = USER;
     }
 }

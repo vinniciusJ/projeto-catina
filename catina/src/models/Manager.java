@@ -9,12 +9,12 @@ package models;
  *
  * @author Dyogo
  */
-public class User {
+public class Manager {
     String name;
     String password;
     boolean fullAcess;
     
-    public User(String name, String password, boolean fullAcess){
+    public Manager(String name, String password, boolean fullAcess){
         this.name = name;
         this.password = password;
         this.fullAcess = fullAcess;
@@ -36,5 +36,14 @@ public class User {
         this.password = password;
     }
 
+    public boolean isFullAcess() {
+        return fullAcess;
+    }
+
+    public void setFullAcess(boolean fullAcess) {
+        this.fullAcess = fullAcess;
+    }
+    
+    
     
 }
