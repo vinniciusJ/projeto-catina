@@ -57,5 +57,4 @@ public class ManagerDAO implements DAOInterface {
         return mng;
     }
     
-    
 }

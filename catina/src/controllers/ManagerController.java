@@ -7,6 +7,7 @@ package controllers;
 
 import dao.ManagerDAO;
 import java.util.ArrayList;
+import main.Environment;
 import models.Manager;
 
 /**
@@ -21,9 +22,10 @@ public class ManagerController {
         this.dao = new ManagerDAO();        
     }
     
-    public boolean login(String username, String password) throws Exception{        
+    public void login(String username, String password) throws Exception{        
         var data =  this.dao.get();        
         boolean allowed = false, exists = false;
+    
         
         for (int i = 0; i < data.size(); i ++){
             var d = (Manager) data.get(i);            
@@ -33,10 +35,13 @@ public class ManagerController {
             }
         }        
                 
-       if(!exists){
+        if(!exists){
            throw new Exception("Ta proibido de passa amizade");           
-       }              
-       return allowed;
+        }              
+      
+        var manager = new Manager(username, password, allowed);
+       
+        Environment.setUSER(manager);
     }                
     
 }

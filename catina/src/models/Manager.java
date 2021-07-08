@@ -13,7 +13,7 @@ public class Manager {
     String name;
     String password;
     boolean fullAcess;
-    
+        
     public Manager(String name, String password, boolean fullAcess){
         this.name = name;
         this.password = password;
