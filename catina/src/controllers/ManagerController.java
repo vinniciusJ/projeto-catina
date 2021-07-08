@@ -6,9 +6,9 @@
 package controllers;
 
 import dao.ManagerDAO;
-import java.util.ArrayList;
 import main.Environment;
 import models.Manager;
+import view.login.Login;
 
 /**
  *
@@ -17,9 +17,26 @@ import models.Manager;
 public class ManagerController {
     ManagerDAO dao;
     Manager managerModel; 
+    Login view;
     
     public ManagerController(){
-        this.dao = new ManagerDAO();        
+        this.dao = new ManagerDAO();   
+        this.view = new Login();
+        
+        this.view.addSubmitEvent((username, password) -> {
+            try {
+                System.out.print(username);
+                this.login(username, password);
+                this.accessSystem();
+                
+            } catch (Exception ex) {
+                this.view.notifyUnmatchedCredentials();
+            }
+        });
+    }
+    
+    public void accessSystem(){
+        this.view.closeLoginWindow();
     }
     
     public void login(String username, String password) throws Exception{        
@@ -43,5 +60,6 @@ public class ManagerController {
        
         Environment.setUSER(manager);
     }                
+    
     
 }

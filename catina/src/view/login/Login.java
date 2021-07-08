@@ -19,13 +19,12 @@ import javax.swing.border.EmptyBorder;
  */
 public class Login extends JFrame{
     private final LoginForm loginForm;
-    private final ManagerController admController;
 
     public Login(){
         this.loginForm = new LoginForm();
-        this.admController =  new ManagerController();
 
         this.init();
+        this.paint();
     }
     
     public final void init(){
@@ -37,21 +36,20 @@ public class Login extends JFrame{
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-        this.addSubmitEvent((username, password) -> {
-            try {
-                this.admController.login(username, password);
-                this.setVisible(false);
-                this.dispose();
-                
-            } catch (Exception ex) {
-                this.loginForm.notifyUnmatchedCredentials();
-            }
-        });
+       
     }
     
     public void addSubmitEvent(BiConsumer<String, String> callback){
         this.loginForm.addSubmitEventHandler(callback);
+    }
+    
+    public void notifyUnmatchedCredentials(){
+        this.loginForm.notifyUnmatchedCredentials();
+    }
+    
+    public void closeLoginWindow(){
+        this.setVisible(false);
+        this.dispose();
     }
     
     public void paint(){
