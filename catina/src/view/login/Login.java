@@ -7,8 +7,13 @@ package view.login;
 
 import controllers.AdministratorController;
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
 import javax.swing.*;
 import java.util.function.BiConsumer;
 import javax.swing.border.EmptyBorder;
@@ -26,10 +31,14 @@ public class Login{
         this.container = new JFrame();
         this.loginForm = new LoginForm();
         this.admController =  new AdministratorController();
+        
         this.init();
     }
     
     public final void init(){
+        var icon = new ImageIcon("src/images/logo.png");
+        
+        this.container.setIconImage(icon.getImage());
         this.container.setTitle("CaTina - Login");
         this.container.setSize(new Dimension(760, 520));
         this.container.setResizable(false);
@@ -52,20 +61,27 @@ public class Login{
         this.loginForm.addSubmitEventHandler(callback);
     }
     
-    
     public void show(){
-        var icon = new ImageIcon("src/images/user.png");
+        var header = new JPanel();
         var welcomeLabel = new JLabel("BEM-VINDO!", SwingConstants.CENTER);
-  
+        var copyrightLabel = new JLabel("<html>&copy; CaTina<html>", SwingConstants.CENTER);
+        var userIcon = new JLabel(new ImageIcon("src/images/user.png"), SwingConstants.CENTER);
+                
+        header.setBorder(new EmptyBorder(15, 0, 0, 0));
+        
         welcomeLabel.setFont(new Font("Sans-Serif", Font.BOLD, 28));
-        welcomeLabel.setBorder(new EmptyBorder(15, 0, 15, 0));
+        welcomeLabel.setBorder(new EmptyBorder(15, 10, 15, 0));
         
-        this.container.add(welcomeLabel, BorderLayout.NORTH);
+        copyrightLabel.setFont(new Font("Sans-Serif", Font.ITALIC, 18));
+        copyrightLabel.setBorder(new EmptyBorder(0, 0, 20, 0));
+        
+        header.add(userIcon);
+        header.add(welcomeLabel);
+        
+        this.container.add(header, BorderLayout.NORTH);
         this.container.add(this.loginForm.getContainer(), BorderLayout.CENTER);
-        
-        var iconLabel = new JLabel(icon);
-        
-        this.container.add(iconLabel, BorderLayout.SOUTH);
+        this.container.add(copyrightLabel, BorderLayout.SOUTH);
+      
         
         this.container.setVisible(true);
     }

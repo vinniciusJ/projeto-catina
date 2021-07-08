@@ -9,8 +9,11 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.function.BiConsumer;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,7 +27,7 @@ import javax.swing.border.EmptyBorder;
  * @author Vinicius Jimenez
  */
 
-public class LoginForm implements ActionListener{
+public class LoginForm implements ActionListener, KeyListener{
    private final JPanel container;
    private final JButton submitButton;
    private final JTextField userInput;
@@ -46,7 +49,7 @@ public class LoginForm implements ActionListener{
         this.show();
    }
 
-    public final void init(){
+    public final void init(){        
         this.submitButton.setText("Entrar");
         this.submitButton.setFont(new Font("Sans-Serif", Font.PLAIN, 18));
         this.submitButton.addActionListener(this);
@@ -57,7 +60,10 @@ public class LoginForm implements ActionListener{
         this.unmatchedCredentials.setVisible(false);
 
         this.userInput.setColumns(20);
+        this.userInput.addKeyListener(this);
+      
         this.passwordInput.setColumns(20);
+        this.passwordInput.addKeyListener(this);
 
         this.container.setLayout(null);
     }
@@ -76,7 +82,7 @@ public class LoginForm implements ActionListener{
         
         var userInputLabel = new JLabel("Usuário:", SwingConstants.CENTER);
         var passwordInputLabel = new JLabel("Senha:", SwingConstants.LEFT);
-
+        
         userInputLabel.setFont(new Font("Sans-Serif", Font.PLAIN, 18));
         userInputLabel.setBorder(new EmptyBorder(0, 0, 10, 0));
 
@@ -89,8 +95,8 @@ public class LoginForm implements ActionListener{
         passwordInputContainer.setBounds(100, 120, 560, 60);
         passwordInputContainer.setLayout(new BoxLayout(passwordInputContainer, BoxLayout.Y_AXIS));
 
-        this.unmatchedCredentials.setBounds(180, 220, 200, 40);
-        this.submitButton.setBounds(400, 220, 120, 60);
+        this.unmatchedCredentials.setBounds(240, 200, 280, 40);
+        this.submitButton.setBounds(320, 250, 120, 60);
         
         // Adicionando os elementos aos seus containers
         
@@ -119,6 +125,21 @@ public class LoginForm implements ActionListener{
         var password = new String(this.passwordInput.getPassword());
         
         this.onSubmit.accept(user, password);
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        this.unmatchedCredentials.setVisible(false);
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        this.unmatchedCredentials.setVisible(false);
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        this.unmatchedCredentials.setVisible(false);
     }
     
 }
