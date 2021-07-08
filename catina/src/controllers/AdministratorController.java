@@ -6,10 +6,9 @@
 package controllers;
 
 import dao.AdministratorsDAO;
-import java.util.ArrayList;
+import main.Environment;
 import models.Administrator;
 import models.User;
-import view.login.Login;
 
 /**
  *
@@ -24,10 +23,8 @@ public class AdministratorController {
     }
     
     public void login(String username, String password) throws Exception{
-        System.out.println(username + " " + password);
         var data =  this.dao.get();        
-        boolean allowed = false;   
-        System.out.println(data);        
+        boolean allowed = false;        
         
         for (int i = 0; i < data.size(); i ++){
             var d = (Administrator) data.get(i);
@@ -36,10 +33,11 @@ public class AdministratorController {
             }
         }
                 
-       if(!allowed){
-           throw new Exception("Ta proibido de passa amizade");
-       }
-       
+        if(!allowed){
+            throw new Exception("Ta proibido de passa amizade");
+        }
+        //var loggedUser = new User()
+        //Environment.setUSER(new User());
     }
     
 }

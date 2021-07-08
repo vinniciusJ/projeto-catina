@@ -13,6 +13,12 @@ public class User {
     String name;
     String password;
     boolean fullAcess;
+    
+    public User(String name, String password, boolean fullAcess){
+        this.name = name;
+        this.password = password;
+        this.fullAcess = fullAcess;
+    }
 
     public String getName() {
         return name;

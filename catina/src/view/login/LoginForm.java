@@ -13,7 +13,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.function.BiConsumer;
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -60,6 +59,7 @@ public class LoginForm implements ActionListener, KeyListener{
         this.unmatchedCredentials.setVisible(false);
 
         this.userInput.setColumns(20);
+        this.userInput.setFont(new Font("Sans-Serif", Font.PLAIN, 14));
         this.userInput.addKeyListener(this);
       
         this.passwordInput.setColumns(20);
