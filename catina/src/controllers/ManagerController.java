@@ -6,6 +6,7 @@
 package controllers;
 
 import dao.ManagerDAO;
+import main.App;
 import main.Environment;
 import models.Manager;
 import view.login.Login;
@@ -25,7 +26,6 @@ public class ManagerController {
         
         this.view.addSubmitEvent((username, password) -> {
             try {
-                System.out.print(username);
                 this.login(username, password);
                 this.accessSystem();
                 
@@ -37,6 +37,10 @@ public class ManagerController {
     
     public void accessSystem(){
         this.view.closeLoginWindow();
+        
+        var app = new App();
+        
+        app.init();
     }
     
     public void login(String username, String password) throws Exception{        

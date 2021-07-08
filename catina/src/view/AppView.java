@@ -12,10 +12,10 @@ import javax.swing.JFrame;
  *
  * @author Vinicius Jimenez
  */
-public class MainFrame extends JFrame{
+public class AppView extends JFrame{
     private final JDesktopPane desktop;
     
-    public MainFrame(){
+    public AppView(){
         this.desktop = new JDesktopPane();
         
         this.init();
@@ -23,7 +23,7 @@ public class MainFrame extends JFrame{
     }
     
     public final void init(){
-        this.setSize(1080, 920); 
+        this.setSize(1080, 720); 
     }
 
     private void paint() {
