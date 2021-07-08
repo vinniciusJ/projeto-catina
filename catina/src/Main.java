@@ -1,5 +1,4 @@
 
-import dao.AdministratorsDAO;
 import view.login.Login;
 
 /*

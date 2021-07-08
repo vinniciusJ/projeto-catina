@@ -6,17 +6,17 @@
 package dao;
 
 import java.util.ArrayList;
+import models.Manager;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import models.Administrator;
 
 /**
  *
  * @author Dyogo
  */
-public class AdministratorsDAO implements DAOInterface {    
-    Connection connection = new Connection("administrators");
+public class ManagerDAO implements DAOInterface {    
+    Connection connection = new Connection("manager");
     JSONParser jsonParser = new JSONParser();
     
     @Override
@@ -28,13 +28,12 @@ public class AdministratorsDAO implements DAOInterface {
     @Override
     public ArrayList<Object> get() {        
         JSONArray data = this.connection.read();        
-        ArrayList<Object> admins = new ArrayList();
+        ArrayList<Object> managers = new ArrayList();        
         
-        data.forEach((admin) -> {
-            admins.add(this.parseAdministrators((JSONObject)admin));
-        });
-                
-        return admins;
+        data.forEach((manager) -> {            
+            managers.add(this.parseManager((JSONObject)manager));
+        });        
+        return managers;
     }
 
     @Override
@@ -47,13 +46,16 @@ public class AdministratorsDAO implements DAOInterface {
         this.connection.replace(oldObject.toString(), newObject.toString());
     }
     
-    private Administrator parseAdministrators(JSONObject admin){
-        String name = (String) admin.get("name");
-        String password = (String) admin.get("password");        
+    private Manager parseManager(JSONObject manager){        
+        String name = (String) manager.get("name");
+        String password = (String) manager.get("password");     
+        String acess = (String) manager.get("fullAcess");
+        boolean fullAcess = Boolean.valueOf (acess);         
         
-        Administrator adm = new Administrator(name, password);
+        Manager mng = new Manager(name, password, fullAcess);        
         
-        return adm;
+        return mng;
     }
+    
     
 }
