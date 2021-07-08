@@ -7,13 +7,8 @@ package view.login;
 
 import controllers.ManagerController;
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
 import javax.swing.*;
 import java.util.function.BiConsumer;
 import javax.swing.border.EmptyBorder;
@@ -22,15 +17,12 @@ import javax.swing.border.EmptyBorder;
  *
  * @author Vinicius Jimenez
  */
-public class Login{
-    private final JFrame container;
+public class Login extends JFrame{
     private final LoginForm loginForm;
     private final ManagerController admController;
 
     public Login(){
-        this.container = new JFrame();
         this.loginForm = new LoginForm();
-
         this.admController =  new ManagerController();
 
         this.init();
@@ -39,18 +31,18 @@ public class Login{
     public final void init(){
         var icon = new ImageIcon("src/images/logo.png");
         
-        this.container.setIconImage(icon.getImage());
-        this.container.setTitle("CaTina - Login");
-        this.container.setSize(new Dimension(760, 520));
-        this.container.setResizable(false);
-        this.container.setLocationRelativeTo(null);
-        this.container.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setIconImage(icon.getImage());
+        this.setTitle("CaTina - Login");
+        this.setSize(new Dimension(760, 520));
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         this.addSubmitEvent((username, password) -> {
             try {
                 this.admController.login(username, password);
-                this.container.setVisible(false);
-                this.container.dispose();
+                this.setVisible(false);
+                this.dispose();
                 
             } catch (Exception ex) {
                 this.loginForm.notifyUnmatchedCredentials();
@@ -62,7 +54,7 @@ public class Login{
         this.loginForm.addSubmitEventHandler(callback);
     }
     
-    public void show(){
+    public void paint(){
         var header = new JPanel();
         var welcomeLabel = new JLabel("BEM-VINDO!", SwingConstants.CENTER);
         var copyrightLabel = new JLabel("<html>&copy; CaTina<html>", SwingConstants.CENTER);
@@ -79,11 +71,11 @@ public class Login{
         header.add(userIcon);
         header.add(welcomeLabel);
         
-        this.container.add(header, BorderLayout.NORTH);
-        this.container.add(this.loginForm.getContainer(), BorderLayout.CENTER);
-        this.container.add(copyrightLabel, BorderLayout.SOUTH);
+        this.add(header, BorderLayout.NORTH);
+        this.add(this.loginForm, BorderLayout.CENTER);
+        this.add(copyrightLabel, BorderLayout.SOUTH);
       
         
-        this.container.setVisible(true);
+        this.setVisible(true);
     }
 }

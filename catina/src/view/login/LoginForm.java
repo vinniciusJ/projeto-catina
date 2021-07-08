@@ -26,8 +26,7 @@ import javax.swing.border.EmptyBorder;
  * @author Vinicius Jimenez
  */
 
-public class LoginForm implements ActionListener, KeyListener{
-   private final JPanel container;
+public class LoginForm extends JPanel implements ActionListener, KeyListener{
    private final JButton submitButton;
    private final JTextField userInput;
    private final JPasswordField passwordInput;
@@ -36,7 +35,6 @@ public class LoginForm implements ActionListener, KeyListener{
    private BiConsumer<String, String> onSubmit;
    
    public LoginForm(){
-        this.container = new JPanel();
         this.submitButton = new JButton();
         this.userInput = new JTextField();
         this.passwordInput = new JPasswordField();
@@ -45,7 +43,7 @@ public class LoginForm implements ActionListener, KeyListener{
         this.onSubmit = (user, password) -> {};
         
         this.init();
-        this.show();
+        this.paint();
    }
 
     public final void init(){        
@@ -65,7 +63,7 @@ public class LoginForm implements ActionListener, KeyListener{
         this.passwordInput.setColumns(20);
         this.passwordInput.addKeyListener(this);
 
-        this.container.setLayout(null);
+        this.setLayout(null);
     }
    
     public void addSubmitEventHandler(BiConsumer<String, String> onSubmit){
@@ -76,7 +74,7 @@ public class LoginForm implements ActionListener, KeyListener{
         this.unmatchedCredentials.setVisible(true);
     }
 
-    public final void show(){
+    public final void paint(){
         var userInputContainer = new JPanel();
         var passwordInputContainer = new JPanel();
         
@@ -106,18 +104,12 @@ public class LoginForm implements ActionListener, KeyListener{
         userInputContainer.add(this.userInput);
         passwordInputContainer.add(this.passwordInput);
         
-        this.container.add(userInputContainer);
-        this.container.add(passwordInputContainer); 
-        this.container.add(this.unmatchedCredentials);
-        this.container.add(this.submitButton);
+        this.add(userInputContainer);
+        this.add(passwordInputContainer); 
+        this.add(this.unmatchedCredentials);
+        this.add(this.submitButton);
    }
 
-    /**
-     * @return the container
-     */
-    public JPanel getContainer() {
-        return container;
-    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
