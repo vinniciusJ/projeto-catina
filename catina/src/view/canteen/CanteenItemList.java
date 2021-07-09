@@ -5,6 +5,7 @@
  */
 package view.canteen;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
@@ -20,16 +21,14 @@ import view.View;
  *
  * @author Vinicius Jimenez
  */
-public class CanteenItemList extends JPanel implements View{
-   private ArrayList<CanteenItem> items;
-   
+public final class CanteenItemList extends JPanel implements View{
+    private ArrayList<CanteenItem> items;
+   /*
     private final class ListItem extends JPanel implements View{
-        private final String name, price, qtty;
+        private final CanteenItem data;
         
         public ListItem(CanteenItem item){
-            this.name = item.getItem().getName();
-            this.price = "R$ " + item.getItem().getPrice();
-            this.qtty = Integer.toString(item.getQuantity());
+            this.data = item;
             
             this.init();
             this.paint();
@@ -43,9 +42,9 @@ public class CanteenItemList extends JPanel implements View{
 
         @Override
         public void paint() {
-            var itemName = new JLabel(this.name);
-            var itemPrice = new JLabel(this.price);
-            var itemQtty = new JLabel(this.qtty);
+            var itemName = new JLabel(this.data.getItem().getName());
+            var itemPrice = new JLabel("R$ " + Float.toString(this.data.getItem().getPrice()));
+            var itemQtty = new JLabel(this.data.getQuantity() + " unidades");
             
             var itemNameGc = new GridBagConstraints();
             var itemPriceGc = new GridBagConstraints();
@@ -69,24 +68,39 @@ public class CanteenItemList extends JPanel implements View{
             this.add(itemPrice, itemPriceGc);
             this.add(itemQtty, itemQttyGc);
         }
-    }
+    }*/
     
-    public CanteenItemList(){}
+    public CanteenItemList(){
+        this.init();
+        this.paint();
+    }
     
     public CanteenItemList(ArrayList<CanteenItem> items){
         this.items = items;
+        
+        this.init();
+        this.paint();
     }
     
     
     @Override
     public void init() {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.setBorder(new EmptyBorder(0, 40, 0, 40));
+        this.setBorder(new EmptyBorder(0, 80, 0, 80));
     }
 
     @Override
     public void paint() {
-        this.items.forEach(item -> this.add(new ListItem(item)));
+        var panel = new JPanel();
+        
+        panel.setBackground(Color.red);
+        var panel1 = new JPanel();
+        
+        panel1.setBackground(Color.green);
+        
+        this.add(panel);
+        this.add(panel1);
+        //this.items.forEach(item -> this.add(new ListItem(item)));
     }
 
     /**

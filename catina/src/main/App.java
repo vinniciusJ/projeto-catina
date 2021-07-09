@@ -5,26 +5,22 @@
  */
 package main;
 
+import controllers.AppController;
 import controllers.CanteenController;
-
 /**
  *
  * @author Vinicius Jimenez
  */
 public class App {
-    CanteenController controller;
+    AppController controller;
     
     public App(){
         this.controller = new CanteenController();
     }
 
-    public void init() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+
     public static void initialize(){
         var app = new App();
-        
-        app.init();
+
     }
 }

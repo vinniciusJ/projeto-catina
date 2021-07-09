@@ -7,11 +7,9 @@ package view.canteen;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import main.Environment;
-import models.CanteenItem;
 import view.View;
 
 /**
@@ -20,7 +18,7 @@ import view.View;
  */
 public final class CanteenView extends JFrame implements View{
     private final CanteenMenu menu;
-    private CanteenItemList itemList;
+    private final CanteenItemList itemList;
     
     public CanteenView(){
         this.menu = new CanteenMenu();
@@ -28,10 +26,6 @@ public final class CanteenView extends JFrame implements View{
         
         this.init();
         this.paint();
-    }
-    
-    public void setCanteenItems(ArrayList<CanteenItem> items){
-        this.itemList = new CanteenItemList(items);
     }
     
     public void onRegisterSale(ActionListener handler){
@@ -64,6 +58,7 @@ public final class CanteenView extends JFrame implements View{
     public void paint() {
         var scrollItemList = new JScrollPane(this.itemList);
         
+        scrollItemList.setBorder(null);
         
         this.add(this.menu, BorderLayout.NORTH);
         this.add(scrollItemList, BorderLayout.CENTER);

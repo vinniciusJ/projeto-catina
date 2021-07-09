@@ -1,5 +1,9 @@
 package controllers;
 
+import java.util.ArrayList;
+import models.Canteen;
+import models.CanteenItem;
+import models.Item;
 import view.canteen.CanteenView;
 
 /*
@@ -12,12 +16,17 @@ import view.canteen.CanteenView;
  *
  * @author Vinicius Jimenez
  */
-public class CanteenController {
+public class CanteenController implements AppController{
     CanteenView view;
     
     public CanteenController(){
         this.view = new CanteenView();
     }
     
-   
+
+    @Override
+    public void init() {
+        System.out.println("Oi");
+    }
+
 }

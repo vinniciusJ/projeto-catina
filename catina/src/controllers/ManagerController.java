@@ -9,6 +9,11 @@ package controllers;
  *
  * @author Vinicius Jimenez
  */
-public class ManagerController {
+public class ManagerController implements AppController{
+
+    @Override
+    public void init() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
