@@ -5,17 +5,17 @@
  */
 package main;
 
-import controllers.AppController;
+import controllers.CanteenController;
 
 /**
  *
  * @author Vinicius Jimenez
  */
 public class App {
-    AppController controller;
+    CanteenController controller;
     
     public App(){
-        this.controller = new AppController();
+        this.controller = new CanteenController();
     }
 
     public void init() {

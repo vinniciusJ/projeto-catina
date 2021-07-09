@@ -24,10 +24,12 @@ public class CanteenItemList extends JPanel implements View{
    private ArrayList<CanteenItem> items;
    
     private final class ListItem extends JPanel implements View{
-        private final CanteenItem data;
+        private final String name, price, qtty;
         
         public ListItem(CanteenItem item){
-            this.data = item;
+            this.name = item.getItem().getName();
+            this.price = "R$ " + item.getItem().getPrice();
+            this.qtty = Integer.toString(item.getQuantity());
             
             this.init();
             this.paint();
@@ -41,9 +43,9 @@ public class CanteenItemList extends JPanel implements View{
 
         @Override
         public void paint() {
-            var itemName = new JLabel(this.data.getItem().getName());
-            var itemPrice = new JLabel("R$ " + Float.toString(this.data.getItem().getPrice()));
-            var itemQtty = new JLabel(this.data.getQuantity() + " unidades");
+            var itemName = new JLabel(this.name);
+            var itemPrice = new JLabel(this.price);
+            var itemQtty = new JLabel(this.qtty);
             
             var itemNameGc = new GridBagConstraints();
             var itemPriceGc = new GridBagConstraints();

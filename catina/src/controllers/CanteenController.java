@@ -1,5 +1,7 @@
 package controllers;
 
+import view.canteen.CanteenView;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -10,6 +12,12 @@ package controllers;
  *
  * @author Vinicius Jimenez
  */
-public interface AppController {
+public class CanteenController {
+    CanteenView view;
     
+    public CanteenController(){
+        this.view = new CanteenView();
+    }
+    
+   
 }
