@@ -1,6 +1,7 @@
 package main;
 
 
+import javax.swing.ImageIcon;
 import models.Manager;
 
 /*
@@ -15,6 +16,7 @@ import models.Manager;
  */
 public class Environment {
     private static Manager MANAGER;
+    public final static ImageIcon LOGO_ICON = new ImageIcon("src/images/logo.png");
 
     /**
      * @return the MANAGER

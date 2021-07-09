@@ -5,22 +5,23 @@
  */
 package view.login;
 
-import controllers.ManagerController;
+import controllers.LoginController;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.*;
 import java.util.function.BiConsumer;
 import javax.swing.border.EmptyBorder;
+import main.Environment;
 
 /**
  *
  * @author Vinicius Jimenez
  */
-public class Login extends JFrame{
+public class LoginView extends JFrame{
     private final LoginForm loginForm;
 
-    public Login(){
+    public LoginView(){
         this.loginForm = new LoginForm();
 
         this.init();
@@ -28,9 +29,7 @@ public class Login extends JFrame{
     }
     
     public final void init(){
-        var icon = new ImageIcon("src/images/logo.png");
-        
-        this.setIconImage(icon.getImage());
+        this.setIconImage(Environment.LOGO_ICON.getImage());
         this.setTitle("CaTina - Login");
         this.setSize(new Dimension(760, 520));
         this.setResizable(false);
@@ -52,7 +51,7 @@ public class Login extends JFrame{
         this.dispose();
     }
     
-    public void paint(){
+    public final void paint(){
         var header = new JPanel();
         var welcomeLabel = new JLabel("BEM-VINDO!", SwingConstants.CENTER);
         var copyrightLabel = new JLabel("<html>&copy; CaTina<html>", SwingConstants.CENTER);

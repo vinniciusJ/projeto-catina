@@ -1,7 +1,7 @@
 package main;
 
 
-import controllers.ManagerController;
+import controllers.LoginController;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -16,6 +16,6 @@ import controllers.ManagerController;
 public class Main {
     
     public static void main(String[] args) {        
-        var loginController = new ManagerController();
+        var loginController = new LoginController();
     }
 }

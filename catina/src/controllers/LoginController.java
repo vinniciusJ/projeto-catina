@@ -9,20 +9,20 @@ import dao.ManagerDAO;
 import main.App;
 import main.Environment;
 import models.Manager;
-import view.login.Login;
+import view.login.LoginView;
 
 /**
  *
  * @author Dyogo
  */
-public class ManagerController {
+public class LoginController {
     ManagerDAO dao;
     Manager managerModel; 
-    Login view;
+    LoginView view;
     
-    public ManagerController(){
+    public LoginController(){
         this.dao = new ManagerDAO();   
-        this.view = new Login();
+        this.view = new LoginView();
         
         this.view.addSubmitEvent((username, password) -> {
             try {
@@ -38,9 +38,7 @@ public class ManagerController {
     public void accessSystem(){
         this.view.closeLoginWindow();
         
-        var app = new App();
-        
-        app.init();
+        App.initialize();
     }
     
     public void login(String username, String password) throws Exception{        

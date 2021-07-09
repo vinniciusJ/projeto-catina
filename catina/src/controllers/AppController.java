@@ -1,6 +1,9 @@
 package controllers;
 
-import view.AppView;
+import main.Environment;
+import view.canteen.CanteenView;
+import view.manager.ManagerView;
+import view.View;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -13,9 +16,11 @@ import view.AppView;
  * @author Vinicius Jimenez
  */
 public class AppController {
-    AppView view;
+    View view;
     
     public AppController(){
-        this.view = new AppView();
+        var hasFullAcess = Environment.getUSER().isFullAcess();
+        
+        this.view = hasFullAcess ? new ManagerView() : new CanteenView();
     }
 }
