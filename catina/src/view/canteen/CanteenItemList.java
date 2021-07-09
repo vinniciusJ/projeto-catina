@@ -6,10 +6,11 @@
 package view.canteen;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.util.ArrayList;
-import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -23,12 +24,19 @@ import view.View;
  */
 public final class CanteenItemList extends JPanel implements View{
     private ArrayList<CanteenItem> items;
-   /*
-    private final class ListItem extends JPanel implements View{
-        private final CanteenItem data;
+    
+    final class ListItem extends JPanel implements View{
+        private String name, price, qtty;
         
-        public ListItem(CanteenItem item){
-            this.data = item;
+        public ListItem(CanteenItem product){
+            /*
+            this.name = product.getItem().getName();
+            this.price = "R$ " + Float.toString(product.getItem().getPrice()); 
+            this.qtty = Integer.toString(product.getQuantity) + " unidade(s)";
+            */
+            this.name = "Bolo de Cenoura";
+            this.price = "R$ 10,00";
+            this.qtty = "10 unidades";
             
             this.init();
             this.paint();
@@ -36,15 +44,15 @@ public final class CanteenItemList extends JPanel implements View{
 
         @Override
         public void init() {
-            this.setBorder(new EmptyBorder(0, 0, 20, 0));
-            this.setLayout(new GridBagLayout());
+            this.setSize(200, 50);
+           this.setBackground(Color.white);
         }
 
         @Override
         public void paint() {
-            var itemName = new JLabel(this.data.getItem().getName());
-            var itemPrice = new JLabel("R$ " + Float.toString(this.data.getItem().getPrice()));
-            var itemQtty = new JLabel(this.data.getQuantity() + " unidades");
+            var itemName = new JLabel(this.name);
+            var itemPrice = new JLabel(this.price);
+            var itemQtty = new JLabel(this.qtty);
             
             var itemNameGc = new GridBagConstraints();
             var itemPriceGc = new GridBagConstraints();
@@ -67,12 +75,7 @@ public final class CanteenItemList extends JPanel implements View{
             this.add(itemName, itemNameGc);
             this.add(itemPrice, itemPriceGc);
             this.add(itemQtty, itemQttyGc);
-        }
-    }*/
-    
-    public CanteenItemList(){
-        this.init();
-        this.paint();
+        } 
     }
     
     public CanteenItemList(ArrayList<CanteenItem> items){
@@ -81,26 +84,22 @@ public final class CanteenItemList extends JPanel implements View{
         this.init();
         this.paint();
     }
-    
-    
+       
     @Override
     public void init() {
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        var layout = new GridLayout(this.items.size() + 1, 1, 0, 15);
+
+        this.setLayout(layout);
         this.setBorder(new EmptyBorder(0, 80, 0, 80));
     }
 
     @Override
     public void paint() {
-        var panel = new JPanel();
+        var listIterator = this.items.iterator();
         
-        panel.setBackground(Color.red);
-        var panel1 = new JPanel();
-        
-        panel1.setBackground(Color.green);
-        
-        this.add(panel);
-        this.add(panel1);
-        //this.items.forEach(item -> this.add(new ListItem(item)));
+        while(listIterator.hasNext()){
+            this.add(new ListItem(listIterator.next()));
+        }
     }
 
     /**
@@ -110,10 +109,4 @@ public final class CanteenItemList extends JPanel implements View{
         this.items = items;
     }
 
-    /**
-     * @return the items
-     */
-    public ArrayList<CanteenItem> getItems() {
-        return items;
-    }
 }
