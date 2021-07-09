@@ -5,7 +5,6 @@
  */
 package view.manager;
 
-import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import main.Environment;
 import view.View;

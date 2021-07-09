@@ -60,7 +60,7 @@ public final class CanteenMenu extends JPanel implements View{
     @Override
     public void init() {    
         this.setLayout(new FlowLayout(FlowLayout.CENTER, 32, 0));
-        this.setBorder(new EmptyBorder(20, 0, 0, 0));
+        this.setBorder(new EmptyBorder(20, 0, 40, 0));
 
         this.registerSale.setText("Registrar venda");
         this.viewProfit.setText("Visualizar lucro");
