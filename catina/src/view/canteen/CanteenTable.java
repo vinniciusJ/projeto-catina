@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
 import models.CanteenItem;
+import view.View;
 
 /**
  *
@@ -24,6 +24,13 @@ public final class CanteenTable extends JTable{
     public CanteenTable(List<CanteenItem> rows){
         this.rows = rows;
         
+        
+        
+        this.model = new DefaultTableModel(this.setRowsToObjectMatrix(), this.headers);
+        this.setModel(this.model);
+    }
+    
+    private Object[][] setRowsToObjectMatrix(){
         var convertedRows = new Object[this.rows.size()][4];
         
         for(int i = 0; i < this.rows.size(); i++){
@@ -39,20 +46,7 @@ public final class CanteenTable extends JTable{
             convertedRows[i] = row;
         }
         
-        this.model = new DefaultTableModel(convertedRows, this.headers);
+        return convertedRows;
     }
 
-    /**
-     * @return the rows
-     */
-    public List<CanteenItem> getRows() {
-        return rows;
-    }
-
-    /**
-     * @param rows the rows to set
-     */
-    public void setRows(List<CanteenItem> rows) {
-        this.rows = rows;
-    }
 }

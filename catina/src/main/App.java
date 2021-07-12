@@ -7,6 +7,7 @@ package main;
 
 import controllers.AppController;
 import controllers.CanteenController;
+import controllers.ManagerController;
 /**
  *
  * @author Vinicius Jimenez
@@ -15,7 +16,9 @@ public class App {
     AppController controller;
     
     public App(){
-        this.controller = new CanteenController();
+        var hasFullAcess = Environment.getUSER().isFullAcess();
+        
+        this.controller = hasFullAcess ? new ManagerController() : new CanteenController();
     }
 
 

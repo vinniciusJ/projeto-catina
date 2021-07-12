@@ -1,9 +1,5 @@
 package controllers;
 
-import java.util.ArrayList;
-import models.Canteen;
-import models.CanteenItem;
-import models.Item;
 import view.canteen.CanteenView;
 
 /*
