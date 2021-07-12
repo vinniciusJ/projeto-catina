@@ -1,4 +1,7 @@
 package models;
+
+import org.json.simple.JSONObject;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -9,11 +12,19 @@ package models;
  *
  * @author Dyogo
  */
-public class Canteen {
+public class Canteen implements modelDatabase{
     int id;
     String name;
     String responsible;
-    float balance;
+    float balance;        
+    
+    public Canteen(JSONObject fields){
+        this.name = (String) fields.get("name");
+        this.responsible = (String) fields.get("responsible");
+        this.balance = (float) fields.get("balance");        
+    }
+    
+    public Canteen(){}
 
     public String getName() {
         return name;
@@ -37,6 +48,11 @@ public class Canteen {
 
     public void setBalance(float balance) {
         this.balance = balance;
+    }
+
+    @Override
+    public String databaseName() {
+        return "Canteen";
     }
     
     

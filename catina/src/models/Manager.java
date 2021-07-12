@@ -5,14 +5,24 @@
  */
 package models;
 
+import org.json.simple.JSONObject;
+
 /**
  *
  * @author Dyogo
  */
-public class Manager {
+public class Manager implements modelDatabase{
     String name;
     String password;
     boolean fullAcess;
+    
+    public Manager(JSONObject fields){
+        this.name = (String) fields.get("name");
+        this.password = (String) fields.get("password");
+        this.fullAcess = Boolean.valueOf(fields.get("fullAcess").toString());
+    }
+    
+    public Manager(){}
         
     public Manager(String name, String password, boolean fullAcess){
         this.name = name;
@@ -42,6 +52,11 @@ public class Manager {
 
     public void setFullAcess(boolean fullAcess) {
         this.fullAcess = fullAcess;
+    }
+
+    @Override
+    public String databaseName() {
+        return "Manager";
     }
     
     
