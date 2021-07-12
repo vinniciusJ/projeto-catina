@@ -7,6 +7,7 @@ package view.canteen;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
@@ -21,11 +22,14 @@ import view.View;
  */
 public final class CanteenView extends JFrame implements View{
     private final CanteenMenu menu;
+    private final CanteenTable itemsTable;
+    private List<CanteenItem> items;
     
-    
-    public CanteenView(){
-        this.menu = new CanteenMenu();
+    public CanteenView(List<CanteenItem> items){
+        this.items = items;
         
+        this.menu = new CanteenMenu();
+        this.itemsTable = new CanteenTable(items);
         
         this.init();
         this.paint();
@@ -47,6 +51,18 @@ public final class CanteenView extends JFrame implements View{
         this.menu.addEditItemEventHandler(handler);
     }
     
+    public void onSelectRow(MouseAdapter handler){
+        this.itemsTable.addSelectionRowHandler(handler); 
+    }
+    
+    public int getSelectedRow(){
+        return this.itemsTable.getSelectedRow();
+    }
+    
+    public void syncItems(List<CanteenItem> items){
+        this.itemsTable.sync(items);
+    }
+    
     @Override
     public void init(){ 
         this.setSize(1080, 720); 
@@ -59,14 +75,25 @@ public final class CanteenView extends JFrame implements View{
 
     @Override
     public void paint() {
-        /*var scrollItemList = new JScrollPane(this.itemList);
-        
-        scrollItemList.setBorder(null);
-        
+        var scrollPanel = new JScrollPane(this.itemsTable);
         
         this.add(this.menu, BorderLayout.NORTH);
-        this.add(scrollItemList, BorderLayout.CENTER);
+        this.add(scrollPanel, BorderLayout.CENTER);
         
-        this.setVisible(true);*/
+        this.setVisible(true);
+    }
+
+    /**
+     * @return the items
+     */
+    public List<CanteenItem> getItems() {
+        return items;
+    }
+
+    /**
+     * @param items the items to set
+     */
+    public void setItems(List<CanteenItem> items) {
+        this.items = items;
     }
 }
