@@ -43,15 +43,16 @@ public class LoginController {
     
     public void login(String username, String password) throws Exception{        
         var data =  this.managerDAO.get();        
-        boolean allowed = false, exists = false;
-    
+        boolean exists = false;
+        Manager currentManager = null;
         
         for (int i = 0; i < data.size(); i ++){
-            var d = (Manager) data.get(i);            
-            System.out.println(d);
-            if (d.getName().equals(username) && d.getPassword().equals(password)){                
+            var datum = (Manager) data.get(i);            
+
+            if (datum.getName().equals(username) && datum.getPassword().equals(password)){                
                 exists = true;
-                allowed = d.isFullAcess();
+                
+                currentManager = datum;
             }
         }        
                 
@@ -59,9 +60,7 @@ public class LoginController {
            throw new Exception("Ta proibido de passa amizade");           
         }              
       
-        var manager = new Manager(username, password, allowed);
-       
-        Environment.setUSER(manager);
+        Environment.setUSER(currentManager);
     }                
     
     

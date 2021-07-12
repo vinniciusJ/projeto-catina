@@ -13,15 +13,16 @@ import org.json.simple.JSONObject;
  * @author Dyogo
  */
 public class Canteen implements ModelDatabase{
-    int id;
+    long id;
+    long managerId;
     String name;
-    String responsible;
-    float balance;        
+    double balance;        
     
     public Canteen(JSONObject fields){
+        this.id = (long) fields.get("id");
         this.name = (String) fields.get("name");
-        this.responsible = (String) fields.get("responsible");
-        this.balance = (float) fields.get("balance");        
+        this.managerId = (long) fields.get("managerId");
+        this.balance = (double) fields.get("balance"); 
     }
     
     public Canteen(){}
@@ -34,15 +35,7 @@ public class Canteen implements ModelDatabase{
         this.name = name;
     }
 
-    public String getResponsible() {
-        return responsible;
-    }
-
-    public void setResponsible(String responsible) {
-        this.responsible = responsible;
-    }
-
-    public float getBalance() {
+    public double getBalance() {
         return balance;
     }
 
@@ -53,6 +46,25 @@ public class Canteen implements ModelDatabase{
     @Override
     public String databaseName() {
         return "Canteen";
+    }
+
+    /**
+     * @return the managerId
+     */
+    public long getManagerId() {
+        return managerId;
+    }
+
+    /**
+     * @param managerId the managerId to set
+     */
+    public void setManagerId(int managerId) {
+        this.managerId = managerId;
+    }
+
+    @Override
+    public long getId() {
+        return this.id;
     }
     
     

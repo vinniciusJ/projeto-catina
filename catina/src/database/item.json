@@ -1,10 +1,12 @@
 [
     {
+        "id": 1,
         "name": "Pão de Queijo",
-        "price": 4,
+        "price": 4.0,
         "type": "assado"
     },
     {
+        "id": 2,
         "name": "Bolo",
         "price": 2.5,
         "type": "doce"

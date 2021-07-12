@@ -12,23 +12,20 @@ import org.json.simple.JSONObject;
  * @author Dyogo
  */
 public class Manager implements ModelDatabase{
+    long id;
     String name;
     String password;
     boolean fullAcess;
     
     public Manager(JSONObject fields){
+        this.id = (long) fields.get("id");
         this.name = (String) fields.get("name");
         this.password = (String) fields.get("password");
         this.fullAcess = Boolean.valueOf(fields.get("fullAcess").toString());
+
     }
     
     public Manager(){}
-        
-    public Manager(String name, String password, boolean fullAcess){
-        this.name = name;
-        this.password = password;
-        this.fullAcess = fullAcess;
-    }
 
     public String getName() {
         return name;
@@ -57,6 +54,11 @@ public class Manager implements ModelDatabase{
     @Override
     public String databaseName() {
         return "Manager";
+    }
+
+    @Override
+    public long getId() {
+        return this.id;
     }
     
     

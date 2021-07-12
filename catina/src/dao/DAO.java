@@ -54,6 +54,23 @@ public class DAO {
         return dataObjects;
     }
     
+    public ModelDatabase get(long id){
+        var data = this.get();
+        ModelDatabase object = null;
+       
+        var iterator = data.iterator();
+        
+        while(iterator.hasNext()){
+            var datum = iterator.next();
+            
+            if(datum.getId() == id){
+                object = datum;
+            }
+        }
+        
+        return object;
+    }
+    
     public void post(ModelDatabase object) {        
         this.connection.write(object.toString());
     }

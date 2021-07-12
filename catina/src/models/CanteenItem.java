@@ -1,5 +1,6 @@
 package models;
 
+import dao.DAO;
 import org.json.simple.JSONObject;
 
 /*
@@ -13,14 +14,23 @@ import org.json.simple.JSONObject;
  * @author Dyogo
  */
 public class CanteenItem implements ModelDatabase{
+    private long id, quantity;
     private Canteen canteen;
     private Item item;
-    private int quantity;
     
     public CanteenItem(JSONObject fields){
-        this.item = Item(fields.get("item"));        
-        this.canteen = Canteen(fields.get("canteen"));        
-        this.quantity = (int) fields.get("quantity");
+        var canteenId = (long) fields.get("canteenId");
+        var itemId = (long) fields.get("itemId");
+        
+        var canteenDAO = new DAO(Canteen.class);
+        var itemDAO = new DAO(Item.class);
+
+
+        this.id = (long) fields.get("id");
+        this.item = (Item) itemDAO.get(itemId); 
+        this.canteen =  (Canteen) canteenDAO.get(canteenId);
+        this.quantity = (long) fields.get("quantity");
+
     }
     
     public CanteenItem(){}
@@ -41,11 +51,11 @@ public class CanteenItem implements ModelDatabase{
         this.item = item;
     }
 
-    public int getQuantity() {
+    public long getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(long quantity) {
         this.quantity = quantity;
     }
 
@@ -60,6 +70,11 @@ public class CanteenItem implements ModelDatabase{
 
     private Canteen Canteen(Object get) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public long getId() {
+        return this.id;
     }
     
 }

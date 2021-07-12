@@ -13,15 +13,25 @@ import org.json.simple.JSONObject;
  * @author Dyogo
  */
 public class Item implements ModelDatabase{
-    int id;
+    long id;
     String name;
-    float price;
+    double price;
     String type;
     
     public Item(JSONObject fields){
+        this.id = (long) fields.get("id");
         this.name = (String) fields.get("name");
-        this.price = (float) fields.get("password");
-        this.type = (String) fields.get("fullAcess");
+        this.price = (double) fields.get("price");
+        this.type = (String) fields.get("type");
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public long getId() {
+        return id;
     }
     
     public Item(){}
@@ -34,7 +44,7 @@ public class Item implements ModelDatabase{
         this.name = name;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 

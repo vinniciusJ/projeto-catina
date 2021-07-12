@@ -1,12 +1,14 @@
 [
     {
+        "id": 1,
         "name": "IFPR - Foz",
-        "responsible": "Dyogo",
+        "managerId": 2,
         "balance": 575.2
     },
     {
+        "id": 2,
         "name": "CTG",
-        "responsible": "Jimenez",
+        "managerId": 1,
         "balance": 575.2
     }
 ]
