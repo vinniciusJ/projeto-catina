@@ -7,8 +7,6 @@ package view.canteen;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;

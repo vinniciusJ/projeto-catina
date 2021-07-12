@@ -1,5 +1,6 @@
 package controllers;
 
+import dao.DAO;
 import java.util.ArrayList;
 import models.CanteenItem;
 import view.canteen.CanteenView;
@@ -15,10 +16,14 @@ import view.canteen.CanteenView;
  * @author Vinicius Jimenez
  */
 public class CanteenController implements AppController{
-    CanteenView view;
+    private final DAO canteenDAO;
+    private final CanteenView view;
     
     public CanteenController(){
+        this.canteenDAO = new DAO(CanteenItem.class);
         this.view = new CanteenView(new ArrayList<CanteenItem>());
+
+        System.out.println(this.canteenDAO.get());
     }
     
 

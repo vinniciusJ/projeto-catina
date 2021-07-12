@@ -20,10 +20,15 @@ public class App {
         
         this.controller = hasFullAcess ? new ManagerController() : new CanteenController();
     }
+    
+    public void init(){
+        this.controller.init();
+    }
 
 
     public static void initialize(){
         var app = new App();
 
+        app.init();
     }
 }

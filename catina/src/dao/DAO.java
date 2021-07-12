@@ -38,7 +38,8 @@ public class DAO {
     }        
         
     public void delete(ModelDatabase object) {
-        String data = object.toString();        
+        String data = object.toString();
+        
         this.connection.delete(data);        
     }
     
@@ -48,7 +49,8 @@ public class DAO {
         
         JSONData.forEach((data) -> {            
             dataObjects.add(this.parseData((JSONObject)data));
-        });        
+        });
+        
         return dataObjects;
     }
     

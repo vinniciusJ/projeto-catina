@@ -5,15 +5,22 @@
  */
 package controllers;
 
+import dao.DAO;
+import java.awt.BorderLayout;
+import models.CanteenItem;
+import view.canteen.CanteenView;
+
+
 /**
  *
  * @author Vinicius Jimenez
  */
 public class ManagerController implements AppController{
-
+ 
+    
     @Override
     public void init() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
     
 }
