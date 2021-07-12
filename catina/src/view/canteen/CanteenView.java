@@ -22,7 +22,7 @@ import view.View;
  */
 public final class CanteenView extends JFrame implements View{
     private final CanteenMenu menu;
-    private final CanteenTable itemsTable;
+    private CanteenTable itemsTable;
     private List<CanteenItem> items;
     
     public CanteenView(List<CanteenItem> items){
@@ -51,16 +51,12 @@ public final class CanteenView extends JFrame implements View{
         this.menu.addEditItemEventHandler(handler);
     }
     
-    public void onSelectRow(MouseAdapter handler){
-        this.itemsTable.addSelectionRowHandler(handler); 
-    }
-    
     public int getSelectedRow(){
         return this.itemsTable.getSelectedRow();
     }
     
     public void syncItems(List<CanteenItem> items){
-        this.itemsTable.sync(items);
+        this.itemsTable = new CanteenTable(items);
     }
     
     @Override

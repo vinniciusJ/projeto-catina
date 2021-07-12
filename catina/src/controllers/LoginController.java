@@ -5,7 +5,7 @@
  */
 package controllers;
 
-import dao.ManagerDAO;
+import dao.DAO;
 import main.App;
 import main.Environment;
 import models.Manager;
@@ -16,12 +16,12 @@ import view.login.LoginView;
  * @author Dyogo
  */
 public class LoginController {
-    ManagerDAO dao;
+    DAO managerDAO;
     Manager managerModel; 
     LoginView view;
     
-    public LoginController(){
-        this.dao = new ManagerDAO();   
+    public LoginController(){                
+        this.managerDAO = new DAO(Manager.class);   
         this.view = new LoginView();
         
         this.view.addSubmitEvent((username, password) -> {
@@ -42,12 +42,13 @@ public class LoginController {
     }
     
     public void login(String username, String password) throws Exception{        
-        var data =  this.dao.get();        
+        var data =  this.managerDAO.get();        
         boolean allowed = false, exists = false;
     
         
         for (int i = 0; i < data.size(); i ++){
             var d = (Manager) data.get(i);            
+            System.out.println(d);
             if (d.getName().equals(username) && d.getPassword().equals(password)){                
                 exists = true;
                 allowed = d.isFullAcess();

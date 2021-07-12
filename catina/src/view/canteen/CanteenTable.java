@@ -7,7 +7,6 @@ package view.canteen;
 
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.MouseAdapter;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -20,7 +19,7 @@ import view.View;
  */
 public final class CanteenTable extends JTable implements View{
     private final String[] headers = {"Nome: ", "Tipo: ", "Quantidade: ", "Preço: "};
-    private Object[][] rows;
+    private final Object[][] rows;
     private final DefaultTableModel model;
    
     
@@ -51,23 +50,7 @@ public final class CanteenTable extends JTable implements View{
         
         return new Object[]{name, type, price, qtty};
     }
-
-    public void sync(List<CanteenItem> rows){
-        this.rows = CanteenTable.setRowsToObjectMatrix(rows);
-
-        for(int i = 0; i < this.rows.length; i++){
-            this.model.removeRow(i);
-        }
-        
-       for(int i = 0; i <  this.rows.length; i++){
-           this.model.addRow( this.rows[i]);
-       }
-    }
     
-    public void addSelectionRowHandler(MouseAdapter event){
-        this.addMouseListener(event);
-    }
-
     @Override
     public void init() {
         var header = this.getTableHeader();
