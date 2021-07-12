@@ -18,7 +18,7 @@ import view.View;
  * @author Vinicius Jimenez
  */
 public final class CanteenTable extends JTable implements View{
-    private final String[] headers = {"Nome: ", "Tipo: ", "Quantidade: ", "Preço: "};
+    private final String[] headers = {"Nome: ", "Tipo: ", "Preço: ", "Quantidade: "};
     private final Object[][] rows;
     private final DefaultTableModel model;
    

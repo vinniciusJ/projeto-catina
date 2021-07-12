@@ -11,6 +11,7 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import main.Environment;
+import models.Canteen;
 import models.CanteenItem;
 import view.View;
 
@@ -20,11 +21,13 @@ import view.View;
  */
 public final class CanteenView extends JFrame implements View{
     private final CanteenMenu menu;
+    private final Canteen canteen;
     private CanteenTable itemsTable;
     private List<CanteenItem> items;
     
-    public CanteenView(List<CanteenItem> items){
+    public CanteenView(Canteen canteen, List<CanteenItem> items){
         this.items = items;
+        this.canteen = canteen;
         
         this.menu = new CanteenMenu();
         this.itemsTable = new CanteenTable(items);
