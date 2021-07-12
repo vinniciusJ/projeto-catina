@@ -21,11 +21,11 @@ import view.View;
  */
 public final class CanteenView extends JFrame implements View{
     private final CanteenMenu menu;
-    private final CanteenItemList itemList;
+    
     
     public CanteenView(){
         this.menu = new CanteenMenu();
-        this.itemList = new CanteenItemList(new ArrayList<>(List.of(new CanteenItem(), new CanteenItem())));
+        
         
         this.init();
         this.paint();
@@ -59,7 +59,7 @@ public final class CanteenView extends JFrame implements View{
 
     @Override
     public void paint() {
-        var scrollItemList = new JScrollPane(this.itemList);
+        /*var scrollItemList = new JScrollPane(this.itemList);
         
         scrollItemList.setBorder(null);
         
@@ -67,6 +67,6 @@ public final class CanteenView extends JFrame implements View{
         this.add(this.menu, BorderLayout.NORTH);
         this.add(scrollItemList, BorderLayout.CENTER);
         
-        this.setVisible(true);
+        this.setVisible(true);*/
     }
 }
