@@ -23,8 +23,8 @@ import org.json.simple.parser.ParseException;
 public class Main {
     
     public static void main(String[] args) {        
-        // var loginController = new LoginController();
-        Item i = new Item("Batata", 1.75, "Assado", "4231c04b-f8ba-43c5-866e-b5485d453d9f");
+        var loginController = new LoginController();
+        /*Item i = new Item("Batata", 1.75, "Assado", "4231c04b-f8ba-43c5-866e-b5485d453d9f");
         var dao = new DAO(Item.class);
         System.out.println(1.75);
         JSONParser jsonParser = new JSONParser();  
@@ -34,6 +34,6 @@ public class Main {
             System.out.println(k);
         } catch (ParseException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }        
+        }    */    
     }
 }

@@ -75,24 +75,21 @@ public class CanteenController implements AppController{
             var name = (String) data.get("name");
             var price = (Double) data.get("price");
             var qtty = (Integer) data.get("qtty");
-            var item = (Item) data.get("canteenItem");
+            var item = (Item) data.get("canteenId");
             
             this.editItem(item, name, price, qtty);
         });
-<<<<<<< HEAD
-        
-        this.view.setOnRegisterSale(data -> {
-            System.out.println("oi");
-        });
-=======
+
     }    
     
-    private int calculateQuantityOfItemInCanteen(String itemName, String canteenId){
+    public static int calculateQuantityOfItemInCanteen(String itemName, String canteenId){
         int counter = 0;
+        
+        var dao = new DAO(Item.class);
                         
-        counter = this.itemDAO.get().stream().map((item) -> (Item) item).filter((castedItem) -> (castedItem.getCanteen().getId().equals(canteenId) && castedItem.getName().equals(itemName))).map((_item) -> 1).reduce(counter, Integer::sum);
+        counter = dao.get().stream().map((item) -> (Item) item).filter((castedItem) -> (castedItem.getCanteen().getId().equals(canteenId) && castedItem.getName().equals(itemName))).map((_item) -> 1).reduce(counter, Integer::sum);
+        
         return counter;
->>>>>>> d5fec34f529a81f8ea21e3208f71a97c59fb2349
     }
 
 }

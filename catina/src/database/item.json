@@ -25,5 +25,14 @@
 		"id":"a42a9bd3-72ae-4874-a19a-f17bce950fe8",
 		"saleDate":"2021-07-13",
 		"type":"Assado"
+	},
+	{
+		"canteenId":"4231c04b-f8ba-43c5-866e-b5485d453d9f",
+		"purchaseDate":"2021-07-13",
+		"price":1.75,
+		"name":"Batata",
+		"id":"30ec43dc-272a-4dc1-b39e-b955a32d8681",
+		"saleDate":"2021-07-13",
+		"type":"Assado"
 	}
 ]
