@@ -1,5 +1,10 @@
 package models;
 
+import dao.DAO;
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.Locale;
+import java.util.UUID;
 import org.json.simple.JSONObject;
 
 /*
@@ -13,24 +18,53 @@ import org.json.simple.JSONObject;
  * @author Dyogo
  */
 public class Item implements ModelDatabase{
-    long id;
+    String id;
     String name;
     double price;
     String type;
+    Canteen canteen;
+    LocalDate purchaseDate;
+    LocalDate saleDate;
     
     public Item(JSONObject fields){
-        this.id = (long) fields.get("id");
+        String canteenId = (String) fields.get("idCanteen");
+        var canteenDAO = new DAO(Canteen.class);
+        this.canteen =  (Canteen) canteenDAO.get(canteenId);
+        
+        this.id = (String) fields.get("id");
         this.name = (String) fields.get("name");
         this.price = (double) fields.get("price");
         this.type = (String) fields.get("type");
+        this.purchaseDate = (LocalDate) fields.get("purchaseDate");
+        this.saleDate = (LocalDate) fields.get("saleDate");
+    }
+    
+    public Item (String name, double price, String type, String canteenId){
+        this.id = UUID.randomUUID().toString();
+        this.name = name;
+        this.price = price;
+        this.type = type;
+        var canteenDAO = new DAO(Canteen.class);
+        this.canteen =  (Canteen) canteenDAO.get(canteenId);                
+        
+        this.purchaseDate = LocalDate.now();
+        this.saleDate = LocalDate.now();
     }
 
-    public void setId(int id) {
+    public Canteen getCanteen() {
+        return canteen;
+    }
+
+    public void setCanteen(Canteen canteen) {
+        this.canteen = canteen;
+    }
+
+    public void setId(String id) {
         this.id = id;
     }
 
     @Override
-    public long getId() {
+    public String getId() {
         return id;
     }
     
@@ -64,6 +98,11 @@ public class Item implements ModelDatabase{
     public String databaseName() {
         return "Item";
     }
-    
-    
+
+    @Override
+    public String toString() {             
+        String s = String.format(Locale.ROOT, "{\"id\": \"%s\", \"canteenId\": \"%s\", \"name\": \"%s\", \"price\": %.2f, \"type\": \"%s\", \"purchaseDate\": \"%s\", \"saleDate\": \"%s\"}", this.id, this.canteen.getId(), this.name, this.price, this.type, this.purchaseDate.toString(), this.saleDate.toString());        
+        return s;
+    }
+                   
 }

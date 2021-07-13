@@ -25,7 +25,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
-import models.CanteenItem;
+import models.Item;
 
 /**
  *
@@ -35,8 +35,9 @@ public final class ItemPopup extends Popup{
     private final JTextField nameInput;
     private final JSpinner priceInput, qttyInput;
     private final boolean isEditing;
-    private CanteenItem canteenItem;
-    
+
+    private Item item;
+
     public ItemPopup(String title, Dimension dimension){
         super(title, dimension);
         
@@ -49,19 +50,20 @@ public final class ItemPopup extends Popup{
         this.init();
     }
     
-    public ItemPopup(String title, Dimension dimension, CanteenItem values){
+    public ItemPopup(String title, Dimension dimension, Item item){
         super(title, dimension);
         
-        this.canteenItem = values;
+        this.item = item;
+
         this.isEditing = true;
            
         this.nameInput = new JTextField();
         this.priceInput = new JSpinner(new SpinnerNumberModel(0, 0, 100.0, 0.1));
         this.qttyInput = new JSpinner(new SpinnerNumberModel(0, 0, 100, 1));
         
-        this.nameInput.setText(values.getItem().getName());
-        this.priceInput.setValue(values.getItem().getPrice());
-        this.qttyInput.setValue(values.getQuantity());
+        this.nameInput.setText(item.getName());
+        this.priceInput.setValue(item.getPrice());
+        this.qttyInput.setValue(5);
        
         this.init();
     }
@@ -82,7 +84,7 @@ public final class ItemPopup extends Popup{
             }};
             
             if(isEditing){
-                args.put("canteenItem", canteenItem);
+                args.put("canteenItem", item);
             }
             
             this.callback.accept(args);

@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import main.Environment;
 import models.Canteen;
-import models.CanteenItem;
+import models.Item;
 import models.ModelDatabase;
 import view.canteen.CanteenView;
 
@@ -23,31 +23,27 @@ import view.canteen.CanteenView;
  * @author Vinicius Jimenez
  */
 public class CanteenController implements AppController{
-    private final DAO canteenItemDAO;
+    private final DAO itemDAO;
+    private final DAO canteenDAO;
     private final CanteenView view;
     
     public CanteenController(){
-        this.canteenItemDAO = new DAO(CanteenItem.class);
+        this.itemDAO = new DAO(Item.class);        
+        this.canteenDAO = new DAO(Canteen.class);        
         
-        var itemsInCanteen = new ArrayList<CanteenItem>();
-        var managerId = Environment.getUSER().getId();
+        var itemsInCanteen = new ArrayList<Item>();
+        var manager = Environment.getUSER();        
+        Canteen canteen = manager.getCanteen();
         
-        Canteen canteen = null;
-        
-        var iterator = this.canteenItemDAO.get().iterator();
+        var iterator = this.itemDAO.get().iterator();
         
         while(iterator.hasNext()){
-            var item = (CanteenItem) iterator.next();
+            var item = (Item) iterator.next();                        
             
-            if(canteen == null){
-                canteen = item.getCanteen();
-            }
-            
-            if(item.getCanteen().getManagerId() == managerId){
+            if (item.getCanteen().getId().equals(canteen.getId())){
                 itemsInCanteen.add(item);
-            }
-        }
-        
+            }            
+        }        
         this.view = new CanteenView(canteen, itemsInCanteen);
     }
     
@@ -57,7 +53,7 @@ public class CanteenController implements AppController{
         System.out.println(qtty);
     }
     
-    public void editItem(CanteenItem canteenItem, String name, double price, long qtty){
+    public void editItem(Item canteenItem, String name, double price, long qtty){
         System.out.println(canteenItem);
         
         System.out.println(name);
@@ -79,14 +75,24 @@ public class CanteenController implements AppController{
             var name = (String) data.get("name");
             var price = (Double) data.get("price");
             var qtty = (Integer) data.get("qtty");
-            var canteenItem = (CanteenItem) data.get("canteenItem");
+            var item = (Item) data.get("canteenItem");
             
-            this.editItem(canteenItem, name, price, qtty);
+            this.editItem(item, name, price, qtty);
         });
+<<<<<<< HEAD
         
         this.view.setOnRegisterSale(data -> {
             System.out.println("oi");
         });
+=======
+    }    
+    
+    private int calculateQuantityOfItemInCanteen(String itemName, String canteenId){
+        int counter = 0;
+                        
+        counter = this.itemDAO.get().stream().map((item) -> (Item) item).filter((castedItem) -> (castedItem.getCanteen().getId().equals(canteenId) && castedItem.getName().equals(itemName))).map((_item) -> 1).reduce(counter, Integer::sum);
+        return counter;
+>>>>>>> d5fec34f529a81f8ea21e3208f71a97c59fb2349
     }
 
 }

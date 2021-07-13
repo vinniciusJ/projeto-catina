@@ -50,8 +50,7 @@ public class LoginController {
             var datum = (Manager) data.get(i);            
 
             if (datum.getName().equals(username) && datum.getPassword().equals(password)){                
-                exists = true;
-                
+                exists = true;                
                 currentManager = datum;
             }
         }        
@@ -62,6 +61,5 @@ public class LoginController {
       
         Environment.setUSER(currentManager);
     }                
-    
-    
+        
 }

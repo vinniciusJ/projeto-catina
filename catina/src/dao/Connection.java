@@ -8,6 +8,8 @@ package dao;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -38,14 +40,42 @@ public class Connection {
     }
     
     public void write(JSONArray data){
-        try (FileWriter file = new FileWriter(this.filename)) {            
-            file.write(data.toJSONString()); 
+        String s = "[\n";
+        try (FileWriter file = new FileWriter(this.filename)) {   
+            for(int i = 0; i < data.size(); i ++){
+                var object = data.get(i);
+                String objectString = object.toString();
+                objectString = objectString.replace("{", "\t{\n\t\t");
+                objectString = objectString.replaceAll(",", ",\n\t\t");
+                
+                if(i == data.size() - 1){
+                    objectString = objectString.replace("}", "\n\t}\n");                    
+                } else{
+                    objectString = objectString.replace("}", "\n\t},\n");                    
+                }
+                s += objectString;
+            }
+            s += "]";               
+            System.out.println(s);
+            file.write(s); 
             file.flush();
  
         } catch (IOException e) {
             System.out.println(e);
         }        
     }
+    public void write(String data){
+        try {
+            JSONArray previousData = this.read();
+            JSONParser jsonParser = new JSONParser();          
+            var object = jsonParser.parse(data);
+            previousData.add(object);
+            this.write(previousData);
+        } catch (ParseException ex) {
+            Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+    }        
+        
     
     public void replace (String oldObject, String newObject){                
         String fileContent = this.read().toJSONString();        
@@ -87,13 +117,4 @@ public class Connection {
         }        
     }
     
-    public void write(String data){
-        try (FileWriter file = new FileWriter(this.filename)) {            
-            file.write(data); 
-            file.flush();
- 
-        } catch (IOException e) {
-            System.out.println(e);
-        }        
-    }
 }

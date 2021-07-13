@@ -54,7 +54,7 @@ public class DAO {
         return dataObjects;
     }
     
-    public ModelDatabase get(long id){
+    public ModelDatabase get(String id){
         var data = this.get();
         ModelDatabase object = null;
        
@@ -63,7 +63,7 @@ public class DAO {
         while(iterator.hasNext()){
             var datum = iterator.next();
             
-            if(datum.getId() == id){
+            if(datum.getId().equals(id)){
                 object = datum;
             }
         }

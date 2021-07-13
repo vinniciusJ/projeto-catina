@@ -7,7 +7,6 @@ package controllers;
 
 import dao.DAO;
 import java.awt.BorderLayout;
-import models.CanteenItem;
 import view.canteen.CanteenView;
 
 
