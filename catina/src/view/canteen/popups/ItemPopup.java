@@ -35,8 +35,9 @@ public final class ItemPopup extends Popup{
     private final JTextField nameInput;
     private final JSpinner priceInput, qttyInput;
     private final boolean isEditing;
-    private String canteenId;
-    
+
+    private Item item;
+
     public ItemPopup(String title, Dimension dimension){
         super(title, dimension);
         
@@ -49,18 +50,19 @@ public final class ItemPopup extends Popup{
         this.init();
     }
     
-    public ItemPopup(String title, Dimension dimension, Item values){
+    public ItemPopup(String title, Dimension dimension, Item item){
         super(title, dimension);
         
-        this.canteenId = (String) values.getCanteen().getId();
+        this.item = item;
+
         this.isEditing = true;
            
         this.nameInput = new JTextField();
         this.priceInput = new JSpinner(new SpinnerNumberModel(0, 0, 100.0, 0.1));
         this.qttyInput = new JSpinner(new SpinnerNumberModel(0, 0, 100, 1));
         
-        this.nameInput.setText(values.getName());
-        this.priceInput.setValue(values.getPrice());
+        this.nameInput.setText(item.getName());
+        this.priceInput.setValue(item.getPrice());
         this.qttyInput.setValue(5);
        
         this.init();
@@ -82,25 +84,11 @@ public final class ItemPopup extends Popup{
             }};
             
             if(isEditing){
-                args.put("canteenId", canteenId);
+                args.put("canteenItem", item);
             }
             
             this.callback.accept(args);
             
-            closePopup();
-        }
-    }
-    
-    private class CancelOperationHandler implements ActionListener{
-        private final Supplier callback;
-        
-        CancelOperationHandler(Supplier callback){
-            this.callback = callback;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            callback.get();
             closePopup();
         }
     }
@@ -155,18 +143,7 @@ public final class ItemPopup extends Popup{
     public void onSave(Consumer<HashMap<String, Object>> callback) {
         this.saveButton.addActionListener(new SaveItemHandler(callback));
     }
-
-    @Override
-    public void onCancel(Supplier callback) {
-        this.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                callback.get();
-            }
-        });
-        
-        this.closeButton.addActionListener(new CancelOperationHandler(callback));
-    }
+    
     /**
      * @return the nameInput
      */

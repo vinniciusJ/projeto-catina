@@ -5,10 +5,15 @@
  */
 package view.canteen.popups;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.HashMap;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -17,6 +22,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import main.Environment;
 import models.ModelDatabase;
@@ -38,10 +44,33 @@ public abstract class Popup extends JFrame{
         this.saveButton = new JButton("Salvar");
         this.closeButton = new JButton("Cancelar");
     }
-    
+
+    public class CancelOperationHandler implements ActionListener{
+        private final Supplier callback;
+        
+        CancelOperationHandler(Supplier callback){
+            this.callback = callback;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            callback.get();
+            closePopup();
+        }
+    }
         
     public abstract void onSave(Consumer<HashMap<String, Object>> callback);  
-    public abstract void onCancel(Supplier callback);
+    
+    public void onCancel(Supplier callback){
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                callback.get();
+            }
+        });
+        
+        this.closeButton.addActionListener(new CancelOperationHandler(callback));
+    };
     
     public void addChildren(Component children){
         this.add(children);
@@ -70,6 +99,7 @@ public abstract class Popup extends JFrame{
         var panel = new JPanel();
         var label = new JLabel(labelText);
         
+        label.setHorizontalAlignment(JLabel.LEFT);
         label.setFont(new Font("Sans-Serif", Font.BOLD, 16));
         label.setBorder(new EmptyBorder(0, 0, 15, 0));
         

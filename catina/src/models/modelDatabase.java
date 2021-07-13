@@ -11,5 +11,5 @@ package models;
  */
 public interface ModelDatabase {
     public String databaseName();
-    public long getId();
+    public String getId();
 }
