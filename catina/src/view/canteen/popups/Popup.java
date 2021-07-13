@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.canteen;
+package view.canteen.popups;
 
 import java.awt.Component;
 import java.awt.Dimension;

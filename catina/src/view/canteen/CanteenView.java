@@ -5,6 +5,8 @@
  */
 package view.canteen;
 
+import view.canteen.popups.Popup;
+import view.canteen.popups.RegisterItemPopup;
 import java.awt.BorderLayout;
 
 import java.awt.Dimension;
@@ -46,7 +48,6 @@ public final class CanteenView extends JFrame implements View{
     private class RegisterItemHandler implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("oi");
             showRegisterItemPopup(onRegisterItem);
         }
     }
