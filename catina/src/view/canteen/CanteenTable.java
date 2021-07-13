@@ -11,7 +11,7 @@ import java.util.EventObject;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import models.CanteenItem;
+import models.Item;
 import view.View;
 
 /**
@@ -24,7 +24,7 @@ public final class CanteenTable extends JTable implements View{
     private final DefaultTableModel model;
    
     
-    public CanteenTable(List<CanteenItem> rows){
+    public CanteenTable(List<Item> rows){
         this.rows = CanteenTable.setRowsToObjectMatrix(rows);
         
         this.model = new DefaultTableModel(this.rows, this.headers);
@@ -33,7 +33,7 @@ public final class CanteenTable extends JTable implements View{
         this.init();
     }
     
-    private static Object[][] setRowsToObjectMatrix(List<CanteenItem> rows){
+    private static Object[][] setRowsToObjectMatrix(List<Item> rows){
         var convertedRows = new Object[rows.size()][4];
         
         for(int i = 0; i < rows.size(); i++){
@@ -43,11 +43,11 @@ public final class CanteenTable extends JTable implements View{
         return convertedRows;
     }
     
-    private static Object[] getCanteenItemsValues(CanteenItem item){
-        var name = item.getItem().getName();
-        var type = item.getItem().getType();
-        var price = item.getItem().getPrice();
-        var qtty = item.getQuantity();
+    private static Object[] getCanteenItemsValues(Item item){
+        var name = item.getName();
+        var type = item.getType();
+        var price = item.getPrice();
+        var qtty = 5;
         
         return new Object[]{name, type, price, qtty};
     }

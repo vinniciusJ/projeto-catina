@@ -1,14 +1,14 @@
 [
     {
-        "id": 1,
+        "id": "daf2ae78-84bf-4ab7-8fa0-453b2383fc22",
         "name": "IFPR - Foz",
-        "managerId": 2,
+        "managerId": "bfedc0a2-bb0c-4916-a52e-ba475108ad0d",
         "balance": 575.2
     },
     {
-        "id": 2,
+        "id": "4231c04b-f8ba-43c5-866e-b5485d453d9f",
         "name": "CTG",
-        "managerId": 1,
+        "managerId": "8716ab18-3342-48f4-b4f1-4ee129fcdc36",
         "balance": 575.2
     }
 ]

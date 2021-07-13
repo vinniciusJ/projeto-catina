@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import main.Environment;
 import models.Canteen;
-import models.CanteenItem;
+import models.Item;
 import view.View;
 import view.canteen.popups.RegisterSalePopup;
 import view.canteen.popups.ViewProfitPopup;
@@ -35,7 +35,7 @@ public final class CanteenView extends JFrame implements View{
     private final CanteenMenu menu;
     private final Canteen canteen;
     private CanteenTable itemsTable;
-    private List<CanteenItem> items;
+    private List<Item> items;
     private Popup currentPopup;
     
     private Consumer<HashMap<String, Object>> onRegisterSale, onRegisterItem, onEdit;
@@ -78,7 +78,7 @@ public final class CanteenView extends JFrame implements View{
         } 
     }
     
-    public CanteenView(Canteen canteen, List<CanteenItem> items){
+    public CanteenView(Canteen canteen, List<Item> items){
         this.items = items;
         this.canteen = canteen;
         
@@ -95,7 +95,7 @@ public final class CanteenView extends JFrame implements View{
         return this.itemsTable.getSelectedRow();
     }
     
-    public void syncItems(List<CanteenItem> items){
+    public void syncItems(List<Item> items){
         this.itemsTable = new CanteenTable(items);
     }
     
@@ -128,7 +128,7 @@ public final class CanteenView extends JFrame implements View{
         this.showPopup(new ItemPopup("Cadastrar Item", new Dimension(500, 280)), onSubmit);
     }
 
-    public void showEditItemPopUp(Consumer onSubmit, CanteenItem data){ 
+    public void showEditItemPopUp(Consumer onSubmit, Item data){ 
         this.showPopup(new ItemPopup("Editar Item", new Dimension(500, 280), data), onSubmit);
     }
     
@@ -165,14 +165,14 @@ public final class CanteenView extends JFrame implements View{
     /**
      * @return the items
      */
-    public List<CanteenItem> getItems() {
+    public List<Item> getItems() {
         return items;
     }
 
     /**
      * @param items the items to set
      */
-    public void setItems(List<CanteenItem> items) {
+    public void setItems(List<Item> items) {
         this.items = items;
     }
 

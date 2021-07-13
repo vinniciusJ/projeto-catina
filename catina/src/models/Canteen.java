@@ -1,5 +1,6 @@
 package models;
 
+import dao.DAO;
 import org.json.simple.JSONObject;
 
 /*
@@ -13,15 +14,19 @@ import org.json.simple.JSONObject;
  * @author Dyogo
  */
 public class Canteen implements ModelDatabase{
-    long id;
-    long managerId;
+    String id;
     String name;
     double balance;        
+    Manager manager;
     
     public Canteen(JSONObject fields){
-        this.id = (long) fields.get("id");
+        this.id = (String) fields.get("id");
         this.name = (String) fields.get("name");
-        this.managerId = (long) fields.get("managerId");
+        
+        String managerId = (String) fields.get("managerId");
+        var managerDAO = new DAO(Manager.class);
+        this.manager = (Manager) managerDAO.get(managerId);
+        
         this.balance = (double) fields.get("balance"); 
     }
     
@@ -51,19 +56,27 @@ public class Canteen implements ModelDatabase{
     /**
      * @return the managerId
      */
-    public long getManagerId() {
-        return managerId;
+    public String getManagerId() {
+        return manager.id;
     }
 
     /**
      * @param managerId the managerId to set
      */
-    public void setManagerId(int managerId) {
-        this.managerId = managerId;
+    public void setManagerId(String managerId) {
+        this.manager.id = managerId;
+    }
+
+    public Manager getManager() {
+        return manager;
+    }
+
+    public void setManager(Manager manager) {
+        this.manager = manager;
     }
 
     @Override
-    public long getId() {
+    public String getId() {
         return this.id;
     }
     

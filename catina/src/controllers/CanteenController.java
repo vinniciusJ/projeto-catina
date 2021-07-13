@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import main.Environment;
 import models.Canteen;
-import models.CanteenItem;
+import models.Item;
 import models.ModelDatabase;
 import view.canteen.CanteenView;
 
@@ -23,27 +23,27 @@ import view.canteen.CanteenView;
  * @author Vinicius Jimenez
  */
 public class CanteenController implements AppController{
-    private final DAO canteenItemDAO;
+    private final DAO itemDAO;
     private final CanteenView view;
     
     public CanteenController(){
-        this.canteenItemDAO = new DAO(CanteenItem.class);
+        this.itemDAO = new DAO(Item.class);
         
-        var itemsInCanteen = new ArrayList<CanteenItem>();
+        var itemsInCanteen = new ArrayList<Item>();
         var managerId = Environment.getUSER().getId();
         
         Canteen canteen = null;
         
-        var iterator = this.canteenItemDAO.get().iterator();
+        var iterator = this.itemDAO.get().iterator();
         
         while(iterator.hasNext()){
-            var item = (CanteenItem) iterator.next();
+            var item = (Item) iterator.next();
             
             if(canteen == null){
                 canteen = item.getCanteen();
             }
             
-            if(item.getCanteen().getManagerId() == managerId){
+            if(item.getCanteen().getManagerId().equals(managerId)){
                 itemsInCanteen.add(item);
             }
         }
@@ -57,7 +57,7 @@ public class CanteenController implements AppController{
         System.out.println(qtty);
     }
     
-    public void editItem(CanteenItem canteenItem, String name, double price, long qtty){
+    public void editItem(Item canteenItem, String name, double price, long qtty){
         System.out.println(canteenItem);
         System.out.println(name);
         System.out.println(price);
@@ -78,10 +78,10 @@ public class CanteenController implements AppController{
             var name = (String) data.get("name");
             var price = (Double) data.get("price");
             var qtty = (Integer) data.get("qtty");
-            var canteenItem = (CanteenItem) data.get("canteenItem");
+            var item = (Item) data.get("canteenItem");
             
-            this.editItem(canteenItem, name, price, qtty);
+            this.editItem(item, name, price, qtty);
         });
-    }
+    }    
 
 }

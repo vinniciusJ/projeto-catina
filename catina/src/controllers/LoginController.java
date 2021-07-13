@@ -62,6 +62,5 @@ public class LoginController {
       
         Environment.setUSER(currentManager);
     }                
-    
-    
+        
 }
