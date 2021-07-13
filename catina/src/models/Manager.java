@@ -5,6 +5,7 @@
  */
 package models;
 
+import dao.DAO;
 import org.json.simple.JSONObject;
 
 /**
@@ -15,14 +16,27 @@ public class Manager implements ModelDatabase{
     String id;
     String name;
     String password;
-    boolean fullAcess;    
+    boolean fullAcess;  
+    Canteen canteen;
     
     public Manager(JSONObject fields){
         this.id = (String) fields.get("id");
         this.name = (String) fields.get("name");
         this.password = (String) fields.get("password");
         this.fullAcess = Boolean.valueOf(fields.get("fullAcess").toString());
+        
+        String canteenId = (String) fields.get("canteenId");
+        var canteenDAO = new DAO(Canteen.class);
+        this.canteen = (Canteen) canteenDAO.get(canteenId);
 
+    }
+
+    public Canteen getCanteen() {
+        return canteen;
+    }
+
+    public void setCanteen(Canteen canteen) {
+        this.canteen = canteen;
     }
     
     public Manager(){}

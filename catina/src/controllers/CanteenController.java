@@ -24,30 +24,26 @@ import view.canteen.CanteenView;
  */
 public class CanteenController implements AppController{
     private final DAO itemDAO;
+    private final DAO canteenDAO;
     private final CanteenView view;
     
     public CanteenController(){
-        this.itemDAO = new DAO(Item.class);
+        this.itemDAO = new DAO(Item.class);        
+        this.canteenDAO = new DAO(Canteen.class);        
         
         var itemsInCanteen = new ArrayList<Item>();
-        var managerId = Environment.getUSER().getId();
-        
-        Canteen canteen = null;
+        var manager = Environment.getUSER();        
+        Canteen canteen = manager.getCanteen();
         
         var iterator = this.itemDAO.get().iterator();
         
         while(iterator.hasNext()){
-            var item = (Item) iterator.next();
+            var item = (Item) iterator.next();                        
             
-            if(canteen == null){
-                canteen = item.getCanteen();
-            }
-            
-            if(item.getCanteen().getManagerId().equals(managerId)){
+            if (item.getCanteen().getId().equals(canteen.getId())){
                 itemsInCanteen.add(item);
-            }
-        }
-        
+            }            
+        }        
         this.view = new CanteenView(canteen, itemsInCanteen);
     }
     
