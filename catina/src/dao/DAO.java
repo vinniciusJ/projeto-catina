@@ -43,14 +43,14 @@ public class DAO {
         this.connection.delete(data);        
     }
     
-    public ArrayList<ModelDatabase> get() {        
-        JSONArray JSONData = this.connection.read();        
+    public ArrayList<ModelDatabase> get() {                    
+        JSONArray JSONData = this.connection.read();                 
         ArrayList<ModelDatabase> dataObjects = new ArrayList();        
         
-        JSONData.forEach((data) -> {            
+        JSONData.forEach((data) -> {                     
             dataObjects.add(this.parseData((JSONObject)data));
-        });
-        
+            
+        });        
         return dataObjects;
     }
     
@@ -62,12 +62,15 @@ public class DAO {
         
         while(iterator.hasNext()){
             var datum = iterator.next();
+            System.out.println(datum.getId().equals(id));
             
+            System.out.println(datum.getId() + " " + id);
             if(datum.getId().equals(id)){
                 object = datum;
             }
         }
-        
+        System.out.println(object);
+        System.out.println("");
         return object;
     }
     
@@ -79,19 +82,20 @@ public class DAO {
         this.connection.replace(oldObject.toString(), newObject.toString());
     }
     
-    private ModelDatabase parseData(JSONObject data){                        
+    private ModelDatabase parseData(JSONObject data){          
+        
         Class [] cArg = new Class[1];
         cArg[0] = JSONObject.class;
-        
+                
         ModelDatabase convertedData = null;
-        try {
+        try {            
             convertedData = (ModelDatabase) this.classIdentifier.cast(
-                    this.classIdentifier.getDeclaredConstructor(cArg).newInstance(data));
+            this.classIdentifier.getDeclaredConstructor(cArg).newInstance(data));
+            
         } catch (InstantiationException | IllegalAccessException | NoSuchMethodException
-                | InvocationTargetException |SecurityException ex) {
+                | InvocationTargetException | NullPointerException |SecurityException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        }        
         return convertedData;
     }
     
