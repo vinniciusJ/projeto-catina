@@ -6,8 +6,15 @@
 package view.canteen;
 
 import java.awt.BorderLayout;
+
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.util.List;
+
+import java.util.function.Consumer;
+
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import main.Environment;
@@ -24,6 +31,39 @@ public final class CanteenView extends JFrame implements View{
     private final Canteen canteen;
     private CanteenTable itemsTable;
     private List<CanteenItem> items;
+    private Popup currentPopup;
+    
+    private Consumer<HashMap<String, Object>> onRegisterSale, onRegisterItem, onEdit;
+    private Consumer<Void> onViewProfit;
+    
+    private class RegisterSaleHanlder implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            showRegisterSalePopup(onRegisterSale);
+        }
+    }
+    
+    private class RegisterItemHandler implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("oi");
+            showRegisterItemPopup(onRegisterItem);
+        }
+    }
+    
+    private class EditItemHandler implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            showEditItemPopUp(onEdit);
+        }  
+    }
+    
+    private class ViewProfitHandler implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            showViewProfitPopup(onViewProfit);
+        } 
+    }
     
     public CanteenView(Canteen canteen, List<CanteenItem> items){
         this.items = items;
@@ -32,24 +72,10 @@ public final class CanteenView extends JFrame implements View{
         this.menu = new CanteenMenu();
         this.itemsTable = new CanteenTable(items);
         
+        this.currentPopup = null;
+        
         this.init();
         this.paint();
-    }
-    
-    public void onRegisterSale(ActionListener handler){
-        this.menu.addRegisterSaleEventHandler(handler);
-    }
-    
-    public void onRegisterItem(ActionListener handler){
-        this.menu.addRegisterItemEventHandler(handler);
-    }
-    
-    public void onViewProfit(ActionListener handler){
-        this.menu.addViewProfitEventHandler(handler);
-    }
-    
-    public void onEditItem(ActionListener handler){
-        this.menu.addEditItemEventHandler(handler);
     }
     
     public int getSelectedRow(){
@@ -60,6 +86,36 @@ public final class CanteenView extends JFrame implements View{
         this.itemsTable = new CanteenTable(items);
     }
     
+    public void showRegisterSalePopup(Consumer onSubmit){
+
+    }
+    
+    public void showViewProfitPopup(Consumer onSubmit){
+        
+    }
+    
+
+    
+    public void showRegisterItemPopup(Consumer<HashMap<String, Object>> onSubmit){
+        if(this.currentPopup == null){
+            this.currentPopup = new RegisterItemPopup("Cadastrar item", new Dimension(500, 280));
+            
+            this.currentPopup.onSave(data -> {
+                this.currentPopup = null;
+                
+                onSubmit.accept(data);
+            });
+            
+            this.currentPopup.onCancel(() -> this.currentPopup = null);
+            this.currentPopup.showPopup();
+        }
+    }
+    
+    public void showEditItemPopUp(Consumer onSubmit){
+        
+    }
+    
+    
     @Override
     public void init(){ 
         this.setSize(1080, 720); 
@@ -68,6 +124,11 @@ public final class CanteenView extends JFrame implements View{
         this.setLocationRelativeTo(null);
         this.setIconImage(Environment.LOGO_ICON.getImage());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        this.menu.addEditItemEventHandler(new EditItemHandler());
+        this.menu.addRegisterItemEventHandler(new RegisterItemHandler());
+        this.menu.addRegisterSaleEventHandler(new RegisterSaleHanlder());
+        this.menu.addViewProfitEventHandler(new ViewProfitHandler());
     }
 
     @Override
@@ -93,4 +154,34 @@ public final class CanteenView extends JFrame implements View{
     public void setItems(List<CanteenItem> items) {
         this.items = items;
     }
+
+    /**
+     * @param onRegisterSale the onRegisterSale to set
+     */
+    public void setOnRegisterSale(Consumer<HashMap<String, Object>> onRegisterSale) {
+        this.onRegisterSale = onRegisterSale;
+    }
+
+    /**
+     * @param onRegisterItem the onRegisterItem to set
+     */
+    public void setOnRegisterItem(Consumer<HashMap<String, Object>> onRegisterItem) {
+        this.onRegisterItem = onRegisterItem;
+    }
+
+    /**
+     * @param onEdit the onEdit to set
+     */
+    public void setOnEdit(Consumer<HashMap<String, Object>> onEdit) {
+        this.onEdit = onEdit;
+    }
+
+    /**
+     * @param onViewProfit the onViewProfit to set
+     */
+    public void setOnViewProfit(Consumer<Void> onViewProfit) {
+        this.onViewProfit = onViewProfit;
+    }
+
+
 }

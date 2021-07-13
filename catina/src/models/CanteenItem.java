@@ -25,7 +25,6 @@ public class CanteenItem implements ModelDatabase{
         var canteenDAO = new DAO(Canteen.class);
         var itemDAO = new DAO(Item.class);
 
-
         this.id = (long) fields.get("id");
         this.item = (Item) itemDAO.get(itemId); 
         this.canteen =  (Canteen) canteenDAO.get(canteenId);

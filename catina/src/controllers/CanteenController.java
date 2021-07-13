@@ -1,7 +1,10 @@
 package controllers;
 
 import dao.DAO;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import main.Environment;
 import models.Canteen;
@@ -51,7 +54,16 @@ public class CanteenController implements AppController{
 
     @Override
     public void init() {
-        System.out.println("Oi");
+        this.view.setOnRegisterItem((HashMap<String, Object> data) -> {
+            var name = (String) data.get("name");
+            var price = (double) data.get("price");
+            var qtty = (int) data.get("qtty");
+            
+            System.out.println(name);
+            System.out.println(price);
+            System.out.println(qtty);
+        });
+        
     }
 
 }
