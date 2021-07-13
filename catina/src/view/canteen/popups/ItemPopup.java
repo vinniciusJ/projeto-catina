@@ -25,21 +25,36 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
+import models.CanteenItem;
 
 /**
  *
  * @author Vinicius Jimenez
  */
-public final class RegisterItemPopup extends Popup{
+public final class ItemPopup extends Popup{
     private final JTextField nameInput;
     private final JSpinner priceInput, qttyInput;
     
-    public RegisterItemPopup(String title, Dimension dimension){
+    public ItemPopup(String title, Dimension dimension){
         super(title, dimension);
            
         this.nameInput = new JTextField();
         this.priceInput = new JSpinner(new SpinnerNumberModel(0, 0, 100.0, 0.1));
         this.qttyInput = new JSpinner(new SpinnerNumberModel(0, 0, 100, 1));
+       
+        this.init();
+    }
+    
+    public ItemPopup(String title, Dimension dimension, CanteenItem values){
+        super(title, dimension);
+           
+        this.nameInput = new JTextField();
+        this.priceInput = new JSpinner(new SpinnerNumberModel(0, 0, 100.0, 0.1));
+        this.qttyInput = new JSpinner(new SpinnerNumberModel(0, 0, 100, 1));
+        
+        this.nameInput.setText(values.getItem().getName());
+        this.priceInput.setValue(values.getItem().getPrice());
+        this.qttyInput.setValue(values.getQuantity());
        
         this.init();
     }

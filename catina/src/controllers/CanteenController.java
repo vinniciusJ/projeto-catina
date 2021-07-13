@@ -64,6 +64,9 @@ public class CanteenController implements AppController{
             System.out.println(qtty);
         });
         
+        this.view.setOnRegisterSale((HashMap<String, Object> data) -> {
+            System.out.println("Oi");
+        });
     }
 
 }

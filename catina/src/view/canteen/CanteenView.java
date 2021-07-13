@@ -6,7 +6,7 @@
 package view.canteen;
 
 import view.canteen.popups.Popup;
-import view.canteen.popups.RegisterItemPopup;
+import view.canteen.popups.ItemPopup;
 import java.awt.BorderLayout;
 
 import java.awt.Dimension;
@@ -18,11 +18,14 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import main.Environment;
 import models.Canteen;
 import models.CanteenItem;
 import view.View;
+import view.canteen.popups.RegisterSalePopup;
+import view.canteen.popups.ViewProfitPopup;
 
 /**
  *
@@ -55,7 +58,16 @@ public final class CanteenView extends JFrame implements View{
     private class EditItemHandler implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
-            showEditItemPopUp(onEdit);
+            var selectedRow = getSelectedRow();
+            
+            if(selectedRow < 0){
+                showNoneItemSelectedMessage();
+            }
+            else{
+                var selectedItem = items.get(selectedRow);
+                
+                showEditItemPopUp(onEdit, selectedItem);
+            }
         }  
     }
     
@@ -87,19 +99,9 @@ public final class CanteenView extends JFrame implements View{
         this.itemsTable = new CanteenTable(items);
     }
     
-    public void showRegisterSalePopup(Consumer onSubmit){
-
-    }
-    
-    public void showViewProfitPopup(Consumer onSubmit){
-        
-    }
-    
-
-    
-    public void showRegisterItemPopup(Consumer<HashMap<String, Object>> onSubmit){
+    public void showPopup(Popup popup, Consumer onSubmit){
         if(this.currentPopup == null){
-            this.currentPopup = new RegisterItemPopup("Cadastrar item", new Dimension(500, 280));
+            this.currentPopup = popup;
             
             this.currentPopup.onSave(data -> {
                 this.currentPopup = null;
@@ -110,10 +112,27 @@ public final class CanteenView extends JFrame implements View{
             this.currentPopup.onCancel(() -> this.currentPopup = null);
             this.currentPopup.showPopup();
         }
+    }  
+    
+    public void showNoneItemSelectedMessage(){
+        JOptionPane.showMessageDialog(this, "Por favor, selecione um item para editar", "Editar Item", JOptionPane.ERROR_MESSAGE);
     }
     
-    public void showEditItemPopUp(Consumer onSubmit){
-        
+    public void showRegisterSalePopup(Consumer onSubmit){
+        this.showPopup(new RegisterSalePopup("Cadastrar venda", new Dimension(500, 280)), onSubmit);
+    }
+    
+    public void showRegisterItemPopup(Consumer onSubmit){
+        this.showPopup(new ItemPopup("Cadastrar Item", new Dimension(500, 280)), onSubmit);
+    }
+
+    
+    public void showEditItemPopUp(Consumer onSubmit, CanteenItem data){ 
+        this.showPopup(new ItemPopup("Editar Item", new Dimension(500, 280), data), onSubmit);
+    }
+    
+    public void showViewProfitPopup(Consumer onSubmit){
+        this.showPopup(new ViewProfitPopup("Visualizar lucro", new Dimension(500, 280)), onSubmit);
     }
     
     

@@ -31,7 +31,6 @@ public final class CanteenMenu extends JPanel implements View{
             this.setIconTextGap(10);
         }
     }
-
     
     public CanteenMenu(){
         this.registerSale = new ButtonMenu();
