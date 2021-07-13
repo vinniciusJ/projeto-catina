@@ -5,16 +5,20 @@
  */
 package view.canteen.popups;
 
+import controllers.CanteenController;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Consumer;
 import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
@@ -32,34 +36,81 @@ public final class SalePopup extends Popup{
     private final JComboBox<String> selectInput;
     private final JSpinner quantityInput;
     private final JLabel estimatedValue;
+    private Item selectedItem;
+    private int selectedQtty;
  
     public SalePopup(String title, Dimension dimension, List<Item> options) {
         super(title, dimension);
 
         this.options = options;
                  
-        var castedOptions = new String[this.options.size()];
+        var castedOptions = new String[this.options.size() + 1];
         
-        for(int i = 0; i < castedOptions.length; i++){
+        castedOptions[0] = "Selecione um item";
+        
+        for(int i = 1; i < castedOptions.length; i++){
             castedOptions[i] = this.options.get(i).getName();
         }
 
+        this.selectedItem = null;
+        this.selectedQtty = 0;
+        
         this.estimatedValue = new JLabel();
         this.selectInput = new JComboBox<>(castedOptions);
         this.quantityInput = new JSpinner();
         
-        this.quantityInput.addChangeListener(new EstimatedValueHandler());
-        
         this.init();
-        this.show();
+        this.paint();
+    }
+    
+    private class SaveSaleHandler implements ActionListener{
+        private final Consumer<HashMap<String, Object>> callback;
+        
+        SaveSaleHandler(Consumer<HashMap<String, Object>> callback){
+            this.callback = callback;
+        }
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            var args = new HashMap<String, Object>(){{
+                put("item", selectedItem);
+                put("qtty", selectedQtty);
+            }};
+
+            this.callback.accept(args);
+        }
+    }
+    
+    private class SelectInputHandler implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            var selectedItemId = selectInput.getSelectedIndex();
+            
+            if(selectedItemId != 0){
+                var item = (Item) options.get(selectedItemId - 1);
+                var canteenId = item.getCanteen().getId();
+                
+                var maximum = CanteenController.calculateQuantityOfItemInCanteen(item.getName(), canteenId);
+                
+                selectedItem = item;
+                quantityInput.setModel(new SpinnerNumberModel(0, 0, maximum, 1));
+            }
+            else{
+                selectedItem = null;
+                
+                quantityInput.setValue(0);
+                quantityInput.setEnabled(false);
+            }
+        } 
     }
     
     private class EstimatedValueHandler implements ChangeListener{
         @Override
         public void stateChanged(ChangeEvent e) {
-            System.out.println(selectInput.getItemAt(selectInput.getSelectedIndex()));
-        }
-        
+            if(selectedItem != null){
+                selectedQtty = (int) quantityInput.getValue();
+            }
+        }  
     }
     
     public void init(){
@@ -75,11 +126,14 @@ public final class SalePopup extends Popup{
         this.closeButton.setFont(buttonsFonts);
         
         this.saveButton.setBorder(BorderFactory.createCompoundBorder(defaultButtonBorder, new EmptyBorder(10, 25, 10, 25)));
-        this.closeButton.setBorder(BorderFactory.createCompoundBorder(defaultButtonBorder, new EmptyBorder(10, 15, 10, 15)));
+        this.closeButton.setBorder(BorderFactory.createCompoundBorder(defaultButtonBorder, new EmptyBorder(10, 15, 10, 15))); 
         
+        this.selectInput.addActionListener(new SelectInputHandler());
+        this.quantityInput.addChangeListener(new EstimatedValueHandler());
+
     }
     
-    public void show(){
+    public void paint(){
         var popupPanel = new JPanel();
         
         var formContainer = new JPanel();
@@ -111,10 +165,11 @@ public final class SalePopup extends Popup{
         
         this.addChildren(popupPanel);
     }
+   
 
     @Override
     public void onSave(Consumer<HashMap<String, Object>> callback) {
-        
+        this.saveButton.addActionListener(new SaveSaleHandler(callback));
     }
     
 }
