@@ -64,8 +64,18 @@ public class CanteenController implements AppController{
             System.out.println(qtty);
         });
         
-        this.view.setOnRegisterSale((HashMap<String, Object> data) -> {
-            System.out.println("Oi");
+        this.view.setOnEdit((HashMap<String, Object> data) -> {
+            var name = (String) data.get("name");
+            var price = (double) data.get("price");
+            var qtty = (Integer) data.get("qtty");
+            var canteenId = (long) data.get("canteenId");
+            
+            System.out.println(qtty.getClass());
+            
+            System.out.println(canteenId);
+            System.out.println(name);
+            System.out.println(price);
+            System.out.println(qtty); 
         });
     }
 

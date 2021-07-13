@@ -34,9 +34,13 @@ import models.CanteenItem;
 public final class ItemPopup extends Popup{
     private final JTextField nameInput;
     private final JSpinner priceInput, qttyInput;
+    private final boolean isEditing;
+    private long canteenId;
     
     public ItemPopup(String title, Dimension dimension){
         super(title, dimension);
+        
+        this.isEditing = false;
            
         this.nameInput = new JTextField();
         this.priceInput = new JSpinner(new SpinnerNumberModel(0, 0, 100.0, 0.1));
@@ -47,6 +51,9 @@ public final class ItemPopup extends Popup{
     
     public ItemPopup(String title, Dimension dimension, CanteenItem values){
         super(title, dimension);
+        
+        this.canteenId = (long) values.getCanteen().getId();
+        this.isEditing = true;
            
         this.nameInput = new JTextField();
         this.priceInput = new JSpinner(new SpinnerNumberModel(0, 0, 100.0, 0.1));
@@ -60,7 +67,7 @@ public final class ItemPopup extends Popup{
     }
     
     private class SaveItemHandler implements ActionListener{
-        private Consumer<HashMap<String, Object>> callback;
+        private final Consumer<HashMap<String, Object>> callback;
         
         SaveItemHandler(Consumer<HashMap<String, Object>> callback){
             this.callback = callback;
@@ -74,13 +81,18 @@ public final class ItemPopup extends Popup{
                 put("qtty", qttyInput.getValue());
             }};
             
+            if(isEditing){
+                args.put("canteenId", canteenId);
+            }
+            
             this.callback.accept(args);
+            
             closePopup();
         }
     }
     
     private class CancelOperationHandler implements ActionListener{
-        private Supplier callback;
+        private final Supplier callback;
         
         CancelOperationHandler(Supplier callback){
             this.callback = callback;
