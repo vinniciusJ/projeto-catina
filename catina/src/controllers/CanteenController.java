@@ -51,31 +51,36 @@ public class CanteenController implements AppController{
         this.view = new CanteenView(canteen, itemsInCanteen);
     }
     
+    public void registerItem(String name, double price, long qtty){
+        System.out.println(name);
+        System.out.println(price);
+        System.out.println(qtty);
+    }
+    
+    public void editItem(CanteenItem canteenItem, String name, double price, long qtty){
+        System.out.println(canteenItem);
+        System.out.println(name);
+        System.out.println(price);
+        System.out.println(qtty);  
+   }
 
     @Override
     public void init() {
         this.view.setOnRegisterItem((HashMap<String, Object> data) -> {
             var name = (String) data.get("name");
-            var price = (double) data.get("price");
-            var qtty = (int) data.get("qtty");
+            var price = (Double) data.get("price");
+            var qtty = (Long) data.get("qtty");
             
-            System.out.println(name);
-            System.out.println(price);
-            System.out.println(qtty);
+            this.registerItem(name, price, qtty);
         });
         
         this.view.setOnEdit((HashMap<String, Object> data) -> {
             var name = (String) data.get("name");
-            var price = (double) data.get("price");
+            var price = (Double) data.get("price");
             var qtty = (Integer) data.get("qtty");
-            var canteenId = (long) data.get("canteenId");
+            var canteenItem = (CanteenItem) data.get("canteenItem");
             
-            System.out.println(qtty.getClass());
-            
-            System.out.println(canteenId);
-            System.out.println(name);
-            System.out.println(price);
-            System.out.println(qtty); 
+            this.editItem(canteenItem, name, price, qtty);
         });
     }
 
