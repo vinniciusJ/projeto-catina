@@ -27,16 +27,20 @@ public class Item implements ModelDatabase{
     LocalDate saleDate;
     
     public Item(JSONObject fields){
-        String canteenId = (String) fields.get("idCanteen");
+        String canteenId = (String) fields.get("canteenId");
         var canteenDAO = new DAO(Canteen.class);
-        this.canteen =  (Canteen) canteenDAO.get(canteenId);
+        System.out.println("Começa aqui!!! " + canteenId);
         
+        this.canteen =  (Canteen) canteenDAO.get(canteenId);        
         this.id = (String) fields.get("id");
         this.name = (String) fields.get("name");
         this.price = (double) fields.get("price");
-        this.type = (String) fields.get("type");
-        this.purchaseDate = (LocalDate) fields.get("purchaseDate");
-        this.saleDate = (LocalDate) fields.get("saleDate");
+        this.type = (String) fields.get("type");        
+        this.purchaseDate = LocalDate.parse(((String) fields.get("purchaseDate")));        
+        this.saleDate = LocalDate.parse(((String) fields.get("saleDate")));        
+        
+        System.out.println(this.canteen);
+        
     }
     
     public Item (String name, double price, String type, String canteenId){
@@ -97,10 +101,15 @@ public class Item implements ModelDatabase{
     @Override
     public String databaseName() {
         return "Item";
-    }
+    }    
 
     @Override
-    public String toString() {             
+    public String toString() {
+        return "Item{" + "id=" + id + ", name=" + name + ", price=" + price + ", type=" + type + ", canteen=" + canteen + ", purchaseDate=" + purchaseDate + ", saleDate=" + saleDate + '}';
+    }
+    
+    
+    public String toJSONString(){
         String s = String.format(Locale.ROOT, "{\"id\": \"%s\", \"canteenId\": \"%s\", \"name\": \"%s\", \"price\": %.2f, \"type\": \"%s\", \"purchaseDate\": \"%s\", \"saleDate\": \"%s\"}", this.id, this.canteen.getId(), this.name, this.price, this.type, this.purchaseDate.toString(), this.saleDate.toString());        
         return s;
     }

@@ -9,6 +9,7 @@ import java.util.List;
 import main.Environment;
 import models.Canteen;
 import models.Item;
+import models.ItemGroupInCanteen;
 import models.ModelDatabase;
 import view.canteen.CanteenView;
 
@@ -29,21 +30,30 @@ public class CanteenController implements AppController{
     
     public CanteenController(){
         this.itemDAO = new DAO(Item.class);        
-        this.canteenDAO = new DAO(Canteen.class);        
+        this.canteenDAO = new DAO(Canteen.class);           
         
-        var itemsInCanteen = new ArrayList<Item>();
+        var itemsInCanteen = new ArrayList<Item>();        
+        var groupsInCanteen = new ArrayList<ItemGroupInCanteen>();        
         var manager = Environment.getUSER();        
-        Canteen canteen = manager.getCanteen();
-        
-        var iterator = this.itemDAO.get().iterator();
-        
+        Canteen canteen = manager.getCanteen();        
+        var b = this.itemDAO.get();                
+        var iterator = this.itemDAO.get().iterator();        
         while(iterator.hasNext()){
-            var item = (Item) iterator.next();                        
+            var item = (Item) iterator.next();                                                    
+            String itemCanteenId = item.getCanteen().getId();                
+            if (itemCanteenId.equals(canteen.getId())){                                    
+                itemsInCanteen.add(item);                                   
+                var groupInCanteen = new ItemGroupInCanteen(item.getName(), item.getPrice());                
+                if(!groupsInCanteen.contains(groupInCanteen)){
+                    groupsInCanteen.add(groupInCanteen);
+                }
+            }                        
             
-            if (item.getCanteen().getId().equals(canteen.getId())){
-                itemsInCanteen.add(item);
-            }            
         }        
+                        
+        for(ItemGroupInCanteen group : groupsInCanteen){
+            System.out.println(group.getName());
+        }
         this.view = new CanteenView(canteen, itemsInCanteen);
     }
     
