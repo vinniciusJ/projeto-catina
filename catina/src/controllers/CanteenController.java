@@ -79,5 +79,12 @@ public class CanteenController implements AppController{
             this.editItem(item, name, price, qtty);
         });
     }    
+    
+    private int calculateQuantityOfItemInCanteen(String itemName, String canteenId){
+        int counter = 0;
+                        
+        counter = this.itemDAO.get().stream().map((item) -> (Item) item).filter((castedItem) -> (castedItem.getCanteen().getId().equals(canteenId) && castedItem.getName().equals(itemName))).map((_item) -> 1).reduce(counter, Integer::sum);
+        return counter;
+    }
 
 }
