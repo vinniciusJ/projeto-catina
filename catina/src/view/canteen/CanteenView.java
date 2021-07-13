@@ -12,6 +12,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -24,7 +25,7 @@ import main.Environment;
 import models.Canteen;
 import models.CanteenItem;
 import view.View;
-import view.canteen.popups.RegisterSalePopup;
+import view.canteen.popups.SalePopup;
 import view.canteen.popups.ViewProfitPopup;
 
 /**
@@ -121,7 +122,7 @@ public final class CanteenView extends JFrame implements View{
     }
     
     public void showRegisterSalePopup(Consumer onSubmit){
-        this.showPopup(new RegisterSalePopup("Cadastrar venda", new Dimension(500, 280)), onSubmit);
+        this.showPopup(new SalePopup("Cadastrar venda", new Dimension(500, 280), this.items), onSubmit);
     }
     
     public void showRegisterItemPopup(Consumer onSubmit){

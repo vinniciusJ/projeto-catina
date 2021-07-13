@@ -59,6 +59,7 @@ public class CanteenController implements AppController{
     
     public void editItem(CanteenItem canteenItem, String name, double price, long qtty){
         System.out.println(canteenItem);
+        
         System.out.println(name);
         System.out.println(price);
         System.out.println(qtty);  
@@ -81,6 +82,10 @@ public class CanteenController implements AppController{
             var canteenItem = (CanteenItem) data.get("canteenItem");
             
             this.editItem(canteenItem, name, price, qtty);
+        });
+        
+        this.view.setOnRegisterSale(data -> {
+            System.out.println("oi");
         });
     }
 

@@ -35,7 +35,7 @@ public final class ItemPopup extends Popup{
     private final JTextField nameInput;
     private final JSpinner priceInput, qttyInput;
     private final boolean isEditing;
-    private long canteenId;
+    private CanteenItem canteenItem;
     
     public ItemPopup(String title, Dimension dimension){
         super(title, dimension);
@@ -52,7 +52,7 @@ public final class ItemPopup extends Popup{
     public ItemPopup(String title, Dimension dimension, CanteenItem values){
         super(title, dimension);
         
-        this.canteenId = (long) values.getCanteen().getId();
+        this.canteenItem = values;
         this.isEditing = true;
            
         this.nameInput = new JTextField();
@@ -82,25 +82,11 @@ public final class ItemPopup extends Popup{
             }};
             
             if(isEditing){
-                args.put("canteenId", canteenId);
+                args.put("canteenItem", canteenItem);
             }
             
             this.callback.accept(args);
             
-            closePopup();
-        }
-    }
-    
-    private class CancelOperationHandler implements ActionListener{
-        private final Supplier callback;
-        
-        CancelOperationHandler(Supplier callback){
-            this.callback = callback;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            callback.get();
             closePopup();
         }
     }
@@ -155,18 +141,7 @@ public final class ItemPopup extends Popup{
     public void onSave(Consumer<HashMap<String, Object>> callback) {
         this.saveButton.addActionListener(new SaveItemHandler(callback));
     }
-
-    @Override
-    public void onCancel(Supplier callback) {
-        this.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                callback.get();
-            }
-        });
-        
-        this.closeButton.addActionListener(new CancelOperationHandler(callback));
-    }
+    
     /**
      * @return the nameInput
      */
