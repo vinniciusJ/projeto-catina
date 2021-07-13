@@ -12,6 +12,9 @@ import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.HashMap;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -23,7 +26,6 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
-import models.CanteenItem;
 
 /**
  *
@@ -39,7 +41,7 @@ public final class RegisterItemPopup extends Popup{
         this.nameInput = new JTextField();
         this.priceInput = new JSpinner(new SpinnerNumberModel(0, 0, 100.0, 0.1));
         this.qttyInput = new JSpinner(new SpinnerNumberModel(0, 0, 100, 1));
-        
+       
         this.init();
     }
     
@@ -130,9 +132,15 @@ public final class RegisterItemPopup extends Popup{
 
     @Override
     public void onCancel(Supplier callback) {
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                callback.get();
+            }
+        });
+        
         this.closeButton.addActionListener(new CancelOperationHandler(callback));
     }
-
     /**
      * @return the nameInput
      */
