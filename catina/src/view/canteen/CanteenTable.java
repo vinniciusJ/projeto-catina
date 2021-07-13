@@ -7,6 +7,7 @@ package view.canteen;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.util.EventObject;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -50,6 +51,11 @@ public final class CanteenTable extends JTable implements View{
         
         return new Object[]{name, type, price, qtty};
     }
+
+    @Override
+    public boolean editCellAt(int row, int column, EventObject e) {
+        return false;
+    }
     
     @Override
     public void init() {
@@ -60,6 +66,7 @@ public final class CanteenTable extends JTable implements View{
         this.setRowHeight(40);
         this.setFont(new Font("Sans-Serif", Font.PLAIN, 16));
         this.setIntercellSpacing(new Dimension(15, 15));
+        
     }
 
     @Override

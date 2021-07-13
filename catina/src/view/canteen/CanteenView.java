@@ -99,6 +99,8 @@ public final class CanteenView extends JFrame implements View{
         this.itemsTable = new CanteenTable(items);
     }
     
+    // Factory Pattern
+    
     public void showPopup(Popup popup, Consumer onSubmit){
         if(this.currentPopup == null){
             this.currentPopup = popup;
@@ -126,7 +128,6 @@ public final class CanteenView extends JFrame implements View{
         this.showPopup(new ItemPopup("Cadastrar Item", new Dimension(500, 280)), onSubmit);
     }
 
-    
     public void showEditItemPopUp(Consumer onSubmit, CanteenItem data){ 
         this.showPopup(new ItemPopup("Editar Item", new Dimension(500, 280), data), onSubmit);
     }
