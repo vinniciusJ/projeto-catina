@@ -2,11 +2,10 @@ package controllers;
 
 import dao.DAO;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.stream.Collectors;
 import main.Environment;
 import models.Canteen;
 import models.Item;
-import models.ItemGroupInCanteen;
 import view.canteen.CanteenView;
 
 /*
@@ -27,34 +26,19 @@ public class CanteenController{
     public CanteenController(){
         this.itemDAO = new DAO(Item.class);        
         this.canteenDAO = new DAO(Canteen.class);           
-        
-        var itemsInCanteen = new ArrayList<Item>();        
-        var groupsInCanteen = new ArrayList<ItemGroupInCanteen>();        
-        var manager = Environment.getUser();    
-        
+                    
+        var manager = Environment.getUser();            
         var canteen = manager.getCanteen(); 
         
-        var iterator = this.itemDAO.get().iterator();  
-        
-        while(iterator.hasNext()){
-            var item = (Item) iterator.next();   
-            
-            var itemCanteenId = (String) item.getCanteen().getId();
-            
-            if (itemCanteenId.equals(canteen.getId())){                                    
-                itemsInCanteen.add(item);     
+        Environment.setCurrentCanteen(canteen);        
                 
-                var groupInCanteen = new ItemGroupInCanteen(item.getName(), item.getPrice());      
-                
-                if(!groupsInCanteen.contains(groupInCanteen)){
-                    groupsInCanteen.add(groupInCanteen);
-                }
-            }                        
-        }        
-                        
-        Environment.setCurrentCanteen(canteen);
+        var items = (ArrayList) this.itemDAO.get()
+                .stream()
+                .map(item -> (Item) item)
+                .filter(item -> item.getCanteen().getId().equals(canteen.getId()))
+                .collect(Collectors.toList());                         
         
-        this.view = new CanteenView(canteen, itemsInCanteen);
+        this.view = new CanteenView(canteen, items);
     }
     
     public void registerItem(String name, double price, int qtty){

@@ -5,6 +5,7 @@
  */
 package view.canteen;
 
+import controllers.CanteenController;
 import view.canteen.popups.Popup;
 import view.canteen.popups.ItemPopup;
 import java.awt.BorderLayout;
@@ -35,8 +36,10 @@ import view.canteen.popups.ViewProfitPopup;
 public final class CanteenView extends JFrame implements View{
     private final CanteenMenu menu;
     private final Canteen canteen;
+    
     private CanteenTable itemsTable;
     private List<Item> items;
+     
     private Popup currentPopup;
     
     private Consumer<HashMap<String, Object>> onRegisterSale, onRegisterItem, onEdit;
@@ -65,9 +68,10 @@ public final class CanteenView extends JFrame implements View{
                 showNoneItemSelectedMessage();
             }
             else{
-                var selectedItem = items.get(selectedRow);
+                var selectedGroup = items.get(selectedRow);
+
                 
-                showEditItemPopUp(onEdit, selectedItem);
+                showEditGroupPopUp(onEdit, selectedGroup);
             }
         }  
     }
@@ -87,6 +91,7 @@ public final class CanteenView extends JFrame implements View{
         this.itemsTable = new CanteenTable(items);
         
         this.currentPopup = null;
+
         
         this.init();
         this.paint();
@@ -122,7 +127,7 @@ public final class CanteenView extends JFrame implements View{
         JOptionPane.showMessageDialog(this, "Por favor, selecione um item para editar", "Editar Item", JOptionPane.ERROR_MESSAGE);
     }
     
-    public void showRegisterSalePopup(Consumer onSubmit){
+    public void showRegisterSalePopup(Consumer onSubmit){        
         this.showPopup(new SalePopup("Cadastrar venda", new Dimension(500, 280), this.items), onSubmit);
     }
     
@@ -130,7 +135,7 @@ public final class CanteenView extends JFrame implements View{
         this.showPopup(new ItemPopup("Cadastrar Item", new Dimension(500, 280)), onSubmit);
     }
 
-    public void showEditItemPopUp(Consumer onSubmit, Item data){ 
+    public void showEditGroupPopUp(Consumer onSubmit, Item data){         
         this.showPopup(new ItemPopup("Editar Item", new Dimension(500, 280), data), onSubmit);
     }
     
@@ -167,13 +172,16 @@ public final class CanteenView extends JFrame implements View{
     /**
      * @return the items
      */
+
     public List<Item> getItems() {
         return items;
     }
 
+
     /**
      * @param items the items to set
      */
+
     public void setItems(List<Item> items) {
         this.items = items;
     }

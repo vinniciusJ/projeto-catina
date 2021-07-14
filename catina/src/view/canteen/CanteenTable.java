@@ -39,17 +39,17 @@ public final class CanteenTable extends JTable implements View{
         var convertedRows = new Object[rows.size()][4];
         
         for(int i = 0; i < rows.size(); i++){
-            convertedRows[i] = CanteenTable.getCanteenItemsValues(rows.get(i));
+            convertedRows[i] = CanteenTable.getCanteenItemsGroupsValues(rows.get(i));
         }
         
         return convertedRows;
     }
     
-    private static Object[] getCanteenItemsValues(Item item){
+    private static Object[] getCanteenItemsGroupsValues(Item item){
         var name = item.getName();
         var type = item.getType();
         var price = item.getPrice();
-        var qtty = CanteenController.calculateQuantityOfItemInCanteen(name, Environment.getCurrentCanteen().getId());
+        var qtty = item.getQuantity();
         
         return new Object[]{name, type, price, qtty};
     }
