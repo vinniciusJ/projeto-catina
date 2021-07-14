@@ -14,8 +14,7 @@ import org.json.simple.JSONObject;
  *
  * @author Dyogo
  */
-public class Canteen implements ModelDatabase{
-    String id;
+public class Canteen extends ModelDatabase{    
     String name;
     double balance;            
     
@@ -30,7 +29,7 @@ public class Canteen implements ModelDatabase{
     public Canteen(String name){
         this.name = name;
         this.balance = 0;
-        this.id = UUID.randomUUID().toString();
+        this.setId();
     }
     
     public String getName() {

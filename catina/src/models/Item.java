@@ -17,8 +17,7 @@ import org.json.simple.JSONObject;
  *
  * @author Dyogo
  */
-public class Item implements ModelDatabase{
-    String id;
+public class Item extends ModelDatabase{    
     String name;
     double price;
     long quantity;
@@ -38,7 +37,7 @@ public class Item implements ModelDatabase{
     }
     
     public Item (String name, double price, String type, String canteenId, long quantity){
-        this.id = UUID.randomUUID().toString();
+        this.setId();
         this.name = name;
         this.price = price;
         this.type = type;

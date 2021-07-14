@@ -14,8 +14,7 @@ import org.json.simple.JSONObject;
  *
  * @author Dyogo
  */
-public class Manager implements ModelDatabase{
-    String id;
+public class Manager extends ModelDatabase{    
     String name;
     String password;    
     Canteen canteen;
@@ -33,7 +32,7 @@ public class Manager implements ModelDatabase{
         this.name = name;
         this.password = password;
         this.canteen = canteen;
-        this.id = UUID.randomUUID().toString();
+        this.setId();
     }
 
     public Canteen getCanteen() {
