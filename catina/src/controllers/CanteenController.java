@@ -50,12 +50,20 @@ public class CanteenController{
         this.view.syncItems(new ArrayList<>());
     }
     
-    public void editItem(Item canteenItem, String name, double price, int qtty){
-        System.out.println(canteenItem);
-        
+    public void editItem(Item canteenItem, String name, double price, int qtty){        
+        System.out.println(canteenItem);        
         System.out.println(name);
         System.out.println(price);
         System.out.println(qtty);  
+        
+        var oldItem = canteenItem;
+        
+        canteenItem.setName(name);
+        canteenItem.setPrice(price);
+        canteenItem.setQuantity(qtty);
+        
+        this.itemDAO.put(oldItem, canteenItem);
+        
    }
     
     public void saleItem(Item item, int qtty){
@@ -77,10 +85,11 @@ public class CanteenController{
         });
         
         this.view.setOnEdit(data -> {
+            System.out.println(data);
             var name = (String) data.get("name");
-            var price = (Double) data.get("price");
+            var price = (double) data.get("price");
             var qtty = (Integer) data.get("qtty");
-            var item = (Item) data.get("canteenId");
+            var item = (Item) data.get("canteenItem");
             
             this.editItem(item, name, price, qtty);
         });
