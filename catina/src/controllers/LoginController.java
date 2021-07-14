@@ -10,6 +10,7 @@ import main.App;
 import main.Environment;
 import models.Manager;
 import view.login.LoginView;
+import view.login.RegisterView;
 
 /**
  *
@@ -23,7 +24,9 @@ public class LoginController {
     public LoginController(){                
         this.managerDAO = new DAO(Manager.class);   
         this.view = new LoginView();
-        
+    }
+    
+    public void init(){
         this.view.addSubmitEvent((username, password) -> {
             try {
                 this.login(username, password);
@@ -33,6 +36,29 @@ public class LoginController {
                 this.view.notifyUnmatchedCredentials();
             }
         });
+        
+        this.view.addRegisterEvent(event -> {
+            this.view.closeLoginWindow();
+            
+            var registerView = new RegisterView();
+
+            registerView.onSave(data -> {
+                var username = (String) data.get("username");
+                var password = (String) data.get("password");
+                var canteenName = (String) data.get("canteenName");
+                
+                registerView.close();
+                
+                this.view.setCredentials(username, password);
+                this.view.paint();
+            });
+            
+            registerView.onCancel(data -> {
+                registerView.close();
+                
+                this.view.paint();
+            });
+        });
     }
     
     public void accessSystem(){
@@ -41,9 +67,13 @@ public class LoginController {
         App.initialize();
     }
     
+    public void registerUser(String canteenName, String userName, String passoword){
+        
+    }
+    
     public void login(String username, String password) throws Exception{        
         var data =  this.managerDAO.get();        
-        boolean exists = false;
+        var exists = false;
         Manager currentManager = null;
         
         for (int i = 0; i < data.size(); i ++){
@@ -62,4 +92,9 @@ public class LoginController {
         Environment.setUser(currentManager);
     }                
         
+    public static void initialize(){
+        var login = new LoginController();
+        
+        login.init();
+    }
 }

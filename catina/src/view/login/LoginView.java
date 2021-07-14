@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.*;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import javax.swing.border.EmptyBorder;
 import main.Environment;
 
@@ -39,6 +40,10 @@ public class LoginView extends JFrame{
     
     public void addSubmitEvent(BiConsumer<String, String> callback){
         this.loginForm.addSubmitEventHandler(callback);
+    }
+    
+    public void addRegisterEvent(Consumer callback){
+        this.loginForm.addRegisterEventHandler(callback);
     }
     
     public void notifyUnmatchedCredentials(){
@@ -73,5 +78,9 @@ public class LoginView extends JFrame{
       
         
         this.setVisible(true);
+    }
+    
+    public void setCredentials(String username, String password){
+        this.loginForm.setCredentials(username, password);
     }
 }

@@ -5,6 +5,7 @@
  */
 package view.canteen.popups;
 
+import controllers.CanteenController;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -25,6 +26,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
+import main.Environment;
 import models.Item;
 
 /**
@@ -63,7 +65,7 @@ public final class ItemPopup extends Popup{
         
         this.nameInput.setText(item.getName());
         this.priceInput.setValue(item.getPrice());
-        this.qttyInput.setValue(5);
+        this.qttyInput.setValue(CanteenController.calculateQuantityOfItemInCanteen(item.getName(), Environment.getCurrentCanteen().getId()));
        
         this.init();
     }
