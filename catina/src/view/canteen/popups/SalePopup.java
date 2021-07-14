@@ -12,6 +12,7 @@ import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Consumer;
@@ -43,13 +44,13 @@ public final class SalePopup extends Popup{
         super(title, dimension);
 
         this.options = options;
-                 
+
         var castedOptions = new String[this.options.size() + 1];
         
         castedOptions[0] = "Selecione um item";
         
         for(int i = 1; i < castedOptions.length; i++){
-            castedOptions[i] = this.options.get(i).getName();
+            castedOptions[i] = this.options.get(i - 1).getName();
         }
 
         this.selectedItem = null;
@@ -72,12 +73,24 @@ public final class SalePopup extends Popup{
         
         @Override
         public void actionPerformed(ActionEvent e) {
-            var args = new HashMap<String, Object>(){{
-                put("item", selectedItem);
-                put("qtty", selectedQtty);
-            }};
+            if(selectedItem != null){
+                if(selectedQtty != 0){
+                    var args = new HashMap<String, Object>(){{
+                        put("item", selectedItem);
+                        put("qtty", selectedQtty);
+                    }};
 
-            this.callback.accept(args);
+                    this.callback.accept(args);
+                    
+                    closePopup();
+                }
+                else{
+                    showWarningMessage("Não é possível realizar a venda de nenhuma unidade");
+                }
+            }
+            else{
+                showWarningMessage("Por favor, selecione um item para fazer a venda");
+            }
         }
     }
     
@@ -93,11 +106,14 @@ public final class SalePopup extends Popup{
                 var maximum = CanteenController.calculateQuantityOfItemInCanteen(item.getName(), canteenId);
                 
                 selectedItem = item;
+                
+                quantityInput.setEnabled(true);
                 quantityInput.setModel(new SpinnerNumberModel(0, 0, maximum, 1));
             }
             else{
                 selectedItem = null;
                 
+                estimatedValue.setText("R$ 00,00");
                 quantityInput.setValue(0);
                 quantityInput.setEnabled(false);
             }
@@ -108,6 +124,10 @@ public final class SalePopup extends Popup{
         @Override
         public void stateChanged(ChangeEvent e) {
             if(selectedItem != null){
+                var decimalFormat = new DecimalFormat("#.00");
+                var result = selectedItem.getPrice() * (int) quantityInput.getValue();
+                
+                estimatedValue.setText("R$ " + decimalFormat.format(result));
                 selectedQtty = (int) quantityInput.getValue();
             }
         }  
@@ -166,6 +186,9 @@ public final class SalePopup extends Popup{
         this.addChildren(popupPanel);
     }
    
+    public void showWarningMessage(String message){
+        JOptionPane.showMessageDialog(this, message, "Editar Item", JOptionPane.ERROR_MESSAGE);
+    }
 
     @Override
     public void onSave(Consumer<HashMap<String, Object>> callback) {

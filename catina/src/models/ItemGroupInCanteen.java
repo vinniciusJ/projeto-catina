@@ -85,5 +85,6 @@ public class ItemGroupInCanteen {
         hash = 37 * hash + this.quantity;
         return hash;
     }
-        
+
+           
 }

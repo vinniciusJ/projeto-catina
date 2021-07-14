@@ -16,7 +16,7 @@ public class App {
     AppController controller;
     
     public App(){
-        var hasFullAcess = Environment.getUSER().isFullAcess();
+        var hasFullAcess = Environment.getUser().isFullAcess();
         
         this.controller = hasFullAcess ? new ManagerController() : new CanteenController();
     }

@@ -59,7 +59,7 @@ public class LoginController {
            throw new Exception("Ta proibido de passa amizade");           
         }              
       
-        Environment.setUSER(currentManager);
+        Environment.setUser(currentManager);
     }                
         
 }

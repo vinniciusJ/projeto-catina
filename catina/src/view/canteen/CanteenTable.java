@@ -5,12 +5,14 @@
  */
 package view.canteen;
 
+import controllers.CanteenController;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.util.EventObject;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import main.Environment;
 import models.Item;
 import view.View;
 
@@ -47,7 +49,7 @@ public final class CanteenTable extends JTable implements View{
         var name = item.getName();
         var type = item.getType();
         var price = item.getPrice();
-        var qtty = 5;
+        var qtty = CanteenController.calculateQuantityOfItemInCanteen(name, Environment.getCurrentCanteen().getId());
         
         return new Object[]{name, type, price, qtty};
     }
@@ -66,7 +68,7 @@ public final class CanteenTable extends JTable implements View{
         this.setRowHeight(40);
         this.setFont(new Font("Sans-Serif", Font.PLAIN, 16));
         this.setIntercellSpacing(new Dimension(15, 15));
-        
+
     }
 
     @Override
