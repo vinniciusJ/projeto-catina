@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import models.ModelDatabase;
+import models.ModelStandart;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -37,16 +37,16 @@ public class DAO {
         
     }        
         
-    public void delete(ModelDatabase object) {
+    public void delete(ModelStandart object) {
         String data = object.toString();
         
         this.connection.delete(data);        
     }
     
-    public ArrayList<ModelDatabase> get() {             
+    public ArrayList<ModelStandart> get() {             
         
         JSONArray JSONData = this.connection.read();             
-        ArrayList<ModelDatabase> dataObjects = new ArrayList();        
+        ArrayList<ModelStandart> dataObjects = new ArrayList();        
         
         JSONData.forEach((data) -> {                     
             dataObjects.add(this.parseData((JSONObject)data));
@@ -55,9 +55,9 @@ public class DAO {
         return dataObjects;
     }
     
-    public ModelDatabase get(String id){
+    public ModelStandart get(String id){
         var data = this.get();        
-        ModelDatabase object = null;
+        ModelStandart object = null;
        
         var iterator = data.iterator();
         
@@ -70,22 +70,22 @@ public class DAO {
         return object;
     }
     
-    public void post(ModelDatabase object) {        
+    public void post(ModelStandart object) {        
         this.connection.write(object.toJSONString());
     }
     
-    public void put(ModelDatabase oldObject, ModelDatabase newObject) {
+    public void put(ModelStandart oldObject, ModelStandart newObject) {
         this.connection.replace(oldObject.toString(), newObject.toString());
     }
     
-    private ModelDatabase parseData(JSONObject data){          
+    private ModelStandart parseData(JSONObject data){          
         
         Class [] cArg = new Class[1];
         cArg[0] = JSONObject.class;
                         
-        ModelDatabase convertedData = null;
+        ModelStandart convertedData = null;
         try {     
-            convertedData = (ModelDatabase) this.classIdentifier.cast(
+            convertedData = (ModelStandart) this.classIdentifier.cast(
             this.classIdentifier.getDeclaredConstructor(cArg).newInstance(data));
             
         } catch (InstantiationException | IllegalAccessException | NoSuchMethodException

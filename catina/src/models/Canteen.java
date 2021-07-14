@@ -13,7 +13,7 @@ import org.json.simple.JSONObject;
  *
  * @author Dyogo
  */
-public class Canteen extends ModelDatabase{    
+public class Canteen extends ModelStandart{    
     String name;
     double balance;            
     

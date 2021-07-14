@@ -13,7 +13,7 @@ import org.json.simple.JSONObject;
  *
  * @author Dyogo
  */
-public class Manager extends ModelDatabase{    
+public class Manager extends ModelStandart{    
     String name;
     String password;    
     Canteen canteen;

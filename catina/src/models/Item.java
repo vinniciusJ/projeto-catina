@@ -14,7 +14,7 @@ import org.json.simple.JSONObject;
  *
  * @author Dyogo
  */
-public class Item extends ModelDatabase{    
+public class Item extends ModelStandart{    
     String name;
     double price;
     long quantity;
