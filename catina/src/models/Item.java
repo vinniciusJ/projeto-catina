@@ -26,14 +26,17 @@ public class Item extends ModelDatabase{
     
     public Item(JSONObject fields){
         String canteenId = (String) fields.get("canteenId");
-        var canteenDAO = new DAO(Canteen.class);        
+        var canteenDAO = new DAO(Canteen.class);
+        System.out.println("Começa aqui!!! " + canteenId);
         
         this.canteen =  (Canteen) canteenDAO.get(canteenId);        
         this.id = (String) fields.get("id");
         this.name = (String) fields.get("name");
         this.price = (double) fields.get("price");
         this.type = (String) fields.get("type");        
+
         this.quantity = (long) fields.get("quantity");        
+
     }
     
     public Item (String name, double price, String type, String canteenId, long quantity){

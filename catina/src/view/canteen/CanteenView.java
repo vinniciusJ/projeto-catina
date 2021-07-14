@@ -36,9 +36,11 @@ import view.canteen.popups.ViewProfitPopup;
 public final class CanteenView extends JFrame implements View{
     private final CanteenMenu menu;
     private final Canteen canteen;
-    private CanteenTable itemsTable;        
-    private Popup currentPopup;
+    
+    private CanteenTable itemsTable;
     private List<Item> items;
+     
+    private Popup currentPopup;
     
     private Consumer<HashMap<String, Object>> onRegisterSale, onRegisterItem, onEdit;
     private Consumer onViewProfit;
@@ -67,6 +69,7 @@ public final class CanteenView extends JFrame implements View{
             }
             else{
                 var selectedGroup = items.get(selectedRow);
+
                 
                 showEditGroupPopUp(onEdit, selectedGroup);
             }
@@ -80,14 +83,16 @@ public final class CanteenView extends JFrame implements View{
         } 
     }
     
-    public CanteenView(Canteen canteen, List<Item> items){        
-        this.canteen = canteen;           
+    public CanteenView(Canteen canteen, List<Item> items){
         this.items = items;
+        this.canteen = canteen;
+        
         this.menu = new CanteenMenu();
         this.itemsTable = new CanteenTable(items);
-        System.out.println("oi");
         
-        this.currentPopup = null;        
+        this.currentPopup = null;
+
+        
         this.init();
         this.paint();
     }
@@ -164,15 +169,22 @@ public final class CanteenView extends JFrame implements View{
         this.setVisible(true);
     }
 
+    /**
+     * @return the items
+     */
+
     public List<Item> getItems() {
         return items;
     }
 
+
+    /**
+     * @param items the items to set
+     */
+
     public void setItems(List<Item> items) {
         this.items = items;
     }
-
-    
 
     /**
      * @param onRegisterSale the onRegisterSale to set

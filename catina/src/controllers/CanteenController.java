@@ -26,9 +26,10 @@ public class CanteenController{
     public CanteenController(){
         this.itemDAO = new DAO(Item.class);        
         this.canteenDAO = new DAO(Canteen.class);           
-                          
+                    
         var manager = Environment.getUser();            
         var canteen = manager.getCanteen(); 
+        
         Environment.setCurrentCanteen(canteen);        
                 
         var items = (ArrayList) this.itemDAO.get()
@@ -93,4 +94,14 @@ public class CanteenController{
         this.view.setOnViewProfit(data -> this.viewProfit());
     }    
     
+    public static int calculateQuantityOfItemInCanteen(String itemName, String canteenId){
+        int counter = 0;
+        
+        var dao = new DAO(Item.class);
+                        
+        counter = dao.get().stream().map((item) -> (Item) item).filter((castedItem) -> (castedItem.getCanteen().getId().equals(canteenId) && castedItem.getName().equals(itemName))).map((_item) -> 1).reduce(counter, Integer::sum);
+        
+        return counter;
+    }
+
 }
