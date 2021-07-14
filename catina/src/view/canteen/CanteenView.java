@@ -42,7 +42,7 @@ public final class CanteenView extends JFrame implements View{
     private Popup currentPopup;
     
     private Consumer<HashMap<String, Object>> onRegisterSale, onRegisterItem, onEdit;
-    private Consumer<Void> onViewProfit;
+    private Consumer onViewProfit;
     
     private class RegisterSaleHanlder implements ActionListener{
         @Override
@@ -97,8 +97,9 @@ public final class CanteenView extends JFrame implements View{
         return this.itemsTable.getSelectedRow();
     }
     
-    public void syncItems(List<ItemGroup> groupsInCanteen){
-        this.itemsTable = new CanteenTable(groupsInCanteen);
+    public void syncItems(List<Item> items){
+        this.itemsTable = new CanteenTable(items);
+        this.paint();
     }
     
     // Factory Pattern
@@ -143,7 +144,7 @@ public final class CanteenView extends JFrame implements View{
     public void init(){ 
         this.setSize(1080, 720); 
         this.setResizable(false);
-        this.setTitle("CaTina - Home");
+        this.setTitle(Environment.getCurrentCanteen().getName() + " - CãTina");
         this.setLocationRelativeTo(null);
         this.setIconImage(Environment.LOGO_ICON.getImage());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

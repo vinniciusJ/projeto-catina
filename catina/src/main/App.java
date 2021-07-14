@@ -5,20 +5,17 @@
  */
 package main;
 
-import controllers.AppController;
 import controllers.CanteenController;
-import controllers.ManagerController;
 /**
  *
  * @author Vinicius Jimenez
  */
 public class App {
-    AppController controller;
+    CanteenController controller;
     
     public App(){
-        var hasFullAcess = Environment.getUser().isFullAcess();
-        
-        this.controller = hasFullAcess ? new ManagerController() : new CanteenController();
+
+        this.controller = new CanteenController();
     }
     
     public void init(){

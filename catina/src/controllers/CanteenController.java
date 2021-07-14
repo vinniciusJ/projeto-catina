@@ -19,7 +19,7 @@ import view.canteen.CanteenView;
  *
  * @author Vinicius Jimenez
  */
-public class CanteenController implements AppController{
+public class CanteenController{
     private final DAO itemDAO;
     private final DAO canteenDAO;
     private final CanteenView view;
@@ -63,13 +63,15 @@ public class CanteenController implements AppController{
         this.view = new CanteenView(canteen, itens, groupsInCanteen);
     }
     
-    public void registerItem(String name, double price, long qtty){
+    public void registerItem(String name, double price, int qtty){
         System.out.println(name);
         System.out.println(price);
         System.out.println(qtty);
+        
+        this.view.syncItems(new ArrayList<>());
     }
     
-    public void editItem(Item canteenItem, String name, double price, long qtty){
+    public void editItem(Item canteenItem, String name, double price, int qtty){
         System.out.println(canteenItem);
         
         System.out.println(name);
@@ -86,12 +88,11 @@ public class CanteenController implements AppController{
         
     }
 
-    @Override
     public void init() {
         this.view.setOnRegisterItem(data -> {
             var name = (String) data.get("name");
             var price = (Double) data.get("price");
-            var qtty = (Long) data.get("qtty");
+            var qtty = (Integer) data.get("qtty");
             
             this.registerItem(name, price, qtty);
         });
@@ -107,7 +108,7 @@ public class CanteenController implements AppController{
         
         this.view.setOnRegisterSale(data -> {
             var item = (Item) data.get("item");
-            var qtty = (int) data.get("qtty");
+            var qtty = (Integer) data.get("qtty");
             
             this.saleItem(item, qtty);
         });
