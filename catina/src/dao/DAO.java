@@ -43,8 +43,9 @@ public class DAO {
         this.connection.delete(data);        
     }
     
-    public ArrayList<ModelDatabase> get() {                    
-        JSONArray JSONData = this.connection.read();                 
+    public ArrayList<ModelDatabase> get() {             
+        
+        JSONArray JSONData = this.connection.read();             
         ArrayList<ModelDatabase> dataObjects = new ArrayList();        
         
         JSONData.forEach((data) -> {                     
@@ -55,7 +56,7 @@ public class DAO {
     }
     
     public ModelDatabase get(String id){
-        var data = this.get();
+        var data = this.get();        
         ModelDatabase object = null;
        
         var iterator = data.iterator();
@@ -70,7 +71,7 @@ public class DAO {
     }
     
     public void post(ModelDatabase object) {        
-        this.connection.write(object.toString());
+        this.connection.write(object.toJSONString());
     }
     
     public void put(ModelDatabase oldObject, ModelDatabase newObject) {
@@ -81,16 +82,16 @@ public class DAO {
         
         Class [] cArg = new Class[1];
         cArg[0] = JSONObject.class;
-                
+                        
         ModelDatabase convertedData = null;
-        try {            
+        try {     
             convertedData = (ModelDatabase) this.classIdentifier.cast(
             this.classIdentifier.getDeclaredConstructor(cArg).newInstance(data));
             
         } catch (InstantiationException | IllegalAccessException | NoSuchMethodException
                 | InvocationTargetException | NullPointerException |SecurityException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
-        }        
+        }                
         return convertedData;
     }
     

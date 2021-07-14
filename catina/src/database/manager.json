@@ -1,24 +1,26 @@
 [
-    {
-        "id": "bfedc0a2-bb0c-4916-a52e-ba475108ad0d",
-        "canteenId": "daf2ae78-84bf-4ab7-8fa0-453b2383fc22",
-        "name": "Jimenez",
-        "password": "abc",
-        "fullAcess": "false"
-    },
-
-    {
-        "id": "c1155d1a-7564-47d1-a460-481e39d7cdf0",
-        "canteenId": "ilustrativo",
-        "name": "Matheus",
-        "password": "abc123",
-        "fullAcess": "true"
-    } ,
-    {
-        "id": "8716ab18-3342-48f4-b4f1-4ee129fcdc36",
-        "canteenId": "4231c04b-f8ba-43c5-866e-b5485d453d9f",
-        "name": "Dyogo",
-        "password": "123abc",
-        "fullAcess": "false"
-    }
+	{
+		"canteenId":"daf2ae78-84bf-4ab7-8fa0-453b2383fc22",
+		"password":"abc",
+		"name":"Jimenez",
+		"id":"bfedc0a2-bb0c-4916-a52e-ba475108ad0d"
+	},
+	{
+		"canteenId":"ilustrativo",
+		"password":"abc123",
+		"name":"Matheus",
+		"id":"c1155d1a-7564-47d1-a460-481e39d7cdf0"
+	},
+	{
+		"canteenId":"4231c04b-f8ba-43c5-866e-b5485d453d9f",
+		"password":"123abc",
+		"name":"Dyogo",
+		"id":"8716ab18-3342-48f4-b4f1-4ee129fcdc36"
+	},
+	{
+		"canteenId":"3b620d58-dd63-49f8-9288-5ecfca1af1ed",
+		"password":"ioi",
+		"name":"david",
+		"id":"9b288e11-3384-4924-be83-5c4a8d86edae"
+	}
 ]

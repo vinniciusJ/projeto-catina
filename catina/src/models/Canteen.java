@@ -1,5 +1,7 @@
 package models;
 
+import java.util.Locale;
+import java.util.UUID;
 import org.json.simple.JSONObject;
 
 /*
@@ -25,6 +27,12 @@ public class Canteen implements ModelDatabase{
     
     public Canteen(){}
 
+    public Canteen(String name){
+        this.name = name;
+        this.balance = 0;
+        this.id = UUID.randomUUID().toString();
+    }
+    
     public String getName() {
         return name;
     }
@@ -49,6 +57,12 @@ public class Canteen implements ModelDatabase{
     @Override
     public String getId() {
         return this.id;
+    }
+
+    @Override
+    public String toJSONString() {
+        String s = String.format(Locale.ROOT, "{\"id\": \"%s\", \"name\": \"%s\", \"balance\": %.2f}", this.id, this.name, this.balance);        
+        return s;
     }
     
     

@@ -103,6 +103,7 @@ public class Item implements ModelDatabase{
         return "Item";
     }    
         
+    @Override
     public String toJSONString(){
         String s = String.format(Locale.ROOT, "{\"id\": \"%s\", \"canteenId\": \"%s\", \"name\": \"%s\", \"price\": %.2f, \"type\": \"%s\", \"quantity\": \"%s\"}", this.id, this.canteen.getId(), this.name, this.price, this.type, this.quantity);        
         return s;
