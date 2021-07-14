@@ -42,23 +42,19 @@ public class CanteenController{
         this.view = new CanteenView(canteen, items);
     }
     
-    public void registerItem(String name, double price, int qtty){
-        System.out.println(name);
-        System.out.println(price);
-        System.out.println(qtty);
+    public void registerItem(String name, double price, int qtty, String type){
+        var item = new Item(name, price, type, Environment.getCurrentCanteen().getId(), qtty);        
+        this.itemDAO.post(item);
         
         this.view.syncItems(new ArrayList<>());
     }
     
-    public void editItem(Item canteenItem, String name, double price, int qtty){                 
-                        
+    public void editItem(Item canteenItem, String name, double price, int qtty){                                         
         canteenItem.setName(name);
         canteenItem.setPrice(price);
         canteenItem.setQuantity(qtty);
-                
         
-        this.itemDAO.put(canteenItem);
-        
+        this.itemDAO.put(canteenItem);            
    }
     
     public void saleItem(Item item, int qtty){
@@ -75,8 +71,9 @@ public class CanteenController{
             var name = (String) data.get("name");
             var price = (Double) data.get("price");
             var qtty = (Integer) data.get("qtty");
+            var type = (String) data.get("type");
             
-            this.registerItem(name, price, qtty);
+            this.registerItem(name, price, qtty, type);
         });
         
         this.view.setOnEdit(data -> {
