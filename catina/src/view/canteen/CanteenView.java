@@ -24,7 +24,6 @@ import javax.swing.JScrollPane;
 import main.Environment;
 import models.Canteen;
 import models.Item;
-import models.ItemGroup;
 import view.View;
 import view.canteen.popups.SalePopup;
 import view.canteen.popups.ViewProfitPopup;
@@ -37,8 +36,7 @@ public final class CanteenView extends JFrame implements View{
     private final CanteenMenu menu;
     private final Canteen canteen;
     private CanteenTable itemsTable;
-    List<Item> itens;    
-    List<ItemGroup> groupsInCanteen;
+    private List<Item> items;
     private Popup currentPopup;
     
     private Consumer<HashMap<String, Object>> onRegisterSale, onRegisterItem, onEdit;
@@ -67,7 +65,7 @@ public final class CanteenView extends JFrame implements View{
                 showNoneItemSelectedMessage();
             }
             else{
-                var selectedItem = itens.get(selectedRow);
+                var selectedItem = items.get(selectedRow);
                 
                 showEditItemPopUp(onEdit, selectedItem);
             }
@@ -81,14 +79,15 @@ public final class CanteenView extends JFrame implements View{
         } 
     }
     
-    public CanteenView(Canteen canteen, List <Item> itens, List<ItemGroup> groupsInCanteen){        
-        this.canteen = canteen;   
-        this.itens = itens;
-        this.groupsInCanteen = groupsInCanteen;
-        this.menu = new CanteenMenu();
-        this.itemsTable = new CanteenTable(groupsInCanteen);
+    public CanteenView(Canteen canteen, List<Item> items){
+        this.items = items;
+        this.canteen = canteen;
         
-        this.currentPopup = null;        
+        this.menu = new CanteenMenu();
+        this.itemsTable = new CanteenTable(items);
+        
+        this.currentPopup = null;
+        
         this.init();
         this.paint();
     }
@@ -124,7 +123,7 @@ public final class CanteenView extends JFrame implements View{
     }
     
     public void showRegisterSalePopup(Consumer onSubmit){
-        this.showPopup(new SalePopup("Cadastrar venda", new Dimension(500, 280), this.itens), onSubmit);
+        this.showPopup(new SalePopup("Cadastrar venda", new Dimension(500, 280), this.items), onSubmit);
     }
     
     public void showRegisterItemPopup(Consumer onSubmit){
@@ -165,15 +164,19 @@ public final class CanteenView extends JFrame implements View{
         this.setVisible(true);
     }
 
-    public List<ItemGroup> getGroupsInCanteen() {
-        return groupsInCanteen;
+    /**
+     * @return the items
+     */
+    public List<Item> getItems() {
+        return items;
     }
 
-    public void setGroupsInCanteen(List<ItemGroup> groupsInCanteen) {
-        this.groupsInCanteen = groupsInCanteen;
+    /**
+     * @param items the items to set
+     */
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
-
-    
 
     /**
      * @param onRegisterSale the onRegisterSale to set

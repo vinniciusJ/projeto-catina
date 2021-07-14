@@ -61,11 +61,16 @@ public class DAO {
         var iterator = data.iterator();
         
         while(iterator.hasNext()){
-            var datum = iterator.next();                        
+            var datum = iterator.next();
+            System.out.println(datum.getId().equals(id));
+            
+            System.out.println(datum.getId() + " " + id);
             if(datum.getId().equals(id)){
                 object = datum;
             }
-        }        
+        }
+        System.out.println(object);
+        System.out.println("");
         return object;
     }
     

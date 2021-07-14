@@ -6,7 +6,7 @@ import java.util.HashMap;
 import main.Environment;
 import models.Canteen;
 import models.Item;
-import models.ItemGroup;
+import models.ItemGroupInCanteen;
 import view.canteen.CanteenView;
 
 /*
@@ -28,8 +28,8 @@ public class CanteenController{
         this.itemDAO = new DAO(Item.class);        
         this.canteenDAO = new DAO(Canteen.class);           
         
-        var groupsInCanteen = new ArrayList<ItemGroup>();        
-        var itens = new ArrayList<Item>();        
+        var itemsInCanteen = new ArrayList<Item>();        
+        var groupsInCanteen = new ArrayList<ItemGroupInCanteen>();        
         var manager = Environment.getUser();    
         
         var canteen = manager.getCanteen(); 
@@ -37,30 +37,24 @@ public class CanteenController{
         var iterator = this.itemDAO.get().iterator();  
         
         while(iterator.hasNext()){
-            var item = (Item) iterator.next();               
+            var item = (Item) iterator.next();   
+            
             var itemCanteenId = (String) item.getCanteen().getId();
             
-            if (itemCanteenId.equals(canteen.getId())){         
-                itens.add(item);
-                var groupInCanteen = new ItemGroup(item.getName(), item.getPrice(), item.getType(), item);                      
-                boolean inGroups = false;
+            if (itemCanteenId.equals(canteen.getId())){                                    
+                itemsInCanteen.add(item);     
                 
-                for(ItemGroup group : groupsInCanteen){
-                    if (group.equals(groupInCanteen)){
-                        group.increaseQuantity();
-                        group.addItem(item);
-                        inGroups = true;
-                    }
-                }
-                if (!inGroups){
-                    groupInCanteen.setQuantity(1);
+                var groupInCanteen = new ItemGroupInCanteen(item.getName(), item.getPrice());      
+                
+                if(!groupsInCanteen.contains(groupInCanteen)){
                     groupsInCanteen.add(groupInCanteen);
-                }                                     
+                }
             }                        
         }        
                         
-        Environment.setCurrentCanteen(canteen);        
-        this.view = new CanteenView(canteen, itens, groupsInCanteen);
+        Environment.setCurrentCanteen(canteen);
+        
+        this.view = new CanteenView(canteen, itemsInCanteen);
     }
     
     public void registerItem(String name, double price, int qtty){
@@ -116,4 +110,14 @@ public class CanteenController{
         this.view.setOnViewProfit(data -> this.viewProfit());
     }    
     
+    public static int calculateQuantityOfItemInCanteen(String itemName, String canteenId){
+        int counter = 0;
+        
+        var dao = new DAO(Item.class);
+                        
+        counter = dao.get().stream().map((item) -> (Item) item).filter((castedItem) -> (castedItem.getCanteen().getId().equals(canteenId) && castedItem.getName().equals(itemName))).map((_item) -> 1).reduce(counter, Integer::sum);
+        
+        return counter;
+    }
+
 }
