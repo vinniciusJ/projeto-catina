@@ -96,7 +96,7 @@ public class ItemGroup {
         ItemGroup c = (ItemGroup) o;
           
         // Compare the data members and return accordingly 
-        boolean comparison = this.name.equals(c.name) && this.price == c.price;
+        boolean comparison = this.name.toLowerCase().equals(c.name.toLowerCase()) && this.price == c.price;
         System.out.println(comparison);
         return comparison;
     }
