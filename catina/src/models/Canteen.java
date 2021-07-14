@@ -1,7 +1,6 @@
 package models;
 
 import java.util.Locale;
-import java.util.UUID;
 import org.json.simple.JSONObject;
 
 /*

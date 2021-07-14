@@ -1,10 +1,7 @@
 package models;
 
 import dao.DAO;
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.Locale;
-import java.util.UUID;
 import org.json.simple.JSONObject;
 
 /*
@@ -26,15 +23,13 @@ public class Item extends ModelDatabase{
     
     public Item(JSONObject fields){
         String canteenId = (String) fields.get("canteenId");
-        var canteenDAO = new DAO(Canteen.class);
-        System.out.println("Começa aqui!!! " + canteenId);
-        
+        var canteenDAO = new DAO(Canteen.class);                
         this.canteen =  (Canteen) canteenDAO.get(canteenId);        
+        
         this.id = (String) fields.get("id");
         this.name = (String) fields.get("name");
         this.price = (double) fields.get("price");
         this.type = (String) fields.get("type");        
-
         this.quantity = (long) fields.get("quantity");        
 
     }

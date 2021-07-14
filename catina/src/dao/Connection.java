@@ -55,8 +55,7 @@ public class Connection {
                 }
                 s += objectString;
             }
-            s += "]";               
-            System.out.println(s);
+            s += "]";                           
             file.write(s); 
             file.flush();
  

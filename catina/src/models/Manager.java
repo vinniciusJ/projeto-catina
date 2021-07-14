@@ -7,7 +7,6 @@ package models;
 
 import dao.DAO;
 import java.util.Locale;
-import java.util.UUID;
 import org.json.simple.JSONObject;
 
 /**

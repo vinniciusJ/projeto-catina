@@ -103,7 +103,7 @@ public final class SalePopup extends Popup{
                 var item = (Item) options.get(selectedItemId - 1);
                 var canteenId = item.getCanteen().getId();
                 
-                var maximum = CanteenController.calculateQuantityOfItemInCanteen(item.getName(), canteenId);
+                var maximum = item.getQuantity();
                 
                 selectedItem = item;
                 

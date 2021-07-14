@@ -10,8 +10,13 @@
 		"id":"4231c04b-f8ba-43c5-866e-b5485d453d9f"
 	},
 	{
-		"balance":0.00,
+		"balance":0.0,
 		"name":"Restaurante",
 		"id":"3b620d58-dd63-49f8-9288-5ecfca1af1ed"
+	},
+	{
+		"balance":0.0,
+		"name":"Restaurante no Fim do Universo",
+		"id":"02e97180-0869-43af-9bd5-73a94f06772b"
 	}
 ]

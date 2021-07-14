@@ -76,8 +76,7 @@ public class LoginController {
         Manager newManager = new Manager(userName, password, newCanteen);
         
         this.managerDAO.post(newManager);
-        this.canteenDAO.post(newCanteen);
-        System.out.println("oii");
+        this.canteenDAO.post(newCanteen);        
     }
     
     public void login(String username, String password) throws Exception{        
@@ -92,7 +91,7 @@ public class LoginController {
                 exists = true;                
                 currentManager = datum;
             }
-        }        
+        }             
                 
         if(!exists){
            throw new Exception("Ta proibido de passa amizade");           
