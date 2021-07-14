@@ -5,26 +5,45 @@
  */
 package models;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
  *
  * @author Dyogo
  */
-public class ItemGroupInCanteen {
+public class ItemGroup {
     String name;
     double price;
     int quantity;
+    String type;
+    ArrayList <Item> items;
 
-    public ItemGroupInCanteen(String name, double price, int quantity) {
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public ItemGroup(String name, String type, double price, int quantity) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
+        this.type = type;
     }
     
-    public ItemGroupInCanteen(String name, double price) {
+    public ItemGroup(String name, double price, String type, Item item) {
         this.name = name;
         this.price = price;        
+        this.type = type;
+        this.items = new ArrayList<>();
+        this.items.add(item);
+    }
+    
+    public void addItem(Item item){        
+        this.items.add(item);
     }
 
     public String getName() {
@@ -51,6 +70,10 @@ public class ItemGroupInCanteen {
         this.quantity = quantity;
     }
     
+    public void increaseQuantity(){
+        this.quantity ++;
+    }
+    
     /**
      *
      * @param o
@@ -66,15 +89,16 @@ public class ItemGroupInCanteen {
   
         /* Check if o is an instance of Complex or not
           "null instanceof [type]" also returns false */
-        if (!(o instanceof ItemGroupInCanteen)) {
+        if (!(o instanceof ItemGroup)) {
             return false;
         }
-          
-        // typecast o to Complex so that we can compare data members 
-        ItemGroupInCanteen c = (ItemGroupInCanteen) o;
+                  
+        ItemGroup c = (ItemGroup) o;
           
         // Compare the data members and return accordingly 
-        return this.name.equals(c.name) && this.price == c.price;
+        boolean comparison = this.name.equals(c.name) && this.price == c.price;
+        System.out.println(comparison);
+        return comparison;
     }
 
     @Override

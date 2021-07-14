@@ -14,6 +14,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import main.Environment;
 import models.Item;
+import models.ItemGroup;
 import view.View;
 
 /**
@@ -26,7 +27,7 @@ public final class CanteenTable extends JTable implements View{
     private final DefaultTableModel model;
    
     
-    public CanteenTable(List<Item> rows){
+    public CanteenTable(List<ItemGroup> rows){
         this.rows = CanteenTable.setRowsToObjectMatrix(rows);
         
         this.model = new DefaultTableModel(this.rows, this.headers);
@@ -35,21 +36,21 @@ public final class CanteenTable extends JTable implements View{
         this.init();
     }
     
-    private static Object[][] setRowsToObjectMatrix(List<Item> rows){
+    private static Object[][] setRowsToObjectMatrix(List<ItemGroup> rows){
         var convertedRows = new Object[rows.size()][4];
         
         for(int i = 0; i < rows.size(); i++){
-            convertedRows[i] = CanteenTable.getCanteenItemsValues(rows.get(i));
+            convertedRows[i] = CanteenTable.getCanteenItemsGroupsValues(rows.get(i));
         }
         
         return convertedRows;
     }
     
-    private static Object[] getCanteenItemsValues(Item item){
-        var name = item.getName();
-        var type = item.getType();
-        var price = item.getPrice();
-        var qtty = CanteenController.calculateQuantityOfItemInCanteen(name, Environment.getCurrentCanteen().getId());
+    private static Object[] getCanteenItemsGroupsValues(ItemGroup itemGroup){
+        var name = itemGroup.getName();
+        var type = itemGroup.getType();
+        var price = itemGroup.getPrice();
+        var qtty = itemGroup.getQuantity();
         
         return new Object[]{name, type, price, qtty};
     }

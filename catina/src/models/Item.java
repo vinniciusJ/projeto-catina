@@ -28,8 +28,7 @@ public class Item implements ModelDatabase{
     
     public Item(JSONObject fields){
         String canteenId = (String) fields.get("canteenId");
-        var canteenDAO = new DAO(Canteen.class);
-        System.out.println("Começa aqui!!! " + canteenId);
+        var canteenDAO = new DAO(Canteen.class);        
         
         this.canteen =  (Canteen) canteenDAO.get(canteenId);        
         this.id = (String) fields.get("id");
@@ -37,9 +36,7 @@ public class Item implements ModelDatabase{
         this.price = (double) fields.get("price");
         this.type = (String) fields.get("type");        
         this.purchaseDate = LocalDate.parse(((String) fields.get("purchaseDate")));        
-        this.saleDate = LocalDate.parse(((String) fields.get("saleDate")));        
-        
-        System.out.println(this.canteen);
+        this.saleDate = LocalDate.parse(((String) fields.get("saleDate")));                
         
     }
     
