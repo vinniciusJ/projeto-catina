@@ -35,10 +35,13 @@ public class ItemGroup {
     }
     
     public ItemGroup(String name, double price, String type, Item item) {
+        System.out.println("opa");
         this.name = name;
         this.price = price;        
         this.type = type;
+        System.out.println("ue");
         this.items = new ArrayList<>();
+        System.out.println("oil");
         this.items.add(item);
     }
     
@@ -99,6 +102,14 @@ public class ItemGroup {
         boolean comparison = this.name.toLowerCase().equals(c.name.toLowerCase()) && this.price == c.price;
         System.out.println(comparison);
         return comparison;
+    }
+
+    public ArrayList<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(ArrayList<Item> items) {
+        this.items = items;
     }
 
     @Override

@@ -65,7 +65,7 @@ public final class ItemPopup extends Popup{
         
         this.nameInput.setText(item.getName());
         this.priceInput.setValue(item.getPrice());
-        this.qttyInput.setValue(CanteenController.calculateQuantityOfItemInCanteen(item.getName(), Environment.getCurrentCanteen().getId()));
+        this.qttyInput.setValue(5);
        
         this.init();
     }

@@ -3,10 +3,13 @@ package controllers;
 import dao.DAO;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 import main.Environment;
 import models.Canteen;
 import models.Item;
 import models.ItemGroup;
+import models.ModelDatabase;
 import view.canteen.CanteenView;
 
 /*
@@ -27,40 +30,15 @@ public class CanteenController{
     public CanteenController(){
         this.itemDAO = new DAO(Item.class);        
         this.canteenDAO = new DAO(Canteen.class);           
-        
-        var groupsInCanteen = new ArrayList<ItemGroup>();        
-        var itens = new ArrayList<Item>();        
-        var manager = Environment.getUser();    
-        
+                          
+        var manager = Environment.getUser();            
         var canteen = manager.getCanteen(); 
-        
-        var iterator = this.itemDAO.get().iterator();  
-        
-        while(iterator.hasNext()){
-            var item = (Item) iterator.next();               
-            var itemCanteenId = (String) item.getCanteen().getId();
-            
-            if (itemCanteenId.equals(canteen.getId())){         
-                itens.add(item);
-                var groupInCanteen = new ItemGroup(item.getName(), item.getPrice(), item.getType(), item);                      
-                boolean inGroups = false;
-                
-                for(ItemGroup group : groupsInCanteen){
-                    if (group.equals(groupInCanteen)){
-                        group.increaseQuantity();
-                        group.addItem(item);
-                        inGroups = true;
-                    }
-                }
-                if (!inGroups){
-                    groupInCanteen.setQuantity(1);
-                    groupsInCanteen.add(groupInCanteen);
-                }                                     
-            }                        
-        }        
-                        
         Environment.setCurrentCanteen(canteen);        
-        this.view = new CanteenView(canteen, itens, groupsInCanteen);
+                
+        var dataItems = (ArrayList) this.itemDAO.get().stream().map(item -> (Item) item).collect(Collectors.toList());            
+        ArrayList groupsInCanteen = CanteenController.createItensGroups(dataItems);       
+                          
+        this.view = new CanteenView(canteen, groupsInCanteen);
     }
     
     public void registerItem(String name, double price, int qtty){
@@ -115,5 +93,51 @@ public class CanteenController{
         
         this.view.setOnViewProfit(data -> this.viewProfit());
     }    
+    
+    public static ArrayList <ItemGroup> createItensGroups(List <Item> itens){
+        var groupsInCanteen = new ArrayList<ItemGroup>();                     
+        var iterator = itens.iterator();
+        var canteen = Environment.getCurrentCanteen();
+        System.out.println("banana");
+        while(iterator.hasNext()){
+            var item = iterator.next();               
+            var itemCanteenId = (String) item.getCanteen().getId();            
+            System.out.println("maça");
+            if (itemCanteenId.equals(canteen.getId())){  
+                System.out.println("teste");
+                var groupInCanteen = new ItemGroup(item.getName(), item.getPrice(), item.getType(), item);                     
+                boolean inGroups = false;
+                System.out.println("abacai");
+                
+                for(ItemGroup group : groupsInCanteen){
+                    if (group.equals(groupInCanteen)){
+                        group.increaseQuantity();
+                        group.addItem(item);
+                        inGroups = true;
+                    }
+                    System.out.println("melancia");
+                }
+                if (!inGroups){
+                    groupInCanteen.setQuantity(1);
+                    groupsInCanteen.add(groupInCanteen);
+                }                                     
+                System.out.println("cabo");
+            }                        
+            
+        }
+        
+        return groupsInCanteen;
+    }
+    
+    public static ArrayList<Item> getItemsFromGroups(List <ItemGroup> itemsGroups){
+        ArrayList<Item> items = new ArrayList <>();
+        itemsGroups.forEach(group -> {
+            var groupItems = group.getItems();
+            groupItems.forEach(item -> {
+                items.add(item);
+            });
+        });
+        return items;
+    }
     
 }

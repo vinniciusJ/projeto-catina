@@ -5,6 +5,7 @@
  */
 package view.canteen;
 
+import controllers.CanteenController;
 import view.canteen.popups.Popup;
 import view.canteen.popups.ItemPopup;
 import java.awt.BorderLayout;
@@ -36,9 +37,8 @@ import view.canteen.popups.ViewProfitPopup;
 public final class CanteenView extends JFrame implements View{
     private final CanteenMenu menu;
     private final Canteen canteen;
-    private CanteenTable itemsTable;
-    List<Item> itens;    
-    List<ItemGroup> groupsInCanteen;
+    private CanteenTable itemsTable;    
+    List<ItemGroup> groupsInCanteen;    
     private Popup currentPopup;
     
     private Consumer<HashMap<String, Object>> onRegisterSale, onRegisterItem, onEdit;
@@ -67,9 +67,9 @@ public final class CanteenView extends JFrame implements View{
                 showNoneItemSelectedMessage();
             }
             else{
-                var selectedItem = itens.get(selectedRow);
+                var selectedGroup = groupsInCanteen.get(selectedRow);
                 
-                showEditItemPopUp(onEdit, selectedItem);
+                showEditGroupPopUp(onEdit, selectedGroup);
             }
         }  
     }
@@ -81,12 +81,12 @@ public final class CanteenView extends JFrame implements View{
         } 
     }
     
-    public CanteenView(Canteen canteen, List <Item> itens, List<ItemGroup> groupsInCanteen){        
-        this.canteen = canteen;   
-        this.itens = itens;
+    public CanteenView(Canteen canteen, List<ItemGroup> groupsInCanteen){        
+        this.canteen = canteen;           
         this.groupsInCanteen = groupsInCanteen;
         this.menu = new CanteenMenu();
         this.itemsTable = new CanteenTable(groupsInCanteen);
+        System.out.println("oi");
         
         this.currentPopup = null;        
         this.init();
@@ -98,7 +98,7 @@ public final class CanteenView extends JFrame implements View{
     }
     
     public void syncItems(List<Item> items){
-        this.itemsTable = new CanteenTable(items);
+        this.itemsTable = new CanteenTable(CanteenController.createItensGroups(items));
         this.paint();
     }
     
@@ -124,15 +124,17 @@ public final class CanteenView extends JFrame implements View{
     }
     
     public void showRegisterSalePopup(Consumer onSubmit){
-        this.showPopup(new SalePopup("Cadastrar venda", new Dimension(500, 280), this.itens), onSubmit);
+        var items = CanteenController.getItemsFromGroups(this.groupsInCanteen);
+        this.showPopup(new SalePopup("Cadastrar venda", new Dimension(500, 280), items), onSubmit);
     }
     
     public void showRegisterItemPopup(Consumer onSubmit){
         this.showPopup(new ItemPopup("Cadastrar Item", new Dimension(500, 280)), onSubmit);
     }
 
-    public void showEditItemPopUp(Consumer onSubmit, Item data){ 
-        this.showPopup(new ItemPopup("Editar Item", new Dimension(500, 280), data), onSubmit);
+    public void showEditGroupPopUp(Consumer onSubmit, ItemGroup data){ 
+        var item = data.getItems().get(0);
+        this.showPopup(new ItemPopup("Editar Item", new Dimension(500, 280), item), onSubmit);
     }
     
     public void showViewProfitPopup(Consumer onSubmit){
