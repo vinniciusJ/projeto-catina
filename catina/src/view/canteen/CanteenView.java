@@ -25,7 +25,6 @@ import javax.swing.JScrollPane;
 import main.Environment;
 import models.Canteen;
 import models.Item;
-import models.ItemGroup;
 import view.View;
 import view.canteen.popups.SalePopup;
 import view.canteen.popups.ViewProfitPopup;
@@ -37,9 +36,9 @@ import view.canteen.popups.ViewProfitPopup;
 public final class CanteenView extends JFrame implements View{
     private final CanteenMenu menu;
     private final Canteen canteen;
-    private CanteenTable itemsTable;    
-    List<ItemGroup> groupsInCanteen;    
+    private CanteenTable itemsTable;        
     private Popup currentPopup;
+    private List<Item> items;
     
     private Consumer<HashMap<String, Object>> onRegisterSale, onRegisterItem, onEdit;
     private Consumer onViewProfit;
@@ -67,7 +66,7 @@ public final class CanteenView extends JFrame implements View{
                 showNoneItemSelectedMessage();
             }
             else{
-                var selectedGroup = groupsInCanteen.get(selectedRow);
+                var selectedGroup = items.get(selectedRow);
                 
                 showEditGroupPopUp(onEdit, selectedGroup);
             }
@@ -81,11 +80,11 @@ public final class CanteenView extends JFrame implements View{
         } 
     }
     
-    public CanteenView(Canteen canteen, List<ItemGroup> groupsInCanteen){        
+    public CanteenView(Canteen canteen, List<Item> items){        
         this.canteen = canteen;           
-        this.groupsInCanteen = groupsInCanteen;
+        this.items = items;
         this.menu = new CanteenMenu();
-        this.itemsTable = new CanteenTable(groupsInCanteen);
+        this.itemsTable = new CanteenTable(items);
         System.out.println("oi");
         
         this.currentPopup = null;        
@@ -98,7 +97,7 @@ public final class CanteenView extends JFrame implements View{
     }
     
     public void syncItems(List<Item> items){
-        this.itemsTable = new CanteenTable(CanteenController.createItensGroups(items));
+        this.itemsTable = new CanteenTable(items);
         this.paint();
     }
     
@@ -123,18 +122,16 @@ public final class CanteenView extends JFrame implements View{
         JOptionPane.showMessageDialog(this, "Por favor, selecione um item para editar", "Editar Item", JOptionPane.ERROR_MESSAGE);
     }
     
-    public void showRegisterSalePopup(Consumer onSubmit){
-        var items = CanteenController.getItemsFromGroups(this.groupsInCanteen);
-        this.showPopup(new SalePopup("Cadastrar venda", new Dimension(500, 280), items), onSubmit);
+    public void showRegisterSalePopup(Consumer onSubmit){        
+        this.showPopup(new SalePopup("Cadastrar venda", new Dimension(500, 280), this.items), onSubmit);
     }
     
     public void showRegisterItemPopup(Consumer onSubmit){
         this.showPopup(new ItemPopup("Cadastrar Item", new Dimension(500, 280)), onSubmit);
     }
 
-    public void showEditGroupPopUp(Consumer onSubmit, ItemGroup data){ 
-        var item = data.getItems().get(0);
-        this.showPopup(new ItemPopup("Editar Item", new Dimension(500, 280), item), onSubmit);
+    public void showEditGroupPopUp(Consumer onSubmit, Item data){         
+        this.showPopup(new ItemPopup("Editar Item", new Dimension(500, 280), data), onSubmit);
     }
     
     public void showViewProfitPopup(Consumer onSubmit){
@@ -167,12 +164,12 @@ public final class CanteenView extends JFrame implements View{
         this.setVisible(true);
     }
 
-    public List<ItemGroup> getGroupsInCanteen() {
-        return groupsInCanteen;
+    public List<Item> getItems() {
+        return items;
     }
 
-    public void setGroupsInCanteen(List<ItemGroup> groupsInCanteen) {
-        this.groupsInCanteen = groupsInCanteen;
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
 
     

@@ -21,10 +21,9 @@ public class Item implements ModelDatabase{
     String id;
     String name;
     double price;
+    long quantity;
     String type;
-    Canteen canteen;
-    LocalDate purchaseDate;
-    LocalDate saleDate;
+    Canteen canteen;    
     
     public Item(JSONObject fields){
         String canteenId = (String) fields.get("canteenId");
@@ -35,25 +34,29 @@ public class Item implements ModelDatabase{
         this.name = (String) fields.get("name");
         this.price = (double) fields.get("price");
         this.type = (String) fields.get("type");        
-        this.purchaseDate = LocalDate.parse(((String) fields.get("purchaseDate")));        
-        this.saleDate = LocalDate.parse(((String) fields.get("saleDate")));                
-        
+        this.quantity = (long) fields.get("quantity");        
     }
     
-    public Item (String name, double price, String type, String canteenId){
+    public Item (String name, double price, String type, String canteenId, long quantity){
         this.id = UUID.randomUUID().toString();
         this.name = name;
         this.price = price;
         this.type = type;
         var canteenDAO = new DAO(Canteen.class);
         this.canteen =  (Canteen) canteenDAO.get(canteenId);                
-        
-        this.purchaseDate = LocalDate.now();
-        this.saleDate = LocalDate.now();
+        this.quantity = quantity;
     }
 
     public Canteen getCanteen() {
         return canteen;
+    }
+
+    public long getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(long quantity) {
+        this.quantity = quantity;
     }
 
     public void setCanteen(Canteen canteen) {
@@ -99,15 +102,9 @@ public class Item implements ModelDatabase{
     public String databaseName() {
         return "Item";
     }    
-
-    @Override
-    public String toString() {
-        return "Item{" + "id=" + id + ", name=" + name + ", price=" + price + ", type=" + type + ", canteen=" + canteen + ", purchaseDate=" + purchaseDate + ", saleDate=" + saleDate + '}';
-    }
-    
-    
+        
     public String toJSONString(){
-        String s = String.format(Locale.ROOT, "{\"id\": \"%s\", \"canteenId\": \"%s\", \"name\": \"%s\", \"price\": %.2f, \"type\": \"%s\", \"purchaseDate\": \"%s\", \"saleDate\": \"%s\"}", this.id, this.canteen.getId(), this.name, this.price, this.type, this.purchaseDate.toString(), this.saleDate.toString());        
+        String s = String.format(Locale.ROOT, "{\"id\": \"%s\", \"canteenId\": \"%s\", \"name\": \"%s\", \"price\": %.2f, \"type\": \"%s\", \"quantity\": \"%s\"}", this.id, this.canteen.getId(), this.name, this.price, this.type, this.quantity);        
         return s;
     }
                    

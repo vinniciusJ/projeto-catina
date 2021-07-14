@@ -2,14 +2,10 @@ package controllers;
 
 import dao.DAO;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.stream.Collectors;
 import main.Environment;
 import models.Canteen;
 import models.Item;
-import models.ItemGroup;
-import models.ModelDatabase;
 import view.canteen.CanteenView;
 
 /*
@@ -35,10 +31,13 @@ public class CanteenController{
         var canteen = manager.getCanteen(); 
         Environment.setCurrentCanteen(canteen);        
                 
-        var dataItems = (ArrayList) this.itemDAO.get().stream().map(item -> (Item) item).collect(Collectors.toList());            
-        ArrayList groupsInCanteen = CanteenController.createItensGroups(dataItems);       
-                          
-        this.view = new CanteenView(canteen, groupsInCanteen);
+        var items = (ArrayList) this.itemDAO.get()
+                .stream()
+                .map(item -> (Item) item)
+                .filter(item -> item.getCanteen().getId().equals(canteen.getId()))
+                .collect(Collectors.toList());                         
+        
+        this.view = new CanteenView(canteen, items);
     }
     
     public void registerItem(String name, double price, int qtty){
@@ -93,51 +92,5 @@ public class CanteenController{
         
         this.view.setOnViewProfit(data -> this.viewProfit());
     }    
-    
-    public static ArrayList <ItemGroup> createItensGroups(List <Item> itens){
-        var groupsInCanteen = new ArrayList<ItemGroup>();                     
-        var iterator = itens.iterator();
-        var canteen = Environment.getCurrentCanteen();
-        System.out.println("banana");
-        while(iterator.hasNext()){
-            var item = iterator.next();               
-            var itemCanteenId = (String) item.getCanteen().getId();            
-            System.out.println("maça");
-            if (itemCanteenId.equals(canteen.getId())){  
-                System.out.println("teste");
-                var groupInCanteen = new ItemGroup(item.getName(), item.getPrice(), item.getType(), item);                     
-                boolean inGroups = false;
-                System.out.println("abacai");
-                
-                for(ItemGroup group : groupsInCanteen){
-                    if (group.equals(groupInCanteen)){
-                        group.increaseQuantity();
-                        group.addItem(item);
-                        inGroups = true;
-                    }
-                    System.out.println("melancia");
-                }
-                if (!inGroups){
-                    groupInCanteen.setQuantity(1);
-                    groupsInCanteen.add(groupInCanteen);
-                }                                     
-                System.out.println("cabo");
-            }                        
-            
-        }
-        
-        return groupsInCanteen;
-    }
-    
-    public static ArrayList<Item> getItemsFromGroups(List <ItemGroup> itemsGroups){
-        ArrayList<Item> items = new ArrayList <>();
-        itemsGroups.forEach(group -> {
-            var groupItems = group.getItems();
-            groupItems.forEach(item -> {
-                items.add(item);
-            });
-        });
-        return items;
-    }
     
 }

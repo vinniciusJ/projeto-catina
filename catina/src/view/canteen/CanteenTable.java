@@ -14,7 +14,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import main.Environment;
 import models.Item;
-import models.ItemGroup;
 import view.View;
 
 /**
@@ -27,7 +26,7 @@ public final class CanteenTable extends JTable implements View{
     private final DefaultTableModel model;
    
     
-    public CanteenTable(List<ItemGroup> rows){
+    public CanteenTable(List<Item> rows){
         this.rows = CanteenTable.setRowsToObjectMatrix(rows);
         
         this.model = new DefaultTableModel(this.rows, this.headers);
@@ -36,7 +35,7 @@ public final class CanteenTable extends JTable implements View{
         this.init();
     }
     
-    private static Object[][] setRowsToObjectMatrix(List<ItemGroup> rows){
+    private static Object[][] setRowsToObjectMatrix(List<Item> rows){
         var convertedRows = new Object[rows.size()][4];
         
         for(int i = 0; i < rows.size(); i++){
@@ -46,11 +45,11 @@ public final class CanteenTable extends JTable implements View{
         return convertedRows;
     }
     
-    private static Object[] getCanteenItemsGroupsValues(ItemGroup itemGroup){
-        var name = itemGroup.getName();
-        var type = itemGroup.getType();
-        var price = itemGroup.getPrice();
-        var qtty = itemGroup.getQuantity();
+    private static Object[] getCanteenItemsGroupsValues(Item item){
+        var name = item.getName();
+        var type = item.getType();
+        var price = item.getPrice();
+        var qtty = item.getQuantity();
         
         return new Object[]{name, type, price, qtty};
     }
