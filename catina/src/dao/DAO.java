@@ -38,7 +38,7 @@ public class DAO {
     }        
         
     public void delete(ModelStandart object) {
-        String data = object.toString();
+        String data = object.toJSONString();
         
         this.connection.delete(data);        
     }
@@ -74,8 +74,8 @@ public class DAO {
         this.connection.write(object.toJSONString());
     }
     
-    public void put(ModelStandart oldObject, ModelStandart newObject) {
-        this.connection.replace(oldObject.toString(), newObject.toString());
+    public void put(ModelStandart object) {
+        this.connection.replace(object.getId(), object.toJSONString());
     }
     
     private ModelStandart parseData(JSONObject data){          
