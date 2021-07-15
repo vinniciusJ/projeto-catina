@@ -5,28 +5,20 @@
  */
 package view.canteen.popups;
 
-import controllers.CanteenController;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.HashMap;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
-
 import javax.swing.BorderFactory;
-
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
-import main.Environment;
 import models.ItemOnSale;
 
 /**
@@ -34,7 +26,7 @@ import models.ItemOnSale;
  * @author Vinicius Jimenez
  */
 public final class ItemPopup extends Popup{
-    private final JTextField nameInput;
+    private final JTextField nameInput, typeInput;
     private final JSpinner priceInput, qttyInput;
     private final boolean isEditing;
 
@@ -46,10 +38,12 @@ public final class ItemPopup extends Popup{
         this.isEditing = false;
            
         this.nameInput = new JTextField();
+        this.typeInput = new JTextField();
         this.priceInput = new JSpinner(new SpinnerNumberModel(0, 0, 100.0, 0.1));
         this.qttyInput = new JSpinner(new SpinnerNumberModel(0, 0, 100, 1));
        
         this.init();
+        this.paint();
     }
     
     public ItemPopup(String title, Dimension dimension, ItemOnSale item){
@@ -60,15 +54,19 @@ public final class ItemPopup extends Popup{
         this.isEditing = true;
            
         this.nameInput = new JTextField();
+        this.typeInput = new JTextField();
         this.priceInput = new JSpinner(new SpinnerNumberModel(0, 0, 100.0, 0.1));
         this.qttyInput = new JSpinner(new SpinnerNumberModel(0, 0, 100, 1));
         
         this.nameInput.setText(item.getName());
         this.priceInput.setValue(item.getPrice());
         this.qttyInput.setValue(item.getQuantity());
+        this.typeInput.setText(item.getType());
        
         this.init();
+        this.paint();
     }
+
     
     private class SaveItemHandler implements ActionListener{
         private final Consumer<HashMap<String, Object>> callback;
@@ -83,50 +81,83 @@ public final class ItemPopup extends Popup{
                 put("name", nameInput.getText());
                 put("price", priceInput.getValue());
                 put("qtty", qttyInput.getValue());
-                put("type", "assado");
+                put("type", typeInput.getText());
             }};
+           
             
             if(isEditing){
                 args.put("canteenItem", item);
             }
             
-            this.callback.accept(args);
+            if(!this.isAllFieldsFilled()){
+                showWarningMessage("Por favor, preencha todos os campos adequadamente");
+            }
+            else{            
+                this.callback.accept(args);
+
+                closePopup();
+            }
+        }
+        
+        public boolean isAnValidString(String string){
+            return !(string.isBlank() || string.isEmpty());
+        }
+        
+        public boolean isAllFieldsFilled(){
+            var nameField = this.isAnValidString(nameInput.getText());
+            var typeField = this.isAnValidString(typeInput.getText());
+            var priceField = ((double) priceInput.getValue()) != 0;
+            var qttyField = ((int) qttyInput.getValue()) != 0;
             
-            closePopup();
+            System.out.println(nameField);
+            System.out.println(typeField);
+            System.out.println(priceField);
+            System.out.println(qttyField);
+            
+            return nameField && typeField && priceField && qttyField;
         }
     }
 
     
     public void init(){
-        var popupPanel = new JPanel();
+        var defaultButtonBorder = this.saveButton.getBorder();
+        var defaultInputPadding = BorderFactory.createCompoundBorder(this.nameInput.getBorder(), new EmptyBorder(3, 10, 3, 10));
+        var buttonsFonts = new Font("Sans-Serif", Font.PLAIN, 16);
+                
+        this.saveButton.setFont(buttonsFonts);
+        this.closeButton.setFont(buttonsFonts);
         
+        this.nameInput.setBorder(defaultInputPadding);
+        this.typeInput.setBorder(defaultInputPadding);
+        this.priceInput.setBorder(defaultInputPadding);
+        this.qttyInput.setBorder(defaultInputPadding);
+        
+        this.saveButton.setBorder(BorderFactory.createCompoundBorder(defaultButtonBorder, new EmptyBorder(10, 25, 10, 25)));
+        this.closeButton.setBorder(BorderFactory.createCompoundBorder(defaultButtonBorder, new EmptyBorder(10, 15, 10, 15)));
+    }
+    
+    
+    private void paint() {
+        var popupPanel = new JPanel();
         var formContainer = new JPanel();
         var optionsContainer = new JPanel();
         
-        this.nameInput.setSize(200, 100);
-        
-        var nameInputContainer = this.createInputContainer("Nome do Produto: ", this.nameInput);
-        var priceInputContainer = this.createInputContainer("Preço: ", this.priceInput);
-        var qttyInputContainer = this.createInputContainer("Quantidade: ", this.qttyInput);        
-        
-        var defaultButtonBorder = this.saveButton.getBorder();
-        var buttonsFonts = new Font("Sans-Serif", Font.PLAIN, 16);
+        var nameInputContainer = Popup.createInputContainer("Nome do Produto: ", this.nameInput);
+        var typeInputContainer = Popup.createInputContainer("Tipo do Produto: ", this.typeInput);
+        var priceInputContainer = Popup.createInputContainer("Preço: ", this.priceInput);
+        var qttyInputContainer = Popup.createInputContainer("Quantidade: ", this.qttyInput);
         
         nameInputContainer.setBorder(new EmptyBorder(0, 0, 0, 20));
+        typeInputContainer.setBorder(new EmptyBorder(0, 0, 0, 20));
         priceInputContainer.setBorder(new EmptyBorder(0, 0, 0, 20));
         
         formContainer.setBorder(new EmptyBorder(20, 0, 20, 0));
         formContainer.setLayout(new GridBagLayout());
        
-        this.setComponentInHorizontalGrid(formContainer, nameInputContainer, 0, 0, 2);
-        this.setComponentInHorizontalGrid(formContainer, priceInputContainer, 2, 0, 1);
-        this.setComponentInHorizontalGrid(formContainer, qttyInputContainer, 3, 0, 1);
-        
-        this.saveButton.setFont(buttonsFonts);
-        this.closeButton.setFont(buttonsFonts);
-        
-        this.saveButton.setBorder(BorderFactory.createCompoundBorder(defaultButtonBorder, new EmptyBorder(10, 25, 10, 25)));
-        this.closeButton.setBorder(BorderFactory.createCompoundBorder(defaultButtonBorder, new EmptyBorder(10, 15, 10, 15)));
+        Popup.setComponentInHorizontalGrid(formContainer, nameInputContainer, 0, 0, 2);
+        Popup.setComponentInHorizontalGrid(formContainer, typeInputContainer, 2, 0, 1);
+        Popup.setComponentInHorizontalGrid(formContainer, priceInputContainer, 3, 0, 1);
+        Popup.setComponentInHorizontalGrid(formContainer, qttyInputContainer, 4, 0, 1);
         
         optionsContainer.setBorder(new EmptyBorder(20, 0, 20, 0));  
         

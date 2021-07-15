@@ -132,11 +132,11 @@ public final class CanteenView extends JFrame implements View{
     }
     
     public void showRegisterItemPopup(Consumer onSubmit){
-        this.showPopup(new ItemPopup("Cadastrar Item", new Dimension(500, 280)), onSubmit);
+        this.showPopup(new ItemPopup("Cadastrar Item", new Dimension(580, 280)), onSubmit);
     }
 
     public void showEditGroupPopUp(Consumer onSubmit, ItemOnSale data){         
-        this.showPopup(new ItemPopup("Editar Item", new Dimension(500, 280), data), onSubmit);
+        this.showPopup(new ItemPopup("Editar Item", new Dimension(600, 280), data), onSubmit);
     }
     
     public void showViewProfitPopup(Consumer onSubmit){

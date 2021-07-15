@@ -188,9 +188,7 @@ public final class SalePopup extends Popup{
     }
    
     
-    public void showWarningMessage(String message){
-        JOptionPane.showMessageDialog(this, message, "Editar Item", JOptionPane.ERROR_MESSAGE);
-    }
+    
 
     @Override
     public void onSave(Consumer<HashMap<String, Object>> callback) {

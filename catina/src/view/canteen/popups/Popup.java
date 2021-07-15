@@ -20,6 +20,7 @@ import java.util.function.Supplier;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import main.Environment;
@@ -105,5 +106,9 @@ public abstract class Popup extends JFrame{
         panel.add(input);
         
         return panel;
+    }
+    
+    public void showWarningMessage(String message){
+        JOptionPane.showMessageDialog(this, message, "Editar Item", JOptionPane.ERROR_MESSAGE);
     }
 }

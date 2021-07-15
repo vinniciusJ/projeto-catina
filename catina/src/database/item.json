@@ -32,11 +32,12 @@
 		"type":"assado"
 	},
 	{
-		"id": "fbfe8041-5a55-4f46-a193-284e60c08240",
-		 "canteenId": "f9b8d77c-1fc3-40e6-b46f-0338f03d2850",
-		 "name": "Batata",
-		 "price": 1.25,
-		 "type": "assado",
-		 "quantity": 8
+		"canteenId":"f9b8d77c-1fc3-40e6-b46f-0338f03d2850",
+		"quantity":8,
+		"price":1.25,
+		"name":"Batata",
+		"id":"fbfe8041-5a55-4f46-a193-284e60c08240",
+		"type":"assado"
 	}
+	
 ]
