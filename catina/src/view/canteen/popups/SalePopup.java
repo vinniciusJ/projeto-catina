@@ -5,27 +5,22 @@
  */
 package view.canteen.popups;
 
-import controllers.CanteenController;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Consumer;
 import javax.swing.BorderFactory;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import models.Item;
 
 /**
@@ -33,32 +28,18 @@ import models.Item;
  * @author Vinicius Jimenez
  */
 public final class SalePopup extends Popup{
-    private final List<Item> options;
-    private final JComboBox<String> selectInput;
-    private final JSpinner quantityInput;
-    private final JLabel estimatedValue;
-    private Item selectedItem;
-    private int selectedQtty;
+    private final JButton addSoldItem;
+    private final List<Item> items;
+    private final List<SaleInputContainer> itemsInputs;
  
     public SalePopup(String title, Dimension dimension, List<Item> options) {
         super(title, dimension);
-
-        this.options = options;
-
-        var castedOptions = new String[this.options.size() + 1];
+       
         
-        castedOptions[0] = "Selecione um item";
+        this.items = options;
         
-        for(int i = 1; i < castedOptions.length; i++){
-            castedOptions[i] = this.options.get(i - 1).getName();
-        }
-
-        this.selectedItem = null;
-        this.selectedQtty = 0;
-        
-        this.estimatedValue = new JLabel();
-        this.selectInput = new JComboBox<>(castedOptions);
-        this.quantityInput = new JSpinner();
+        this.addSoldItem = new JButton();
+        this.itemsInputs = new ArrayList<>();
         
         this.init();
         this.paint();
@@ -73,114 +54,42 @@ public final class SalePopup extends Popup{
         
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(selectedItem != null){
-                if(selectedQtty != 0){
-                    var args = new HashMap<String, Object>(){{
-                        put("item", selectedItem);
-                        put("qtty", selectedQtty);
-                    }};
 
-                    this.callback.accept(args);
-                    
-                    closePopup();
-                }
-                else{
-                    showWarningMessage("Não é possível realizar a venda de nenhuma unidade");
-                }
-            }
-            else{
-                showWarningMessage("Por favor, selecione um item para fazer a venda");
-            }
         }
     }
     
-    private class SelectInputHandler implements ActionListener{
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            var selectedItemId = selectInput.getSelectedIndex();
-            
-            if(selectedItemId != 0){
-                var item = (Item) options.get(selectedItemId - 1);
-                var canteenId = item.getCanteen().getId();
-                
-                var maximum = CanteenController.calculateQuantityOfItemInCanteen(item.getName(), canteenId);
-                
-                selectedItem = item;
-                
-                quantityInput.setEnabled(true);
-                quantityInput.setModel(new SpinnerNumberModel(0, 0, maximum, 1));
-            }
-            else{
-                selectedItem = null;
-                
-                estimatedValue.setText("R$ 00,00");
-                quantityInput.setValue(0);
-                quantityInput.setEnabled(false);
-            }
-        } 
-    }
-    
-    private class EstimatedValueHandler implements ChangeListener{
-        @Override
-        public void stateChanged(ChangeEvent e) {
-            if(selectedItem != null){
-                var decimalFormat = new DecimalFormat("#.00");
-                var result = selectedItem.getPrice() * (int) quantityInput.getValue();
-                
-                estimatedValue.setText("R$ " + decimalFormat.format(result));
-                selectedQtty = (int) quantityInput.getValue();
-            }
-        }  
-    }
     
     public void init(){
         var defaultButtonBorder = this.saveButton.getBorder();
         var buttonsFonts = new Font("Sans-Serif", Font.PLAIN, 16);
+     
+        this.itemsInputs.add(new SaleInputContainer(this.items));
+        this.itemsInputs.add(new SaleInputContainer(this.items));
         
-        this.quantityInput.setEnabled(false);
-        
-        this.estimatedValue.setText("R$ 00,00");
-        this.estimatedValue.setFont(new Font("Sans-Serif", Font.PLAIN, 15));
-        
+
         this.saveButton.setFont(buttonsFonts);
         this.closeButton.setFont(buttonsFonts);
         
         this.saveButton.setBorder(BorderFactory.createCompoundBorder(defaultButtonBorder, new EmptyBorder(10, 25, 10, 25)));
         this.closeButton.setBorder(BorderFactory.createCompoundBorder(defaultButtonBorder, new EmptyBorder(10, 15, 10, 15))); 
-        
-        this.selectInput.addActionListener(new SelectInputHandler());
-        this.quantityInput.addChangeListener(new EstimatedValueHandler());
-
     }
     
     public void paint(){
         var popupPanel = new JPanel();
-        
-        var formContainer = new JPanel();
+        var inputsContainer = new JPanel();
         var optionsContainer = new JPanel(); 
         
-        var selectInputContainer = this.createInputContainer("Nome do produto: ", this.selectInput);
-        var qttyInputContainer = this.createInputContainer("Quantidade: ", this.quantityInput);
-        var estimatedValueContainer = this.createInputContainer("Valor: ", this.estimatedValue);
-        
-        selectInputContainer.setBorder(new EmptyBorder(0, 0, 0, 20));
-        qttyInputContainer.setBorder(new EmptyBorder(0, 0, 0, 20));
-        
-        formContainer.setBorder(new EmptyBorder(20, 0, 20, 0));
-        formContainer.setLayout(new GridBagLayout());
-        
-        this.setComponentInHorizontalGrid(formContainer, selectInputContainer, 0, 0, 2);
-        this.setComponentInHorizontalGrid(formContainer, qttyInputContainer, 2, 0, 1);
-        this.setComponentInHorizontalGrid(formContainer, estimatedValueContainer, 3, 0, 1);
+        inputsContainer.setLayout(new GridLayout(this.itemsInputs.size(), 1));
         
         optionsContainer.setBorder(new EmptyBorder(20, 0, 20, 0));  
+        optionsContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 0));
         
         optionsContainer.add(this.saveButton);
         optionsContainer.add(this.closeButton);
         
-        optionsContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 0));
-
-        popupPanel.add(formContainer);
+        this.itemsInputs.forEach(input -> inputsContainer.add(input));
+        
+        popupPanel.add(inputsContainer);
         popupPanel.add(optionsContainer);
         
         this.addChildren(popupPanel);

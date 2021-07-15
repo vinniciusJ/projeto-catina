@@ -76,7 +76,7 @@ public abstract class Popup extends JFrame{
         this.add(children);
     }
     
-    public void setComponentInHorizontalGrid(JPanel parent, Component component, int x, int y, int width){
+    public static void setComponentInHorizontalGrid(JPanel parent, Component component, int x, int y, int width){
         var constraints = new GridBagConstraints();
         
         constraints.gridx = x;
@@ -95,7 +95,7 @@ public abstract class Popup extends JFrame{
         this.dispose();
     }
     
-    public JPanel createInputContainer(String labelText, Component input){
+    public static JPanel createInputContainer(String labelText, Component input){
         var panel = new JPanel();
         var label = new JLabel(labelText);
         
