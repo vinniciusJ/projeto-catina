@@ -12,7 +12,7 @@ import java.util.UUID;
  * @author Dyogo
  */
 public abstract class ModelStandart {
-    String id;
+    protected String id;
 
     public String getId() {
         return id;

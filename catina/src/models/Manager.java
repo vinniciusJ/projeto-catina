@@ -14,9 +14,9 @@ import org.json.simple.JSONObject;
  * @author Dyogo
  */
 public class Manager extends ModelStandart{    
-    String name;
-    String password;    
-    Canteen canteen;
+    private String name;
+    private String password;    
+    private Canteen canteen;
     
     public Manager(JSONObject fields){
         this.id = (String) fields.get("id");
@@ -33,6 +33,7 @@ public class Manager extends ModelStandart{
         this.canteen = canteen;
         this.setId();
     }
+    public Manager(){}
 
     public Canteen getCanteen() {
         return canteen;
@@ -42,7 +43,6 @@ public class Manager extends ModelStandart{
         this.canteen = canteen;
     }
     
-    public Manager(){}
 
     public String getName() {
         return name;
@@ -75,7 +75,5 @@ public class Manager extends ModelStandart{
         String s = String.format(Locale.ROOT, "{\"id\": \"%s\", \"canteenId\": \"%s\", \"name\": \"%s\", \"password\": \"%s\"}", this.id, this.canteen.getId(), this.name, this.password);        
         return s;
     }
-    
-    
-    
+            
 }
