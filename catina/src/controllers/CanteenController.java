@@ -76,7 +76,7 @@ public class CanteenController{
         items.forEach(item -> {
             SoldItem soldItem = new SoldItem(item, itemsQtty.get(item), sale);
             this.itemSoldDAO.post(soldItem);
-            this.editItem(item, item.getName(), item.getPrice(), itemsQtty.get(item));            
+            this.editItem(item, item.getName(), item.getPrice(), (int) item.getQuantity() - itemsQtty.get(item));            
         });
     }
     
