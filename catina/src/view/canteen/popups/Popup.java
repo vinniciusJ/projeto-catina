@@ -10,6 +10,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -99,11 +101,11 @@ public abstract class Popup extends JFrame{
         var panel = new JPanel();
         var label = new JLabel(labelText);
         
-        label.setHorizontalAlignment(JLabel.LEFT);
+        label.setAlignmentX(Component.LEFT_ALIGNMENT);
         label.setFont(new Font("Sans-Serif", Font.BOLD, 16));
         label.setBorder(new EmptyBorder(0, 0, 15, 0));
         
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setLayout(new GridLayout(2, 1));
         panel.add(label);
         panel.add(input);
         

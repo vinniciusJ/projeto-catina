@@ -198,7 +198,6 @@ public final class RegisterView extends JFrame implements View{
         label.setBorder(new EmptyBorder(0, 0, 20, 0));
         label.setFont(new Font("Sans-Serif", Font.PLAIN, 16));
            
-        
         panel.setLayout(new GridLayout(2, 1));
         
         panel.add(label);

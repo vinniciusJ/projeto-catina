@@ -2,6 +2,7 @@ package controllers;
 
 import dao.DAO;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.stream.Collectors;
 import main.Environment;
 import models.Canteen;
@@ -87,10 +88,16 @@ public class CanteenController{
         });
         
         this.view.setOnRegisterSale(data -> {
-            var item = (Item) data.get("item");
-            var qtty = (Integer) data.get("qtty");
+            var items = (ArrayList<Item>) data.get("items");
+            var itemsQtty = (HashMap<Item, Integer>) data.get("itemsQtty");
             
-            this.saleItem(item, qtty);
+            // para acessar a qtty de um item -> itemsQtty.qtty(item); onde item é uma instancia de Item
+            
+            items.forEach(item -> {
+                System.out.println(item.getName() + " " + itemsQtty.get(item));
+            });
+            
+            //this.saleItem(item, qtty);
         });
         
         this.view.setOnViewProfit(data -> this.viewProfit());
