@@ -55,7 +55,7 @@ public final class ItemPopup extends Popup{
            
         this.nameInput = new JTextField(item.getName());
         this.typeInput = new JTextField(item.getType());
-        this.qttyInput = new JSpinner(new SpinnerNumberModel(item.getQuantity(), 0, 100, 1));
+        this.qttyInput = new JSpinner(new SpinnerNumberModel((int) item.getQuantity(), 0, 100, 1));
         this.priceInput = new JSpinner(new SpinnerNumberModel(item.getPrice(), 0, 100.0, 0.1));
  
         this.init();
@@ -68,11 +68,7 @@ public final class ItemPopup extends Popup{
         }
         
         @Override
-        public void actionPerformed(ActionEvent e) {
-            double qttyInputDouble = (double) qttyInput.getValue();
-            int qttyInputInt = (int) qttyInputDouble;            
-            qttyInput.setValue(qttyInputInt);
-            
+        public void actionPerformed(ActionEvent e) {            
             var args = new HashMap<String, Object>(){{
                 put("name", nameInput.getText());
                 put("price", priceInput.getValue());
