@@ -9,7 +9,7 @@
 	},
 	{
 		"canteenId":"4231c04b-f8ba-43c5-866e-b5485d453d9f",
-		"quantity":12,
+		"quantity":2,
 		"price":1.75,
 		"name":"Batata",
 		"id":"412dc161-a3dc-4fc8-a364-6fd35c31abde",
@@ -24,12 +24,12 @@
 		"type":"Assado"
 	},
 	{
-		"canteenId":"4231c04b-f8ba-43c5-866e-b5485d453d9f",
-		"quantity":8,
-		"price":2.1,
-		"name":"Bolo",
-		"id":"cc7170c7-e2b0-40fe-bab5-f5e0445216bf",
-		"type":"assado"
+		"id": "cc7170c7-e2b0-40fe-bab5-f5e0445216bf",
+		 "canteenId": "4231c04b-f8ba-43c5-866e-b5485d453d9f",
+		 "name": "Bolo",
+		 "price": 2.10,
+		 "type": "assado",
+		 "quantity": 1
 	},
 	{
 		"canteenId":"f9b8d77c-1fc3-40e6-b46f-0338f03d2850",
@@ -39,5 +39,4 @@
 		"id":"fbfe8041-5a55-4f46-a193-284e60c08240",
 		"type":"assado"
 	}
-	
 ]

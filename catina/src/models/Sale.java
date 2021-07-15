@@ -7,6 +7,7 @@ package models;
 
 import dao.DAO;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.Locale;
 import org.json.simple.JSONObject;
 
@@ -17,6 +18,7 @@ import org.json.simple.JSONObject;
 public final class Sale extends ModelStandart{
     LocalDate date;
     Canteen canteen;
+    double totalCost;
     
     public Sale (JSONObject fields){
         this.id = (String) fields.get("id");        
@@ -31,9 +33,20 @@ public final class Sale extends ModelStandart{
         this.date = LocalDate.now();
     }
     
+    public Sale(){} 
     public void setCanteen(String canteenId){
         var canteenDAO = new DAO(Canteen.class);
         this.canteen = (Canteen) canteenDAO.get(canteenId);               
+    }
+    
+    public void setTotalCost(HashMap<ItemOnSale, Integer> itemsQtty){
+        double cost = 0;
+        cost = itemsQtty
+                .keySet()
+                .stream()
+                .map((item) -> (item.price) * itemsQtty.get(item))
+                .reduce(cost, (accumulator, _item) -> accumulator + _item);
+        this.totalCost = cost;
     }
     
     
@@ -44,7 +57,8 @@ public final class Sale extends ModelStandart{
 
     @Override
     public String toJSONString() {
-         String s = String.format(Locale.ROOT, "{\"id\": \"%s\", \"canteenId\": \"%s\", \"date\": \"%s\"}", this.id, this.canteen.getId(), this.date.toString());        
+         String s = String.format(Locale.ROOT, "{\"id\": \"%s\", \"canteenId\": \"%s\", \"totalCost\": \"%.2f\", \"date\": \"%s\"}",
+                 this.id, this.canteen.getId(), this.totalCost, this.date.toString());        
         return s;
     }
     

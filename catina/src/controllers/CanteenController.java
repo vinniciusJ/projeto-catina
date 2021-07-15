@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 import main.Environment;
 import models.Canteen;
 import models.ItemOnSale;
+import models.Sale;
+import models.SoldItem;
 import view.canteen.CanteenView;
 
 /*
@@ -21,12 +23,14 @@ import view.canteen.CanteenView;
  */
 public class CanteenController{
     private final DAO itemDAO;
-    private final DAO canteenDAO;
+    private final DAO itemSoldDAO;
+    private final DAO saleDAO;    
     private final CanteenView view;
     
     public CanteenController(){        
-        this.itemDAO = new DAO(ItemOnSale.class);        
-        this.canteenDAO = new DAO(Canteen.class);           
+        this.itemDAO = new DAO(ItemOnSale.class);   
+        this.itemSoldDAO = new DAO(SoldItem.class);   
+        this.saleDAO = new DAO(Sale.class);           
         
         var manager = Environment.getUser();            
         var canteen = manager.getCanteen(); 
@@ -64,9 +68,16 @@ public class CanteenController{
         this.itemDAO.put(canteenItem);           
    }
     
-    public void registerSale(ItemOnSale item, int qtty){
-        System.out.println(item);
-        System.out.println(qtty);  
+    public void registerSale(ArrayList<ItemOnSale> items, HashMap<ItemOnSale, Integer> itemsQtty){
+        Sale sale = new Sale(Environment.getCurrentCanteen().getId());
+        sale.setTotalCost(itemsQtty);
+        this.saleDAO.post(sale);
+        
+        items.forEach(item -> {
+            SoldItem soldItem = new SoldItem(item, itemsQtty.get(item), sale);
+            this.itemSoldDAO.post(soldItem);
+            this.editItem(item, item.getName(), item.getPrice(), itemsQtty.get(item));            
+        });
     }
     
     public void viewProfit(){
@@ -96,14 +107,9 @@ public class CanteenController{
         this.view.setSaleRegisterHandler(data -> {
             var items = (ArrayList<ItemOnSale>) data.get("items");
             var itemsQtty = (HashMap<ItemOnSale, Integer>) data.get("itemsQtty");
-            
+            this.registerSale(items, itemsQtty);
             // para acessar a qtty de um item -> itemsQtty.qtty(item); onde item é uma instancia de Item
-            
-            items.forEach(item -> {
-                System.out.println(item.getName() + " " + itemsQtty.get(item));
-            });
-            
-            //this.saleItem(item, qtty);
+                                    
         });
         
         this.view.setViewProfitHandler(data -> this.viewProfit());

@@ -16,19 +16,29 @@ import org.json.simple.JSONObject;
 public final class SoldItem extends ModelStandart{
     Sale sale;
     long qtty;
-    long unitaryPrice;
-    long totalCost;
+    double unitaryPrice;
+    double totalCost;
     
     
     public SoldItem(JSONObject fields){
         this.id = (String) fields.get("id");        
         this.qtty = (long) fields.get("qtty");        
-        this.unitaryPrice = (long) fields.get("unitaryPrice");
-        this.totalCost = (long) fields.get("totalCost");
+        this.unitaryPrice = (double) fields.get("unitaryPrice");
+        this.totalCost = (double) fields.get("totalCost");
         
         String saleId = (String) fields.get("saleId");        
         this.setSale(saleId);
     }
+    
+    public SoldItem(ItemOnSale itemSold, int qtty, Sale sale){
+        this.setId();
+        this.qtty = qtty;
+        this.unitaryPrice = itemSold.getPrice();
+        this.totalCost = this.unitaryPrice * this.qtty;
+        this.sale = sale;
+    }
+    
+    public SoldItem(){}
     
     public void setSale(String saleId){
         var saleDAO = new DAO(Sale.class);
@@ -42,7 +52,7 @@ public final class SoldItem extends ModelStandart{
 
     @Override
     public String toJSONString() {
-        String s = String.format(Locale.ROOT, "{\"id\": \"%s\", \"saleId\": \"%s\", \"unitaryPrice\": \"%s\", \"totalCost\": \"%s\", \"qtty\": \"%s\"}", 
+        String s = String.format(Locale.ROOT, "{\"id\": \"%s\", \"saleId\": \"%s\", \"unitaryPrice\": \"%.2f\", \"totalCost\": \"%.2f\", \"qtty\": \"%s\"}", 
                 this.id, this.sale.getId(), this.unitaryPrice, this.totalCost, this.qtty );        
         return s;
     }

@@ -1,0 +1,16 @@
+[	
+	{
+		"unitaryPrice":"1.75",
+		"saleId":"05cb5772-423b-4276-a324-0dd9d6bd0718",
+		"id":"ae16aab1-71bf-4432-8e55-cea3080597ec",
+		"qtty":"2",
+		"totalCost":"3.50"
+	},
+	{
+		"unitaryPrice":"2.10",
+		"saleId":"05cb5772-423b-4276-a324-0dd9d6bd0718",
+		"id":"7a7a49e1-d2ee-40ba-813b-a9fb3f87125d",
+		"qtty":"1",
+		"totalCost":"2.10"
+	}
+]

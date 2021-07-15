@@ -43,6 +43,8 @@ public class ItemOnSale extends ModelStandart{
         this.canteen =  (Canteen) canteenDAO.get(canteenId);                
         this.quantity = quantity;
     }
+    
+    public ItemOnSale(){}
 
     public Canteen getCanteen() {
         return canteen;
@@ -67,9 +69,7 @@ public class ItemOnSale extends ModelStandart{
     @Override
     public String getId() {
         return id;
-    }
-    
-    public ItemOnSale(){}
+    }        
 
     public String getName() {
         return name;
