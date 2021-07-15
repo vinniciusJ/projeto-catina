@@ -10,14 +10,12 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.HashMap;
 import java.util.function.Consumer;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -28,15 +26,14 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import main.Environment;
-import view.EventHandler;
-import view.View;
-import view.canteen.popups.Popup;
+import view.ClickEventHandler;
+import view.ComponentInterface;
 
 /**
  *
  * @author Vinicius Jimenez
  */
-public final class RegisterView extends JFrame implements View{
+public final class RegisterView extends JFrame implements ComponentInterface{
     private final JTextField userNameInput, canteenNameInput;
     private final JPasswordField userPasswordInput;
     private final JButton saveButton, cancelButton;
@@ -52,7 +49,7 @@ public final class RegisterView extends JFrame implements View{
         this.paint();
     }
     
-    private class CancelOperationHandler extends EventHandler{
+    private class CancelOperationHandler extends ClickEventHandler{
         CancelOperationHandler(Consumer callback){
             super(callback);
         }
@@ -63,7 +60,7 @@ public final class RegisterView extends JFrame implements View{
         } 
     }
     
-    private class RegisterUserHandler extends EventHandler{
+    private class RegisterUserHandler extends ClickEventHandler{
         RegisterUserHandler(Consumer callback){
             super(callback);
         }
@@ -99,6 +96,48 @@ public final class RegisterView extends JFrame implements View{
         }
     }
     
+    public void close(){
+        this.setVisible(false);
+        this.dispose();
+    }
+    
+    public void onSave(Consumer<HashMap<String, Object>> callback){
+        this.saveButton.addActionListener(new RegisterUserHandler(callback));
+    }
+    
+    public void onCancel(Consumer<HashMap<String, Object>> callback){
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                callback.accept(null);
+            }
+        });
+        
+        this.cancelButton.addActionListener(new CancelOperationHandler(callback));
+    }
+    
+    private void showFillingAllFieldsMessage(){
+        JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos para registrar-se", "Registre-se", JOptionPane.WARNING_MESSAGE);
+    }
+    
+    private JPanel createInputContainer(String labelText, Component input){
+        var panel = new JPanel();
+        var label = new JLabel(labelText);
+        
+        label.setBorder(new EmptyBorder(0, 0, 20, 0));
+        label.setFont(new Font("Sans-Serif", Font.PLAIN, 16));
+           
+        panel.setLayout(new GridLayout(2, 1));
+        
+        panel.add(label);
+        panel.add(input);
+        
+        label.setAlignmentX(Component.LEFT_ALIGNMENT);
+        
+        return panel;
+    }
+    
+        
     @Override
     public void init() {
         this.setSize(720, 480); 
@@ -162,49 +201,7 @@ public final class RegisterView extends JFrame implements View{
         this.add(title, BorderLayout.NORTH);
         this.add(mainContainer, BorderLayout.CENTER);
         this.add(optionsContainer, BorderLayout.SOUTH);
-        
-        
+
         this.setVisible(true);
-    }
-    
-    public void close(){
-        this.setVisible(false);
-        this.dispose();
-    }
-    
-    public void onSave(Consumer<HashMap<String, Object>> callback){
-        this.saveButton.addActionListener(new RegisterUserHandler(callback));
-    }
-    
-    public void onCancel(Consumer<HashMap<String, Object>> callback){
-        this.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                callback.accept(null);
-            }
-        });
-        
-        this.cancelButton.addActionListener(new CancelOperationHandler(callback));
-    }
-    
-    private void showFillingAllFieldsMessage(){
-        JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos para registrar-se", "Registre-se", JOptionPane.WARNING_MESSAGE);
-    }
-    
-    private JPanel createInputContainer(String labelText, Component input){
-        var panel = new JPanel();
-        var label = new JLabel(labelText);
-        
-        label.setBorder(new EmptyBorder(0, 0, 20, 0));
-        label.setFont(new Font("Sans-Serif", Font.PLAIN, 16));
-           
-        panel.setLayout(new GridLayout(2, 1));
-        
-        panel.add(label);
-        panel.add(input);
-        
-        label.setAlignmentX(Component.LEFT_ALIGNMENT);
-        
-        return panel;
     }
 }

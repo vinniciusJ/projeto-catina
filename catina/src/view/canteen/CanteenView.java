@@ -5,61 +5,64 @@
  */
 package view.canteen;
 
-import controllers.CanteenController;
 import view.canteen.popups.Popup;
 import view.canteen.popups.ItemPopup;
 import java.awt.BorderLayout;
-
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import java.util.function.Consumer;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+
 import main.Environment;
 import models.Canteen;
 import models.ItemOnSale;
-import view.View;
+import view.ClickEventHandler;
 import view.canteen.popups.SalePopup;
-import view.canteen.popups.ViewProfitPopup;
+import view.ComponentInterface;
 
 /**
  *
  * @author Vinicius Jimenez
  */
-public final class CanteenView extends JFrame implements View{
+public final class CanteenView extends JFrame implements ComponentInterface{
     private final CanteenMenu menu;
     private final Canteen canteen;
-    
     private CanteenTable itemsTable;
     private List<ItemOnSale> items;
-     
     private Popup currentPopup;
-    
-    private Consumer<HashMap<String, Object>> onRegisterSale, onRegisterItem, onEdit;
-    private Consumer onViewProfit;
-    
-    private class RegisterSaleHanlder implements ActionListener{
+   
+    private class RegisterSaleHandler extends ClickEventHandler{
+        RegisterSaleHandler(Consumer callback){
+            super(callback);
+        }
+        
         @Override
         public void actionPerformed(ActionEvent e) {
-            showRegisterSalePopup(onRegisterSale);
+            showRegisterSalePopup(this.callback);
         }
     }
     
-    private class RegisterItemHandler implements ActionListener{
+    private class RegisterItemHandler extends ClickEventHandler{
+        RegisterItemHandler(Consumer callback){
+            super(callback);
+        }
+        
         @Override
         public void actionPerformed(ActionEvent e) {
-            showRegisterItemPopup(onRegisterItem);
+            showRegisterItemPopup(this.callback);
         }
     }
     
-    private class EditItemHandler implements ActionListener{
+    private class EditItemHandler extends ClickEventHandler{
+        EditItemHandler(Consumer callback){
+            super(callback);
+        }
+        
         @Override
         public void actionPerformed(ActionEvent e) {
             var selectedRow = getSelectedRow();
@@ -70,16 +73,19 @@ public final class CanteenView extends JFrame implements View{
             else{
                 var selectedGroup = items.get(selectedRow);
 
-                
-                showEditGroupPopUp(onEdit, selectedGroup);
+                showEditGroupPopUp(this.callback, selectedGroup);
             }
         }  
     }
     
-    private class ViewProfitHandler implements ActionListener{
+    private class ViewProfitHandler extends ClickEventHandler{
+        ViewProfitHandler(Consumer callback){
+            super(callback);
+        }
+        
         @Override
         public void actionPerformed(ActionEvent e) {
-            showViewProfitPopup(onViewProfit);
+            showViewProfitPopup(this.callback);
         } 
     }
     
@@ -96,7 +102,7 @@ public final class CanteenView extends JFrame implements View{
         this.init();
         this.paint();
     }
-    
+       
     public int getSelectedRow(){
         return this.itemsTable.getSelectedRow();
     }
@@ -140,7 +146,22 @@ public final class CanteenView extends JFrame implements View{
     }
     
     public void showViewProfitPopup(Consumer onSubmit){
-        this.showPopup(new ViewProfitPopup("Visualizar lucro", new Dimension(500, 280)), onSubmit);
+        //this.showPopup(new ViewProfitPopup("Visualizar lucro", new Dimension(500, 280)), onSubmit);
+    }
+    
+    public void setSaleRegisterHandler(Consumer<HashMap<String, Object>> callback){
+        this.menu.addRegisterSaleEventHandler(new RegisterSaleHandler(callback));
+    }
+    
+    public void setRegisterItemHandler(Consumer<HashMap<String, Object>> callback){
+        this.menu.addRegisterItemEventHandler(new RegisterItemHandler(callback));
+    }
+    public void setEditItemHandler(Consumer<HashMap<String, Object>> callback){
+        this.menu.addEditItemEventHandler(new EditItemHandler(callback));
+    }
+    
+    public void setViewProfitHandler(Consumer callback){
+        this.menu.addViewProfitEventHandler(new ViewProfitHandler(callback));
     }
     
     
@@ -152,11 +173,6 @@ public final class CanteenView extends JFrame implements View{
         this.setLocationRelativeTo(null);
         this.setIconImage(Environment.LOGO_ICON.getImage());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-        this.menu.addEditItemEventHandler(new EditItemHandler());
-        this.menu.addRegisterItemEventHandler(new RegisterItemHandler());
-        this.menu.addRegisterSaleEventHandler(new RegisterSaleHanlder());
-        this.menu.addViewProfitEventHandler(new ViewProfitHandler());
     }
 
     @Override
@@ -177,7 +193,6 @@ public final class CanteenView extends JFrame implements View{
         return items;
     }
 
-
     /**
      * @param items the items to set
      */
@@ -185,34 +200,4 @@ public final class CanteenView extends JFrame implements View{
     public void setItems(List<ItemOnSale> items) {
         this.items = items;
     }
-
-    /**
-     * @param onRegisterSale the onRegisterSale to set
-     */
-    public void setOnRegisterSale(Consumer<HashMap<String, Object>> onRegisterSale) {
-        this.onRegisterSale = onRegisterSale;
-    }
-
-    /**
-     * @param onRegisterItem the onRegisterItem to set
-     */
-    public void setOnRegisterItem(Consumer<HashMap<String, Object>> onRegisterItem) {
-        this.onRegisterItem = onRegisterItem;
-    }
-
-    /**
-     * @param onEdit the onEdit to set
-     */
-    public void setOnEdit(Consumer<HashMap<String, Object>> onEdit) {
-        this.onEdit = onEdit;
-    }
-
-    /**
-     * @param onViewProfit the onViewProfit to set
-     */
-    public void setOnViewProfit(Consumer<Void> onViewProfit) {
-        this.onViewProfit = onViewProfit;
-    }
-
-
 }

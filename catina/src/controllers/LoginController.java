@@ -30,7 +30,10 @@ public class LoginController {
     }
     
     public void init(){
-        this.view.addSubmitEvent((username, password) -> {
+        this.view.addLoginEventHandler(data -> {
+            var username = (String) data.get("username");
+            var password = (String) data.get("password");
+            
             try {
                 this.login(username, password);
                 this.accessSystem();

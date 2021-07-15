@@ -24,12 +24,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import main.Environment;
+import view.ComponentInterface;
 
 /**
  *
  * @author Vinicius Jimenez
  */
-public abstract class Popup extends JFrame{
+public abstract class Popup extends JFrame implements ComponentInterface{
     public final JButton saveButton, closeButton;
     
     public Popup(String title, Dimension dimension){           

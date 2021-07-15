@@ -5,15 +5,11 @@
  */
 package view.canteen.popups;
 
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.util.List;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 import java.util.function.Supplier;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -25,13 +21,16 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
 import models.ItemOnSale;
+import view.ComponentInterface;
+import view.ClickEventHandler;
 
 /**
  *
  * @author Vinicius Jimenez
  */
-public final class SaleInputContainer extends JPanel{
+public final class SaleInputContainer extends JPanel implements ComponentInterface{
     private final List<ItemOnSale> options;
     private final JComboBox<String> selectInput;
     private final JSpinner quantityInput;
@@ -59,9 +58,8 @@ public final class SaleInputContainer extends JPanel{
         this.init();
         this.paint();
     }
-    
-    
-    private class SelectInputHandler implements ActionListener{
+  
+    private class SelectInputHandler extends ClickEventHandler{
         @Override
         public void actionPerformed(ActionEvent e) {
             var selectedItemId = selectInput.getSelectedIndex();
@@ -100,14 +98,30 @@ public final class SaleInputContainer extends JPanel{
         }  
     }
     
-    private class DeleteInputHandler implements ActionListener{
+    private class DeleteInputHandler extends ClickEventHandler{
         @Override
         public void actionPerformed(ActionEvent e) {
             onDelete.get();
         } 
     }
-   
+
+    public void disableDeleteButton(){
+        this.deleteInputButton.setEnabled(false);
+    }
     
+    private String[] createSelectOptions(List<ItemOnSale> options){
+        var castedOptions = new String[options.size() + 1];
+        
+        castedOptions[0] = "Selecione um item";
+        
+        for(int i = 1; i < castedOptions.length; i++){
+            castedOptions[i] = options.get(i - 1).getName();
+        }
+        
+        return castedOptions;
+    }  
+    
+    @Override
     public void init(){
         this.quantityInput.setEnabled(false);
         
@@ -125,6 +139,7 @@ public final class SaleInputContainer extends JPanel{
         
     }
     
+    @Override
     public void paint(){
         var selectInputContainer = Popup.createInputContainer("Nome do Produto: ", this.selectInput);
         var qttyInputContainer = Popup.createInputContainer("Quantidade: ", this.quantityInput);
@@ -139,22 +154,6 @@ public final class SaleInputContainer extends JPanel{
         Popup.setComponentInHorizontalGrid(this, qttyInputContainer, 2, 0, 1);
         Popup.setComponentInHorizontalGrid(this, estimatedValueContainer, 3, 0, 1);
         Popup.setComponentInHorizontalGrid(this, deleteButtonContainer, 4, 0, 1);
-    }
-    
-    public void disableDeleteButton(){
-        this.deleteInputButton.setEnabled(false);
-    }
-    
-    private String[] createSelectOptions(List<ItemOnSale> options){
-        var castedOptions = new String[options.size() + 1];
-        
-        castedOptions[0] = "Selecione um item";
-        
-        for(int i = 1; i < castedOptions.length; i++){
-            castedOptions[i] = options.get(i - 1).getName();
-        }
-        
-        return castedOptions;
     }
 
     /**

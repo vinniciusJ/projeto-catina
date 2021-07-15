@@ -10,7 +10,6 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.function.Consumer;
 import javax.swing.BorderFactory;
@@ -20,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 import models.ItemOnSale;
+import view.ClickEventHandler;
 
 /**
  *
@@ -53,26 +53,18 @@ public final class ItemPopup extends Popup{
 
         this.isEditing = true;
            
-        this.nameInput = new JTextField();
-        this.typeInput = new JTextField();
-        this.priceInput = new JSpinner(new SpinnerNumberModel(0, 0, 100.0, 0.1));
-        this.qttyInput = new JSpinner(new SpinnerNumberModel(0, 0, 100, 1));
-        
-        this.nameInput.setText(item.getName());
-        this.priceInput.setValue(item.getPrice());
-        this.qttyInput.setValue(item.getQuantity());
-        this.typeInput.setText(item.getType());
-       
+        this.nameInput = new JTextField(item.getName());
+        this.typeInput = new JTextField(item.getType());
+        this.priceInput = new JSpinner(new SpinnerNumberModel(item.getPrice(), 0, 100.0, 0.1));
+        this.qttyInput = new JSpinner(new SpinnerNumberModel(item.getQuantity(), 0, 100, 1));
+ 
         this.init();
         this.paint();
     }
-
     
-    private class SaveItemHandler implements ActionListener{
-        private final Consumer<HashMap<String, Object>> callback;
-        
+    private class SaveItemHandler extends ClickEventHandler{
         SaveItemHandler(Consumer<HashMap<String, Object>> callback){
-            this.callback = callback;
+            super(callback);
         }
         
         @Override
@@ -107,18 +99,14 @@ public final class ItemPopup extends Popup{
             var nameField = this.isAnValidString(nameInput.getText());
             var typeField = this.isAnValidString(typeInput.getText());
             var priceField = ((double) priceInput.getValue()) != 0;
-            var qttyField = ((int) qttyInput.getValue()) != 0;
-            
-            System.out.println(nameField);
-            System.out.println(typeField);
-            System.out.println(priceField);
-            System.out.println(qttyField);
+            var qttyField = ((int) qttyInput.getValue()) != 0;  
             
             return nameField && typeField && priceField && qttyField;
         }
     }
 
     
+    @Override
     public void init(){
         var defaultButtonBorder = this.saveButton.getBorder();
         var defaultInputPadding = BorderFactory.createCompoundBorder(this.nameInput.getBorder(), new EmptyBorder(3, 10, 3, 10));
@@ -137,7 +125,8 @@ public final class ItemPopup extends Popup{
     }
     
     
-    private void paint() {
+    @Override
+    public void paint() {
         var popupPanel = new JPanel();
         var formContainer = new JPanel();
         var optionsContainer = new JPanel();

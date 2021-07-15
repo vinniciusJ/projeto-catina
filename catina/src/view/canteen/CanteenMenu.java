@@ -8,20 +8,19 @@ package view.canteen;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionListener;
-import java.util.function.Consumer;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import models.ItemOnSale;
-import view.View;
+
+import view.ComponentInterface;
 
 /**
  *
  * @author Vinicius Jimenez
  */
-public final class CanteenMenu extends JPanel implements View{
+public final class CanteenMenu extends JPanel implements ComponentInterface{
     private final ButtonMenu registerSale, viewProfit, registerItem, editItem;
     
     private class ButtonMenu extends JButton{

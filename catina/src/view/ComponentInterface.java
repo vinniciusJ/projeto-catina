@@ -9,7 +9,7 @@ package view;
  *
  * @author Vinicius Jimenez
  */
-public interface View {
+public interface ComponentInterface {
     public void init();
     public void paint();
 }

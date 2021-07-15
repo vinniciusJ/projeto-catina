@@ -23,5 +23,10 @@
 		"balance":0.0,
 		"name":"Cantina da Tere",
 		"id":"f9b8d77c-1fc3-40e6-b46f-0338f03d2850"
+	},
+	{
+		"balance":0.0,
+		"name":"Alo IFPR",
+		"id":"2fd9e40a-b620-47b9-9a0e-6ee19cdf68c1"
 	}
 ]

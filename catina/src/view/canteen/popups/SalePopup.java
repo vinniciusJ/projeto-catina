@@ -5,15 +5,11 @@
  */
 package view.canteen.popups;
 
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,13 +17,12 @@ import java.util.function.Consumer;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-
 import javax.swing.border.EmptyBorder;
 
 import models.ItemOnSale;
+import view.ClickEventHandler;
 
 
 /**
@@ -35,8 +30,6 @@ import models.ItemOnSale;
  * @author Vinicius Jimenez
  */
 public final class SalePopup extends Popup{
-
-    
     private final List<ItemOnSale> items;
     private final List<SaleInputContainer> itemsInputs;
     private final JPanel list;
@@ -56,11 +49,9 @@ public final class SalePopup extends Popup{
         this.paint();
     }
     
-    private class SaveSaleHandler implements ActionListener{
-        private final Consumer<HashMap<String, Object>> callback;
-        
+    private class SaveSaleHandler extends ClickEventHandler{
         SaveSaleHandler(Consumer<HashMap<String, Object>> callback){
-            this.callback = callback;
+            super(callback);
         }
         
         @Override
@@ -106,14 +97,35 @@ public final class SalePopup extends Popup{
         }
     }
     
-    private class AddItemHandler implements ActionListener{
-
+    private class AddItemHandler extends ClickEventHandler{
         @Override
         public void actionPerformed(ActionEvent e) {
             addSaleInputContainer();
         }
     }
+   
+    public void addSaleInputContainer(){
+        var itemInput = new SaleInputContainer(this.items);
+        
+        if(this.itemsInputs.isEmpty()){
+            itemInput.disableDeleteButton();
+        }
+        
+        itemInput.setOnDelete(() -> {
+            this.itemsInputs.remove(itemInput);
+            this.list.remove(itemInput);
+            
+            return null;
+        });
+        
+        this.itemsInputs.add(itemInput);
+
+        this.list.add(itemInput);
+        this.list.setLayout(new GridLayout(itemsInputs.size(), 1));
+        this.list.revalidate();
+    }
     
+     @Override
     public void init(){
         var defaultButtonBorder = this.saveButton.getBorder();
         var buttonsFonts = new Font("Sans-Serif", Font.PLAIN, 16);
@@ -136,6 +148,7 @@ public final class SalePopup extends Popup{
         this.addItemToSaleListButton.addActionListener(new AddItemHandler());
     }
     
+    @Override
     public void paint(){
         var popupPanel = new JPanel();
         var optionsContainer = new JPanel(); 
@@ -165,30 +178,7 @@ public final class SalePopup extends Popup{
         
         this.addChildren(popupPanel);
     }
-   
-    public void addSaleInputContainer(){
-        var itemInput = new SaleInputContainer(this.items);
-        
-        if(this.itemsInputs.size() == 0){
-            itemInput.disableDeleteButton();
-        }
-        
-        itemInput.setOnDelete(() -> {
-            this.itemsInputs.remove(itemInput);
-            this.list.remove(itemInput);
-            
-            return null;
-        });
-        
-        this.itemsInputs.add(itemInput);
-
-        this.list.add(itemInput);
-        this.list.setLayout(new GridLayout(itemsInputs.size(), 1));
-        this.list.revalidate();
-    }
-   
-    
-    
+     
 
     @Override
     public void onSave(Consumer<HashMap<String, Object>> callback) {

@@ -8,17 +8,18 @@ package view.login;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.util.HashMap;
 import javax.swing.*;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import javax.swing.border.EmptyBorder;
 import main.Environment;
+import view.ComponentInterface;
 
 /**
  *
  * @author Vinicius Jimenez
  */
-public class LoginView extends JFrame{
+public final class LoginView extends JFrame implements ComponentInterface{
     private final LoginForm loginForm;
 
     public LoginView(){
@@ -27,19 +28,10 @@ public class LoginView extends JFrame{
         this.init();
         this.paint();
     }
+
     
-    public final void init(){
-        this.setIconImage(Environment.LOGO_ICON.getImage());
-        this.setTitle("CaTina - Login");
-        this.setSize(new Dimension(760, 520));
-        this.setResizable(false);
-        this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-       
-    }
-    
-    public void addSubmitEvent(BiConsumer<String, String> callback){
-        this.loginForm.addSubmitEventHandler(callback);
+    public void addLoginEventHandler(Consumer<HashMap<String, Object>> callback){
+        this.loginForm.addLoginEventHandler(callback);
     }
     
     public void addRegisterEvent(Consumer callback){
@@ -55,7 +47,20 @@ public class LoginView extends JFrame{
         this.dispose();
     }
     
-    public final void paint(){
+        
+    @Override
+    public void init(){
+        this.setIconImage(Environment.LOGO_ICON.getImage());
+        this.setTitle("CaTina - Login");
+        this.setSize(new Dimension(760, 520));
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+       
+    }
+    
+    @Override
+    public void paint(){
         var header = new JPanel();
         var welcomeLabel = new JLabel("BEM-VINDO!", SwingConstants.CENTER);
         var copyrightLabel = new JLabel("<html>&copy; CaTina<html>", SwingConstants.CENTER);
@@ -75,8 +80,7 @@ public class LoginView extends JFrame{
         this.add(header, BorderLayout.NORTH);
         this.add(this.loginForm, BorderLayout.CENTER);
         this.add(copyrightLabel, BorderLayout.SOUTH);
-      
-        
+             
         this.setVisible(true);
     }
     

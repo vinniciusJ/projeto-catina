@@ -13,10 +13,14 @@ import java.util.function.Consumer;
  *
  * @author Vinicius Jimenez
  */
-public abstract class EventHandler implements ActionListener{
-    public final Consumer<HashMap<String, Object>> callback;
+public abstract class ClickEventHandler implements ActionListener{
+    public Consumer<HashMap<String, Object>> callback;
     
-    public EventHandler(Consumer callback){
+    public ClickEventHandler(){
+    
+    }
+    
+    public ClickEventHandler(Consumer<HashMap<String, Object>> callback){
         this.callback = callback;
     }
 }

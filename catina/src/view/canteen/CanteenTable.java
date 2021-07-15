@@ -5,31 +5,28 @@
  */
 package view.canteen;
 
-import controllers.CanteenController;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.util.EventObject;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import main.Environment;
 import models.ItemOnSale;
-import view.View;
+import view.ComponentInterface;
 
 /**
  *
  * @author Vinicius Jimenez
  */
-public final class CanteenTable extends JTable implements View{
-    private final String[] headers = {"Nome: ", "Tipo: ", "Preço: ", "Quantidade: "};
+public final class CanteenTable extends JTable implements ComponentInterface{
+    private final String[] HEADERS = {"Nome: ", "Tipo: ", "Preço: ", "Quantidade: "};
     private final Object[][] rows;
     private final DefaultTableModel model;
    
-    
     public CanteenTable(List<ItemOnSale> rows){
         this.rows = CanteenTable.setRowsToObjectMatrix(rows);
         
-        this.model = new DefaultTableModel(this.rows, this.headers);
+        this.model = new DefaultTableModel(this.rows, this.HEADERS);
         this.setModel(this.model);
         
         this.init();
@@ -72,7 +69,5 @@ public final class CanteenTable extends JTable implements View{
     }
 
     @Override
-    public void paint() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public void paint() {}
 }

@@ -74,7 +74,7 @@ public class CanteenController{
     }
 
     public void init() {
-        this.view.setOnRegisterItem(data -> {
+        this.view.setRegisterItemHandler(data -> {
             var name = (String) data.get("name");
             var price = (Double) data.get("price");
             var qtty = (Integer) data.get("qtty");
@@ -83,7 +83,7 @@ public class CanteenController{
             this.registerItem(name, price, qtty, type);
         });
         
-        this.view.setOnEdit(data -> {
+        this.view.setEditItemHandler(data -> {
             System.out.println(data);
             var name = (String) data.get("name");
             var price = (double) data.get("price");
@@ -93,7 +93,7 @@ public class CanteenController{
             this.editItem(item, name, price, qtty);
         });
         
-        this.view.setOnRegisterSale(data -> {
+        this.view.setSaleRegisterHandler(data -> {
             var items = (ArrayList<ItemOnSale>) data.get("items");
             var itemsQtty = (HashMap<ItemOnSale, Integer>) data.get("itemsQtty");
             
@@ -106,7 +106,7 @@ public class CanteenController{
             //this.saleItem(item, qtty);
         });
         
-        this.view.setOnViewProfit(data -> this.viewProfit());
+        this.view.setViewProfitHandler(data -> this.viewProfit());
     }        
 
 }

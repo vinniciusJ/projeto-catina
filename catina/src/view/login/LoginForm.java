@@ -9,7 +9,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -17,9 +16,7 @@ import java.awt.event.MouseEvent;
 import java.awt.font.TextAttribute;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -27,36 +24,44 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
+import view.ClickEventHandler;
+import view.ComponentInterface;
 
 /**
  *
  * @author Vinicius Jimenez
  */
 
-public class LoginForm extends JPanel implements KeyListener{
+public final class LoginForm extends JPanel implements ComponentInterface{
     private final JButton submitButton, registerButton;
     private final JTextField userInput;
     private final JPasswordField passwordInput;
     private final JLabel unmatchedCredentials;
    
-    private BiConsumer<String, String> onSubmit;
-    private Consumer onRegister;
-   
-    private class LoginHandler implements ActionListener{
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            var user = userInput.getText();
-            var password = new String(passwordInput.getPassword());
+    private class LoginHandler extends ClickEventHandler{
+        LoginHandler(Consumer callback){
+            super(callback);
+        }
         
-            onSubmit.accept(user, password);
+        @Override
+        public void actionPerformed(ActionEvent e) {        
+            var args = new HashMap<String, Object>(){{
+                put("username", userInput.getText());
+                put("password", new String(passwordInput.getPassword()));
+            }};
+            
+            this.callback.accept(args);
         }  
     }
     
-    private class RegisterHandler implements ActionListener{
+    private class RegisterHandler extends ClickEventHandler{
+        RegisterHandler(Consumer callback){
+            super(callback);
+        }
+        
         @Override
         public void actionPerformed(ActionEvent e) {
-            onRegister.accept(null);
+            this.callback.accept(null);
         }  
     }
     
@@ -84,6 +89,23 @@ public class LoginForm extends JPanel implements KeyListener{
             evt.getComponent().setFont(original); 
         }
     }
+    
+    private class InputTextHandler implements KeyListener{
+        @Override
+        public void keyTyped(KeyEvent e) {
+            unmatchedCredentials.setVisible(false);
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            unmatchedCredentials.setVisible(false);
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            unmatchedCredentials.setVisible(false);
+        }
+    }
    
      public LoginForm(){
         this.submitButton = new JButton();
@@ -92,17 +114,31 @@ public class LoginForm extends JPanel implements KeyListener{
         this.passwordInput = new JPasswordField();
         this.unmatchedCredentials = new JLabel();
         
-        this.onSubmit = (user, password) -> {};
-        this.onRegister = data -> {};
-        
         this.init();
         this.paint();
-   }
+    }
 
-    public final void init(){        
+    public void addLoginEventHandler(Consumer<HashMap<String, Object>> onSubmit){
+        this.submitButton.addActionListener(new LoginHandler(onSubmit));
+    }
+    
+    public void addRegisterEventHandler(Consumer onCreateUser){
+        this.registerButton.addActionListener(new RegisterHandler(onCreateUser));
+    }
+   
+    public void notifyUnmatchedCredentials(){
+       this.unmatchedCredentials.setVisible(true);
+    }
+    
+    public void setCredentials(String username, String password){
+        this.userInput.setText(username);
+        this.passwordInput.setText(password);
+    }
+    
+    @Override
+    public void init(){        
         this.submitButton.setText("Entrar");
         this.submitButton.setFont(new Font("Sans-Serif", Font.PLAIN, 18));
-        this.submitButton.addActionListener(new LoginHandler());
         
         this.registerButton.setText("Criar nova conta");
         this.registerButton.setBorderPainted(false); 
@@ -111,9 +147,9 @@ public class LoginForm extends JPanel implements KeyListener{
         this.registerButton.setOpaque(false);
         this.registerButton.setBorder(null);
         this.registerButton.setFont(new Font("Sans-Serif", Font.PLAIN, 14));
+        
         this.registerButton.addMouseListener(new MouseEffectsHandler());
-        this.registerButton.addActionListener(new RegisterHandler());
-
+        
         this.unmatchedCredentials.setText("Usuário e/ou senha estão incorretos!");
         this.unmatchedCredentials.setForeground(Color.red);
         this.unmatchedCredentials.setFont(new Font("Sans-Serif", Font.PLAIN, 16));
@@ -121,27 +157,16 @@ public class LoginForm extends JPanel implements KeyListener{
 
         this.userInput.setColumns(20);
         this.userInput.setFont(new Font("Sans-Serif", Font.PLAIN, 14));
-        this.userInput.addKeyListener(this);
+        this.userInput.addKeyListener(new InputTextHandler());
       
         this.passwordInput.setColumns(20);
-        this.passwordInput.addKeyListener(this);
+        this.passwordInput.addKeyListener(new InputTextHandler());
 
         this.setLayout(null);
     }
-   
-    public void addSubmitEventHandler(BiConsumer<String, String> onSubmit){
-        this.onSubmit = onSubmit;
-    }
     
-    public void addRegisterEventHandler(Consumer onCreateUser){
-        this.onRegister = onCreateUser;
-    }
-   
-    public void notifyUnmatchedCredentials(){
-       this.unmatchedCredentials.setVisible(true);
-    }
-
-    public final void paint(){
+    @Override
+    public void paint(){
         var userInputContainer = new JPanel();
         var passwordInputContainer = new JPanel();
         
@@ -180,25 +205,5 @@ public class LoginForm extends JPanel implements KeyListener{
         this.add(this.registerButton);
    }
     
-    public void setCredentials(String username, String password){
-        this.userInput.setText(username);
-        this.passwordInput.setText(password);
-    }
-
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-        this.unmatchedCredentials.setVisible(false);
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        this.unmatchedCredentials.setVisible(false);
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        this.unmatchedCredentials.setVisible(false);
-    }
-    
+  
 }
