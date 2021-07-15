@@ -26,21 +26,21 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import models.Item;
+import models.ItemOnSale;
 
 /**
  *
  * @author Vinicius Jimenez
  */
 public final class SalePopup extends Popup{
-    private final List<Item> options;
+    private final List<ItemOnSale> options;
     private final JComboBox<String> selectInput;
     private final JSpinner quantityInput;
     private final JLabel estimatedValue;
-    private Item selectedItem;
+    private ItemOnSale selectedItem;
     private int selectedQtty;
  
-    public SalePopup(String title, Dimension dimension, List<Item> options) {
+    public SalePopup(String title, Dimension dimension, List<ItemOnSale> options) {
         super(title, dimension);
 
         this.options = options;
@@ -100,7 +100,7 @@ public final class SalePopup extends Popup{
             var selectedItemId = selectInput.getSelectedIndex();
             
             if(selectedItemId != 0){
-                var item = (Item) options.get(selectedItemId - 1);
+                var item = (ItemOnSale) options.get(selectedItemId - 1);
                 var canteenId = item.getCanteen().getId();
                 
                 var maximum = item.getQuantity();

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 import main.Environment;
 import models.Canteen;
-import models.Item;
+import models.ItemOnSale;
 import view.canteen.CanteenView;
 
 /*
@@ -24,7 +24,7 @@ public class CanteenController{
     private final CanteenView view;
     
     public CanteenController(){        
-        this.itemDAO = new DAO(Item.class);        
+        this.itemDAO = new DAO(ItemOnSale.class);        
         this.canteenDAO = new DAO(Canteen.class);           
         
         var manager = Environment.getUser();            
@@ -35,7 +35,7 @@ public class CanteenController{
                 this.itemDAO
                 .get()
                 .stream()
-                .map(item -> (Item) item)
+                .map(item -> (ItemOnSale) item)
                 .filter(item -> item.getCanteen().getId().equals(canteen.getId()))
                 .collect(Collectors.toList());                         
         
@@ -43,21 +43,27 @@ public class CanteenController{
     }
     
     public void registerItem(String name, double price, int qtty, String type){
-        var item = new Item(name, price, type, Environment.getCurrentCanteen().getId(), qtty);        
-        this.itemDAO.post(item);
+        var item = new ItemOnSale(name, price, type, Environment.getCurrentCanteen().getId(), qtty);        
+        this.itemDAO.post(item);        
         
-        this.view.syncItems(new ArrayList<>());
+        /* this.view.syncItems(
+                this.itemDAO
+                        .get()
+                        .stream()
+                        .map(i -> (ItemOnSale) i)
+                        .collect(Collectors.toList()));
+        */
     }
     
-    public void editItem(Item canteenItem, String name, double price, int qtty){                                         
+    public void editItem(ItemOnSale canteenItem, String name, double price, int qtty){                                         
         canteenItem.setName(name);
         canteenItem.setPrice(price);
         canteenItem.setQuantity(qtty);
         
-        this.itemDAO.put(canteenItem);            
+        this.itemDAO.put(canteenItem);           
    }
     
-    public void saleItem(Item item, int qtty){
+    public void registerSale(ItemOnSale item, int qtty){
         System.out.println(item);
         System.out.println(qtty);  
     }
@@ -81,16 +87,16 @@ public class CanteenController{
             var name = (String) data.get("name");
             var price = (double) data.get("price");
             var qtty = (Integer) data.get("qtty");
-            var item = (Item) data.get("canteenItem");
+            var item = (ItemOnSale) data.get("canteenItem");
             
             this.editItem(item, name, price, qtty);
         });
         
         this.view.setOnRegisterSale(data -> {
-            var item = (Item) data.get("item");
-            var qtty = (Integer) data.get("qtty");
+            ArrayList <ItemOnSale> items = (ArrayList) data.get("item");
+            var totalCost = (Integer) data.get("qtty");
             
-            this.saleItem(item, qtty);
+            // this.registerSale(items, qtty);
         });
         
         this.view.setOnViewProfit(data -> this.viewProfit());
