@@ -8,12 +8,12 @@
 		"type":"Assado"
 	},
 	{
-		"id": "412dc161-a3dc-4fc8-a364-6fd35c31abde",
-		 "canteenId": "4231c04b-f8ba-43c5-866e-b5485d453d9f",
-		 "name": "Batata",
-		 "price": 1.75,
-		 "type": "Assado",
-		 "quantity": 11
+		"canteenId":"4231c04b-f8ba-43c5-866e-b5485d453d9f",
+		"quantity":9,
+		"price":1.75,
+		"name":"Batata",
+		"id":"412dc161-a3dc-4fc8-a364-6fd35c31abde",
+		"type":"Assado"
 	},
 	{
 		"canteenId":"daf2ae78-84bf-4ab7-8fa0-453b2383fc22",
@@ -24,12 +24,12 @@
 		"type":"Assado"
 	},
 	{
-		"canteenId":"4231c04b-f8ba-43c5-866e-b5485d453d9f",
-		"quantity":1,
-		"price":2.1,
-		"name":"Bolo",
-		"id":"cc7170c7-e2b0-40fe-bab5-f5e0445216bf",
-		"type":"assado"
+		"id": "cc7170c7-e2b0-40fe-bab5-f5e0445216bf",
+		 "canteenId": "4231c04b-f8ba-43c5-866e-b5485d453d9f",
+		 "name": "Bolo",
+		 "price": 2.10,
+		 "type": "assado",
+		 "quantity": 0
 	},
 	{
 		"canteenId":"f9b8d77c-1fc3-40e6-b46f-0338f03d2850",
@@ -38,5 +38,13 @@
 		"name":"Batata",
 		"id":"fbfe8041-5a55-4f46-a193-284e60c08240",
 		"type":"assado"
+	},
+	{
+		"canteenId":"4231c04b-f8ba-43c5-866e-b5485d453d9f",
+		"quantity":25,
+		"price":1.25,
+		"name":"Torta",
+		"id":"55bfc994-ecc1-4d4f-934e-7ea380d2b966",
+		"type":"Assado"
 	}
 ]
