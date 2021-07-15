@@ -51,13 +51,7 @@ public class CanteenController{
         var item = new ItemOnSale(name, price, type, Environment.getCurrentCanteen().getId(), qtty);        
         this.itemDAO.post(item);        
         
-        /* this.view.syncItems(
-                this.itemDAO
-                        .get()
-                        .stream()
-                        .map(i -> (ItemOnSale) i)
-                        .collect(Collectors.toList()));
-        */
+        this.syncItems();
     }
     
     public void editItem(ItemOnSale canteenItem, String name, double price, int qtty){                                         
@@ -65,7 +59,8 @@ public class CanteenController{
         canteenItem.setPrice(price);
         canteenItem.setQuantity(qtty);
         
-        this.itemDAO.put(canteenItem);           
+        this.itemDAO.put(canteenItem);   
+        this.syncItems();
    }
     
     public void registerSale(ArrayList<ItemOnSale> items, HashMap<ItemOnSale, Integer> itemsQtty){
@@ -78,6 +73,7 @@ public class CanteenController{
             this.itemSoldDAO.post(soldItem);
             this.editItem(item, item.getName(), item.getPrice(), (int) item.getQuantity() - itemsQtty.get(item));            
         });
+        this.syncItems();
     }
     
     public void viewProfit(){
@@ -113,6 +109,16 @@ public class CanteenController{
         });
         
         this.view.setViewProfitHandler(data -> this.viewProfit());
-    }        
+    }   
+    
+    private void syncItems(){
+        var itemsNow = this.itemDAO
+                .get()
+                .stream()
+                .map(item -> (ItemOnSale) item)
+                .filter(item -> item.getCanteen().getId().equals(Environment.getCurrentCanteen().getId()))
+                .collect(Collectors.toList());
+        this.view.syncItems(itemsNow);
+    }
 
 }
