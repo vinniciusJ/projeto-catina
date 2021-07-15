@@ -14,14 +14,14 @@ import org.json.simple.JSONObject;
  *
  * @author Dyogo
  */
-public class Item extends ModelStandart{    
+public class ItemOnSale extends ModelStandart{    
     String name;
     double price;
     long quantity;
     String type;
     Canteen canteen;    
     
-    public Item(JSONObject fields){
+    public ItemOnSale(JSONObject fields){
         String canteenId = (String) fields.get("canteenId");
         var canteenDAO = new DAO(Canteen.class);                
         this.canteen =  (Canteen) canteenDAO.get(canteenId);        
@@ -34,7 +34,7 @@ public class Item extends ModelStandart{
 
     }
     
-    public Item (String name, double price, String type, String canteenId, long quantity){
+    public ItemOnSale (String name, double price, String type, String canteenId, long quantity){
         this.setId();
         this.name = name;
         this.price = price;
@@ -69,7 +69,7 @@ public class Item extends ModelStandart{
         return id;
     }
     
-    public Item(){}
+    public ItemOnSale(){}
 
     public String getName() {
         return name;

@@ -10,36 +10,40 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridBagLayout;
+
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+
 import javax.swing.border.EmptyBorder;
-import models.Item;
+
+import models.ItemOnSale;
+
 
 /**
  *
  * @author Vinicius Jimenez
  */
 public final class SalePopup extends Popup{
-    private final JButton addItemToSaleListButton;
-    private final List<Item> items;
+
+    
+    private final List<ItemOnSale> items;
     private final List<SaleInputContainer> itemsInputs;
     private final JPanel list;
+    private final JButton addItemToSaleListButton;
+
  
-    public SalePopup(String title, Dimension dimension, List<Item> options) {
+    public SalePopup(String title, Dimension dimension, List<ItemOnSale> options) {
         super(title, dimension);
        
         this.items = options;
@@ -61,20 +65,21 @@ public final class SalePopup extends Popup{
         
         @Override
         public void actionPerformed(ActionEvent e) {
-            var items = new ArrayList<Item>();
-            var itemsQtty = new HashMap<Item, Integer>();
+            var items = new ArrayList<ItemOnSale>();
+            var itemsQtty = new HashMap<ItemOnSale, Integer>();
             
             var isAllFieldsFilled = true;
             var iterator = itemsInputs.iterator();
             
             while(iterator.hasNext()){
                 var input = (SaleInputContainer) iterator.next();
+
                 
                 if(!isFieldFilled(input)){
                     isAllFieldsFilled = false;
                 }
                 
-                var selectedItem = (Item) input.getSelectedItem();
+                var selectedItem = (ItemOnSale) input.getSelectedItem();
                 var qtty = (Integer) input.getSelectedQtty();
                 
                 items.add(selectedItem);
@@ -91,7 +96,7 @@ public final class SalePopup extends Popup{
                     put("itemsQtty", itemsQtty);
                 }};
                 
-                
+                closePopup();
                 this.callback.accept(args);
             }
         }

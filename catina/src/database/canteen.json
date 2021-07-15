@@ -18,5 +18,10 @@
 		"balance":0.0,
 		"name":"Restaurante no Fim do Universo",
 		"id":"02e97180-0869-43af-9bd5-73a94f06772b"
+	},
+	{
+		"balance":0.0,
+		"name":"Cantina da Tere",
+		"id":"f9b8d77c-1fc3-40e6-b46f-0338f03d2850"
 	}
 ]

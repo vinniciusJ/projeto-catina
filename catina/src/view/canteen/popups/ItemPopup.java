@@ -27,7 +27,7 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 import main.Environment;
-import models.Item;
+import models.ItemOnSale;
 
 /**
  *
@@ -38,7 +38,7 @@ public final class ItemPopup extends Popup{
     private final JSpinner priceInput, qttyInput;
     private final boolean isEditing;
 
-    private Item item;
+    private ItemOnSale item;
 
     public ItemPopup(String title, Dimension dimension){
         super(title, dimension);
@@ -52,7 +52,7 @@ public final class ItemPopup extends Popup{
         this.init();
     }
     
-    public ItemPopup(String title, Dimension dimension, Item item){
+    public ItemPopup(String title, Dimension dimension, ItemOnSale item){
         super(title, dimension);
         
         this.item = item;

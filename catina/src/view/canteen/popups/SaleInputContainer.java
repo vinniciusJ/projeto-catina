@@ -25,14 +25,14 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import models.Item;
+import models.ItemOnSale;
 
 /**
  *
  * @author Vinicius Jimenez
  */
 public final class SaleInputContainer extends JPanel{
-    private final List<Item> options;
+    private final List<ItemOnSale> options;
     private final JComboBox<String> selectInput;
     private final JSpinner quantityInput;
     private final JLabel estimatedValue;
@@ -40,10 +40,10 @@ public final class SaleInputContainer extends JPanel{
     
     private Supplier onDelete;
 
-    private Item selectedItem;
+    private ItemOnSale selectedItem;
     private int selectedQtty;
     
-    public SaleInputContainer(List<Item> items){
+    public SaleInputContainer(List<ItemOnSale> items){
         this.options = items;
         
         this.selectedItem = null;
@@ -67,7 +67,7 @@ public final class SaleInputContainer extends JPanel{
             var selectedItemId = selectInput.getSelectedIndex();
             
             if(selectedItemId != 0){
-                var item = (Item) options.get(selectedItemId - 1);
+                var item = (ItemOnSale) options.get(selectedItemId - 1);
                 var maximum = item.getQuantity();
                 
                 selectedItem = item;
@@ -145,7 +145,7 @@ public final class SaleInputContainer extends JPanel{
         this.deleteInputButton.setEnabled(false);
     }
     
-    private String[] createSelectOptions(List<Item> options){
+    private String[] createSelectOptions(List<ItemOnSale> options){
         var castedOptions = new String[options.size() + 1];
         
         castedOptions[0] = "Selecione um item";
@@ -167,7 +167,7 @@ public final class SaleInputContainer extends JPanel{
     /**
      * @return the selectedItem
      */
-    public Item getSelectedItem() {
+    public ItemOnSale getSelectedItem() {
         return selectedItem;
     }
 

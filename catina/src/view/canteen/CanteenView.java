@@ -24,7 +24,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import main.Environment;
 import models.Canteen;
-import models.Item;
+import models.ItemOnSale;
 import view.View;
 import view.canteen.popups.SalePopup;
 import view.canteen.popups.ViewProfitPopup;
@@ -38,7 +38,7 @@ public final class CanteenView extends JFrame implements View{
     private final Canteen canteen;
     
     private CanteenTable itemsTable;
-    private List<Item> items;
+    private List<ItemOnSale> items;
      
     private Popup currentPopup;
     
@@ -83,7 +83,7 @@ public final class CanteenView extends JFrame implements View{
         } 
     }
     
-    public CanteenView(Canteen canteen, List<Item> items){        
+    public CanteenView(Canteen canteen, List<ItemOnSale> items){        
         this.items = items;
         this.canteen = canteen;
         
@@ -101,7 +101,7 @@ public final class CanteenView extends JFrame implements View{
         return this.itemsTable.getSelectedRow();
     }
     
-    public void syncItems(List<Item> items){
+    public void syncItems(List<ItemOnSale> items){
         this.itemsTable = new CanteenTable(items);
         this.paint();
     }
@@ -135,7 +135,7 @@ public final class CanteenView extends JFrame implements View{
         this.showPopup(new ItemPopup("Cadastrar Item", new Dimension(500, 280)), onSubmit);
     }
 
-    public void showEditGroupPopUp(Consumer onSubmit, Item data){         
+    public void showEditGroupPopUp(Consumer onSubmit, ItemOnSale data){         
         this.showPopup(new ItemPopup("Editar Item", new Dimension(500, 280), data), onSubmit);
     }
     
@@ -173,7 +173,7 @@ public final class CanteenView extends JFrame implements View{
      * @return the items
      */
 
-    public List<Item> getItems() {
+    public List<ItemOnSale> getItems() {
         return items;
     }
 
@@ -182,7 +182,7 @@ public final class CanteenView extends JFrame implements View{
      * @param items the items to set
      */
 
-    public void setItems(List<Item> items) {
+    public void setItems(List<ItemOnSale> items) {
         this.items = items;
     }
 
