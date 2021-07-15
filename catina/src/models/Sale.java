@@ -25,6 +25,7 @@ public final class Sale extends ModelStandart{
         this.date = LocalDate.parse(fields.get("date").toString());        
         String canteenId = (String) fields.get("canteenId");        
         this.setCanteen(canteenId);
+        this.totalCost = (double) fields.get("totalCost");
     }
     
     public Sale (String canteenId){
@@ -56,8 +57,39 @@ public final class Sale extends ModelStandart{
     }
 
     @Override
+    public String toString() {
+        return "Sale{" + "date=" + date + ", canteen=" + canteen + ", totalCost=" + totalCost + '}';
+    }
+    
+    
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public Canteen getCanteen() {
+        return canteen;
+    }
+
+    public void setCanteen(Canteen canteen) {
+        this.canteen = canteen;
+    }
+
+    public double getTotalCost() {
+        return totalCost;
+    }
+
+    public void setTotalCost(double totalCost) {
+        this.totalCost = totalCost;
+    }
+
+    @Override
     public String toJSONString() {
-         String s = String.format(Locale.ROOT, "{\"id\": \"%s\", \"canteenId\": \"%s\", \"totalCost\": \"%.2f\", \"date\": \"%s\"}",
+         String s = String.format(Locale.ROOT, "{\"id\": \"%s\", \"canteenId\": \"%s\", \"totalCost\": %.2f, \"date\": \"%s\"}",
                  this.id, this.canteen.getId(), this.totalCost, this.date.toString());        
         return s;
     }

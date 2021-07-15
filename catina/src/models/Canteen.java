@@ -62,6 +62,13 @@ public class Canteen extends ModelStandart{
         String s = String.format(Locale.ROOT, "{\"id\": \"%s\", \"name\": \"%s\", \"balance\": %.2f}", this.id, this.name, this.balance);        
         return s;
     }
+
+    public Canteen(String name, double balance) {
+        this.name = name;
+        this.balance = balance;
+    }
+    
+    
     
     
 }

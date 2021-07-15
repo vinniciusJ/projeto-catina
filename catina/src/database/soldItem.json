@@ -1,30 +1,38 @@
 [
 	{
-		"unitaryPrice":"1.75",
+		"unitaryPrice":1.75,
 		"saleId":"05cb5772-423b-4276-a324-0dd9d6bd0718",
 		"id":"ae16aab1-71bf-4432-8e55-cea3080597ec",
-		"qtty":"2",
-		"totalCost":"3.50"
+		"qtty":2,
+		"totalCost":3.50,
+                "name": "bolo",
+                "type": "assado"
 	},
 	{
-		"unitaryPrice":"2.10",
+		"unitaryPrice":2.10,
 		"saleId":"05cb5772-423b-4276-a324-0dd9d6bd0718",
 		"id":"7a7a49e1-d2ee-40ba-813b-a9fb3f87125d",
-		"qtty":"1",
-		"totalCost":"2.10"
+		"qtty":1,
+		"totalCost":2.10,
+                "name": "bolo",
+                "type": "assado"
 	},
 	{
-		"unitaryPrice":"1.75",
+		"unitaryPrice":1.75,
 		"saleId":"c670fead-f14a-438d-aba9-9859c3bfa309",
 		"id":"fce83e43-8ac9-4427-a6e8-f4b64aa6cba0",
-		"qtty":"2",
-		"totalCost":"3.50"
+		"qtty":2,
+		"totalCost":3.50,
+                "name": "bolo",
+                "type": "assado"
 	},
 	{
-		"unitaryPrice":"2.10",
+		"unitaryPrice":2.10,
 		"saleId":"50e2074c-f9f8-4c14-a127-7a45f023b12d",
 		"id":"411044c4-a90a-47c8-81c9-8a746f138049",
-		"qtty":"1",
-		"totalCost":"2.10"
+		"qtty":1,
+		"totalCost":2.10,
+                "name": "bolo",
+                "type": "assado"
 	}
 ]

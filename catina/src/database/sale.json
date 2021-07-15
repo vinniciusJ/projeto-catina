@@ -3,18 +3,18 @@
 		"date":"2021-07-15",
 		"canteenId":"4231c04b-f8ba-43c5-866e-b5485d453d9f",
 		"id":"05cb5772-423b-4276-a324-0dd9d6bd0718",
-		"totalCost":"5.60"
+		"totalCost":5.60                
 	},
 	{
 		"date":"2021-07-15",
 		"canteenId":"4231c04b-f8ba-43c5-866e-b5485d453d9f",
 		"id":"c670fead-f14a-438d-aba9-9859c3bfa309",
-		"totalCost":"3.50"
+		"totalCost":3.50
 	},
 	{
 		"date":"2021-07-15",
 		"canteenId":"4231c04b-f8ba-43c5-866e-b5485d453d9f",
 		"id":"50e2074c-f9f8-4c14-a127-7a45f023b12d",
-		"totalCost":"2.10"
+		"totalCost":2.10
 	}
 ]
