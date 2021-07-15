@@ -1,10 +1,7 @@
 package models;
 
 import dao.DAO;
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.Locale;
-import java.util.UUID;
 import org.json.simple.JSONObject;
 
 /*
@@ -17,8 +14,7 @@ import org.json.simple.JSONObject;
  *
  * @author Dyogo
  */
-public class Item implements ModelDatabase{
-    String id;
+public class Item extends ModelStandart{    
     String name;
     double price;
     long quantity;
@@ -27,21 +23,19 @@ public class Item implements ModelDatabase{
     
     public Item(JSONObject fields){
         String canteenId = (String) fields.get("canteenId");
-        var canteenDAO = new DAO(Canteen.class);
-        System.out.println("Começa aqui!!! " + canteenId);
-        
+        var canteenDAO = new DAO(Canteen.class);                
         this.canteen =  (Canteen) canteenDAO.get(canteenId);        
+        
         this.id = (String) fields.get("id");
         this.name = (String) fields.get("name");
         this.price = (double) fields.get("price");
         this.type = (String) fields.get("type");        
-
         this.quantity = (long) fields.get("quantity");        
 
     }
     
     public Item (String name, double price, String type, String canteenId, long quantity){
-        this.id = UUID.randomUUID().toString();
+        this.setId();
         this.name = name;
         this.price = price;
         this.type = type;
@@ -89,7 +83,7 @@ public class Item implements ModelDatabase{
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -106,8 +100,9 @@ public class Item implements ModelDatabase{
         return "Item";
     }    
         
+    @Override
     public String toJSONString(){
-        String s = String.format(Locale.ROOT, "{\"id\": \"%s\", \"canteenId\": \"%s\", \"name\": \"%s\", \"price\": %.2f, \"type\": \"%s\", \"quantity\": \"%s\"}", this.id, this.canteen.getId(), this.name, this.price, this.type, this.quantity);        
+        String s = String.format(Locale.ROOT, "{\"id\": \"%s\", \"canteenId\": \"%s\", \"name\": \"%s\", \"price\": %.2f, \"type\": \"%s\", \"quantity\": %s}", this.id, this.canteen.getId(), this.name, this.price, this.type, this.quantity);        
         return s;
     }
                    

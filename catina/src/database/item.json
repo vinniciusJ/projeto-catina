@@ -1,26 +1,34 @@
 [
 	{
-		"canteenId":"daf2ae78-84bf-4ab7-8fa0-453b2383fc22",        		
+		"canteenId":"daf2ae78-84bf-4ab7-8fa0-453b2383fc22",
+		"quantity":10,
 		"price":4.75,
 		"name":"Pão de Queijo",
-		"id":"675034eb-c66e-41e2-abbd-e137f52f03b6",		
-		"type":"Assado",
-                "quantity": 10
-	},
-	{		
-		"canteenId":"4231c04b-f8ba-43c5-866e-b5485d453d9f",
-		"price":1.75,
-		"name":"Batata",
-		"id":"412dc161-a3dc-4fc8-a364-6fd35c31abde",		
-		"type":"Assado",
-                "quantity": 17
+		"id":"675034eb-c66e-41e2-abbd-e137f52f03b6",
+		"type":"Assado"
 	},
 	{
-		"canteenId":"daf2ae78-84bf-4ab7-8fa0-453b2383fc22",		
+		"canteenId":"4231c04b-f8ba-43c5-866e-b5485d453d9f",
+		"quantity":12,
 		"price":1.75,
 		"name":"Batata",
-		"id":"47e22b55-16b4-4283-8004-2b9fef2e5159",		
-		"type":"Assado",
-                "quantity": 8
+		"id":"412dc161-a3dc-4fc8-a364-6fd35c31abde",
+		"type":"Assado"
+	},
+	{
+		"canteenId":"daf2ae78-84bf-4ab7-8fa0-453b2383fc22",
+		"quantity":8,
+		"price":1.75,
+		"name":"Batata",
+		"id":"47e22b55-16b4-4283-8004-2b9fef2e5159",
+		"type":"Assado"
+	},
+	{
+		"canteenId":"4231c04b-f8ba-43c5-866e-b5485d453d9f",
+		"quantity":10,
+		"price":2.1,
+		"name":"Bolo",
+		"id":"cc7170c7-e2b0-40fe-bab5-f5e0445216bf",
+		"type":"assado"
 	}
 ]

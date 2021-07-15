@@ -65,7 +65,7 @@ public final class ItemPopup extends Popup{
         
         this.nameInput.setText(item.getName());
         this.priceInput.setValue(item.getPrice());
-        this.qttyInput.setValue(5);
+        this.qttyInput.setValue(item.getQuantity());
        
         this.init();
     }
@@ -83,6 +83,7 @@ public final class ItemPopup extends Popup{
                 put("name", nameInput.getText());
                 put("price", priceInput.getValue());
                 put("qtty", qttyInput.getValue());
+                put("type", "assado");
             }};
             
             if(isEditing){
@@ -106,7 +107,7 @@ public final class ItemPopup extends Popup{
         
         var nameInputContainer = this.createInputContainer("Nome do Produto: ", this.nameInput);
         var priceInputContainer = this.createInputContainer("Preço: ", this.priceInput);
-        var qttyInputContainer = this.createInputContainer("Quantidade: ", this.qttyInput);
+        var qttyInputContainer = this.createInputContainer("Quantidade: ", this.qttyInput);        
         
         var defaultButtonBorder = this.saveButton.getBorder();
         var buttonsFonts = new Font("Sans-Serif", Font.PLAIN, 16);

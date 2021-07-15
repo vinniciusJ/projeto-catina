@@ -83,7 +83,7 @@ public final class CanteenView extends JFrame implements View{
         } 
     }
     
-    public CanteenView(Canteen canteen, List<Item> items){
+    public CanteenView(Canteen canteen, List<Item> items){        
         this.items = items;
         this.canteen = canteen;
         

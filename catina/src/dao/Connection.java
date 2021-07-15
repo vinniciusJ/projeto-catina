@@ -55,8 +55,7 @@ public class Connection {
                 }
                 s += objectString;
             }
-            s += "]";               
-            System.out.println(s);
+            s += "]";                           
             file.write(s); 
             file.flush();
  
@@ -77,17 +76,37 @@ public class Connection {
     }        
         
     
-    public void replace (String oldObject, String newObject){                
-        String fileContent = this.read().toJSONString();        
-        String newFileContent = fileContent.replaceAll(oldObject, newObject);
+    public void replace (String objectId, String newObject){                
+        var data = this.read();        
+                
+        System.out.println(newObject);
         
-        try (FileWriter file = new FileWriter(this.filename)) {            
-            file.write(newFileContent); 
+        String s = "[\n";
+        try (FileWriter file = new FileWriter(this.filename)) {   
+            for(int i = 0; i < data.size(); i ++){
+                var object = data.get(i);
+                String objectString = object.toString();
+                if(objectString.contains(objectId)){
+                    objectString = newObject;                    
+                }                
+                
+                objectString = objectString.replace("{", "\t{\n\t\t");
+                objectString = objectString.replaceAll(",", ",\n\t\t");
+                
+                if(i == data.size() - 1){
+                    objectString = objectString.replace("}", "\n\t}\n");                    
+                } else{
+                    objectString = objectString.replace("}", "\n\t},\n");                    
+                }
+                s += objectString;
+            }
+            s += "]";                           
+            file.write(s); 
             file.flush();
  
         } catch (IOException e) {
             System.out.println(e);
-        }        
+        }                
     }
     
     public void delete (JSONObject object){

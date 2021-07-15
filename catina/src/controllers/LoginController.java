@@ -8,6 +8,7 @@ package controllers;
 import dao.DAO;
 import main.App;
 import main.Environment;
+import models.Canteen;
 import models.Manager;
 import view.login.LoginView;
 import view.login.RegisterView;
@@ -18,11 +19,13 @@ import view.login.RegisterView;
  */
 public class LoginController {
     DAO managerDAO;
+    DAO canteenDAO;
     Manager managerModel; 
     LoginView view;
     
     public LoginController(){                
         this.managerDAO = new DAO(Manager.class);   
+        this.canteenDAO = new DAO(Canteen.class);
         this.view = new LoginView();
     }
     
@@ -48,6 +51,7 @@ public class LoginController {
                 var canteenName = (String) data.get("canteenName");
                 
                 registerView.close();
+                this.registerUser(canteenName, username, password);
                 
                 this.view.setCredentials(username, password);
                 this.view.paint();
@@ -67,8 +71,12 @@ public class LoginController {
         App.initialize();
     }
     
-    public void registerUser(String canteenName, String userName, String passoword){
+    public void registerUser(String canteenName, String userName, String password){
+        Canteen newCanteen = new Canteen(canteenName);
+        Manager newManager = new Manager(userName, password, newCanteen);
         
+        this.managerDAO.post(newManager);
+        this.canteenDAO.post(newCanteen);        
     }
     
     public void login(String username, String password) throws Exception{        
@@ -83,7 +91,7 @@ public class LoginController {
                 exists = true;                
                 currentManager = datum;
             }
-        }        
+        }             
                 
         if(!exists){
            throw new Exception("Ta proibido de passa amizade");           

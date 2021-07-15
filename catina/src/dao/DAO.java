@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import models.ModelDatabase;
+import models.ModelStandart;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -37,15 +37,16 @@ public class DAO {
         
     }        
         
-    public void delete(ModelDatabase object) {
-        String data = object.toString();
+    public void delete(ModelStandart object) {
+        String data = object.toJSONString();
         
         this.connection.delete(data);        
     }
     
-    public ArrayList<ModelDatabase> get() {                    
-        JSONArray JSONData = this.connection.read();                 
-        ArrayList<ModelDatabase> dataObjects = new ArrayList();        
+    public ArrayList<ModelStandart> get() {             
+        
+        JSONArray JSONData = this.connection.read();             
+        ArrayList<ModelStandart> dataObjects = new ArrayList();        
         
         JSONData.forEach((data) -> {                     
             dataObjects.add(this.parseData((JSONObject)data));
@@ -54,48 +55,43 @@ public class DAO {
         return dataObjects;
     }
     
-    public ModelDatabase get(String id){
-        var data = this.get();
-        ModelDatabase object = null;
+    public ModelStandart get(String id){
+        var data = this.get();        
+        ModelStandart object = null;
        
         var iterator = data.iterator();
         
         while(iterator.hasNext()){
-            var datum = iterator.next();
-            System.out.println(datum.getId().equals(id));
-            
-            System.out.println(datum.getId() + " " + id);
+            var datum = iterator.next();                                    
             if(datum.getId().equals(id)){
                 object = datum;
             }
         }
-        System.out.println(object);
-        System.out.println("");
         return object;
     }
     
-    public void post(ModelDatabase object) {        
-        this.connection.write(object.toString());
+    public void post(ModelStandart object) {        
+        this.connection.write(object.toJSONString());
     }
     
-    public void put(ModelDatabase oldObject, ModelDatabase newObject) {
-        this.connection.replace(oldObject.toString(), newObject.toString());
+    public void put(ModelStandart object) {
+        this.connection.replace(object.getId(), object.toJSONString());
     }
     
-    private ModelDatabase parseData(JSONObject data){          
+    private ModelStandart parseData(JSONObject data){          
         
         Class [] cArg = new Class[1];
         cArg[0] = JSONObject.class;
-                
-        ModelDatabase convertedData = null;
-        try {            
-            convertedData = (ModelDatabase) this.classIdentifier.cast(
+                        
+        ModelStandart convertedData = null;
+        try {     
+            convertedData = (ModelStandart) this.classIdentifier.cast(
             this.classIdentifier.getDeclaredConstructor(cArg).newInstance(data));
             
         } catch (InstantiationException | IllegalAccessException | NoSuchMethodException
                 | InvocationTargetException | NullPointerException |SecurityException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
-        }        
+        }                
         return convertedData;
     }
     
