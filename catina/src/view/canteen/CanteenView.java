@@ -16,6 +16,7 @@ import java.util.function.Consumer;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
 
 import main.Environment;
 import models.Canteen;
@@ -66,6 +67,7 @@ public final class CanteenView extends JFrame implements ComponentInterface{
         public void actionPerformed(ActionEvent e) {
             var selectedRow = getSelectedRow();
             
+            System.out.println(selectedRow);
             if(selectedRow < 0){
                 showNoneItemSelectedMessage();
             }
@@ -103,13 +105,13 @@ public final class CanteenView extends JFrame implements ComponentInterface{
     }
        
     public int getSelectedRow(){
-        return this.itemsTable.getSelectedRow();
+        System.out.println(itemsTable.getRowCount());
+        return this.itemsTable.getSelectedRow();        
     }
     
     public void syncItems(List<ItemOnSale> items){
-        this.items = items;
-        this.itemsTable = new CanteenTable(items);
-        
+        this.items = items;   
+        this.itemsTable = new CanteenTable(items);        
     }
     
     // Factory Pattern
@@ -184,7 +186,7 @@ public final class CanteenView extends JFrame implements ComponentInterface{
         
         this.setVisible(true);
     }
-
+    
     /**
      * @return the items
      */

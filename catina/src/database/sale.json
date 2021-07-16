@@ -1,26 +1,50 @@
 [
 	{
-		"date":"05 May 2021",
+		"date":"05 julho 2021",
 		"canteenId":"4231c04b-f8ba-43c5-866e-b5485d453d9f",
 		"id":"05cb5772-423b-4276-a324-0dd9d6bd0718",
 		"totalCost":5.6
 	},
 	{
-		"date":"21 May 2021",
+		"date":"21 julho 2021",
 		"canteenId":"4231c04b-f8ba-43c5-866e-b5485d453d9f",
 		"id":"c670fead-f14a-438d-aba9-9859c3bfa309",
 		"totalCost":3.5
 	},
 	{
-		"date":"15 May 2021",
+		"date":"15 julho 2021",
 		"canteenId":"4231c04b-f8ba-43c5-866e-b5485d453d9f",
 		"id":"50e2074c-f9f8-4c14-a127-7a45f023b12d",
 		"totalCost":2.1
 	},
 	{
-		"date":"15 July 2021",
+		"date":"15 julho 2021",
 		"canteenId":"4231c04b-f8ba-43c5-866e-b5485d453d9f",
 		"id":"211e8bc2-f1ac-4e26-a433-edd9ec7b9d20",
 		"totalCost":1.75
+	},
+	{
+		"date":"16 julho 2021",
+		"canteenId":"4231c04b-f8ba-43c5-866e-b5485d453d9f",
+		"id":"ff7d308b-48f8-4b42-80d7-c5a6f11ade7f",
+		"totalCost":7.35
+	},
+	{
+		"date":"16 julho 2021",
+		"canteenId":"4231c04b-f8ba-43c5-866e-b5485d453d9f",
+		"id":"c3cb36cb-695d-40c5-a4c3-dd82068fa182",
+		"totalCost":2.5
+	},
+	{
+		"date":"16 julho 2021",
+		"canteenId":"4231c04b-f8ba-43c5-866e-b5485d453d9f",
+		"id":"f18bcd0e-ced3-45af-ad6d-8eb0e68f0ed3",
+		"totalCost":3.5
+	},
+	{
+		"date":"16 julho 2021",
+		"canteenId":"4231c04b-f8ba-43c5-866e-b5485d453d9f",
+		"id":"cb3e82b2-1daf-4523-a41c-25d674f9c39a",
+		"totalCost":2.5
 	}
 ]

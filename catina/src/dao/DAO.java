@@ -84,13 +84,14 @@ public class DAO {
         cArg[0] = JSONObject.class;
                         
         ModelStandart convertedData = null;
-        try {     
+        try {                 
             convertedData = (ModelStandart) this.classIdentifier.cast(
             this.classIdentifier.getDeclaredConstructor(cArg).newInstance(data));
             
         } catch (InstantiationException | IllegalAccessException | NoSuchMethodException
                 | InvocationTargetException | NullPointerException |SecurityException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("caiu aqui " + data);
         }                
         return convertedData;
     }

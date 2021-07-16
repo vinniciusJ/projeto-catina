@@ -78,8 +78,6 @@ public class Connection {
     
     public void replace (String objectId, String newObject){                
         var data = this.read();        
-                
-        System.out.println(newObject);
         
         String s = "[\n";
         try (FileWriter file = new FileWriter(this.filename)) {   

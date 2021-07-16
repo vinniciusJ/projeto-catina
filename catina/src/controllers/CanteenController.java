@@ -77,12 +77,12 @@ public class CanteenController {
         this.syncItems();
     }
 
-    public void editItem(ItemOnSale canteenItem, String name, double price, int qtty) {
+    public void editItem(ItemOnSale canteenItem, String name, double price, int qtty) {        
         canteenItem.setName(name);
         canteenItem.setPrice(price);
         canteenItem.setQuantity(qtty);
 
-        this.itemDAO.put(canteenItem);
+        this.itemDAO.put(canteenItem);        
         this.syncItems();
     }
 
@@ -142,10 +142,7 @@ public class CanteenController {
         });                
                  
         try {                        
-            String rawJsonData = salesArrayJSON.toJSONString();  
-
-            System.out.println(rawJsonData);
-            
+            String rawJsonData = salesArrayJSON.toJSONString();                          
             JasperReport report = (JasperReport) JRLoader.loadObject(new File("src/report/SalesReport.jasper"));   
             
             ByteArrayInputStream jsonDataStream = new ByteArrayInputStream(rawJsonData.getBytes()); 
@@ -182,28 +179,22 @@ public class CanteenController {
             var name = (String) data.get("name");
             var price = (Double) data.get("price");
             var qtty = (Integer) data.get("qtty");
-            var type = (String) data.get("type");
-            
+            var type = (String) data.get("type");            
             this.registerItem(name, price, qtty, type);
         });
         
-        this.view.setEditItemHandler(data -> {
-            System.out.println(data);
+        this.view.setEditItemHandler(data -> {            
             var name = (String) data.get("name");
             var price = (double) data.get("price");
             var qtty = (Integer) data.get("qtty");
-            var item = (ItemOnSale) data.get("canteenItem");
-            
+            var item = (ItemOnSale) data.get("canteenItem");            
             this.editItem(item, name, price, qtty);
         });
         
-        this.view.setSaleRegisterHandler(data -> {
-            this.viewProfit();
+        this.view.setSaleRegisterHandler(data -> {                     
             var items = (ArrayList<ItemOnSale>) data.get("items");
             var itemsQtty = (HashMap<ItemOnSale, Integer>) data.get("itemsQtty");
-            this.registerSale(items, itemsQtty);
-            // para acessar a quantity de um item -> itemsQtty.quantity(item); onde item é uma instancia de Item
-                                    
+            this.registerSale(items, itemsQtty);                                                
         });
         
         this.view.setViewProfitHandler(data -> {
@@ -218,7 +209,7 @@ public class CanteenController {
                 .map(item -> (ItemOnSale) item)
                 .filter(item -> item.getCanteen().getId().equals(Environment.getCurrentCanteen().getId()))
                 .collect(Collectors.toList());
-        
+                
         this.view.syncItems(itemsNow);
     }        
 
