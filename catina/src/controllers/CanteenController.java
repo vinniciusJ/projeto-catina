@@ -134,7 +134,7 @@ public class CanteenController {
 
             newSale.put("saleId", sale.getId());
             newSale.put("date", sale.getDateFormatted());
-            newSale.put("totalCost", sale.getTotalCost());
+            newSale.put("totalCost", sale.getFormattedTotalCost());
             newSale.put("qttyItems", saleQuantity.get(sale));             
             return newSale;
         }).forEachOrdered((newSale) -> {

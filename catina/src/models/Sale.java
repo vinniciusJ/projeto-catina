@@ -91,6 +91,11 @@ public final class Sale extends ModelStandart{
         return this.date.format(dtf);
     }
     
+    public String getFormattedTotalCost(){
+        String s = String.format("R$ %.2f", this.getTotalCost());
+        return s;
+    }
+    
 
     @Override
     public String toJSONString() {
