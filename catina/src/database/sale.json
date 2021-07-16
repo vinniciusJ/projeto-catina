@@ -16,5 +16,101 @@
 		"canteenId":"99dfe80f-3445-4a90-9b0b-d01be9b8c4d8",
 		"id":"85cdf296-0762-47ce-a11e-a7281f6735de",
 		"totalCost":6.0
+	},
+	{
+		"date":"16 julho 2021",
+		"canteenId":"99dfe80f-3445-4a90-9b0b-d01be9b8c4d8",
+		"id":"eef435b5-4193-49b5-87f1-9a786aa16e3f",
+		"totalCost":9.0
+	},
+	{
+		"date":"16 julho 2021",
+		"canteenId":"99dfe80f-3445-4a90-9b0b-d01be9b8c4d8",
+		"id":"4f367bc7-607c-49ee-9499-c71b9c6a36ad",
+		"totalCost":3.5
+	},
+	{
+		"date":"16 julho 2021",
+		"canteenId":"99dfe80f-3445-4a90-9b0b-d01be9b8c4d8",
+		"id":"cc3e9fc6-2d5a-44ae-84e2-2cbd0711d459",
+		"totalCost":20.5
+	},
+	{
+		"date":"16 julho 2021",
+		"canteenId":"99dfe80f-3445-4a90-9b0b-d01be9b8c4d8",
+		"id":"b654b7c6-85c0-4259-9df9-2e7bc7963f4f",
+		"totalCost":3.5
+	},
+	{
+		"date":"16 julho 2021",
+		"canteenId":"99dfe80f-3445-4a90-9b0b-d01be9b8c4d8",
+		"id":"9d097945-c933-4721-b3af-d6185d586522",
+		"totalCost":9.5
+	},
+	{
+		"date":"16 julho 2021",
+		"canteenId":"99dfe80f-3445-4a90-9b0b-d01be9b8c4d8",
+		"id":"5c593996-ce4e-4e62-89bd-7949f28fea41",
+		"totalCost":6.0
+	},
+	{
+		"date":"16 julho 2021",
+		"canteenId":"99dfe80f-3445-4a90-9b0b-d01be9b8c4d8",
+		"id":"af3d5a0e-03f3-40dd-9dab-5b240be98f75",
+		"totalCost":2.5
+	},
+	{
+		"date":"16 julho 2021",
+		"canteenId":"99dfe80f-3445-4a90-9b0b-d01be9b8c4d8",
+		"id":"4df267cf-53c0-4e19-bd18-54f97e388222",
+		"totalCost":3.25
+	},
+	{
+		"date":"16 julho 2021",
+		"canteenId":"99dfe80f-3445-4a90-9b0b-d01be9b8c4d8",
+		"id":"d22365ee-942e-434e-8f09-39a16ddb984d",
+		"totalCost":6.0
+	},
+	{
+		"date":"16 julho 2021",
+		"canteenId":"99dfe80f-3445-4a90-9b0b-d01be9b8c4d8",
+		"id":"4acc4aae-bca2-4938-a71f-5fb2689c1997",
+		"totalCost":2.0
+	},
+	{
+		"date":"16 julho 2021",
+		"canteenId":"99dfe80f-3445-4a90-9b0b-d01be9b8c4d8",
+		"id":"ecea63b2-cd0a-4097-b17e-7726e1e11bb0",
+		"totalCost":4.25
+	},
+	{
+		"date":"16 julho 2021",
+		"canteenId":"99dfe80f-3445-4a90-9b0b-d01be9b8c4d8",
+		"id":"c1a0ac89-98a0-410a-bc5b-adfe5341dc93",
+		"totalCost":3.25
+	},
+	{
+		"date":"16 julho 2021",
+		"canteenId":"99dfe80f-3445-4a90-9b0b-d01be9b8c4d8",
+		"id":"42c628d1-7622-4114-9416-a1ffbd0ca471",
+		"totalCost":8.0
+	},
+	{
+		"date":"16 julho 2021",
+		"canteenId":"99dfe80f-3445-4a90-9b0b-d01be9b8c4d8",
+		"id":"578bf3ba-6e4d-4a8c-860e-e05dc9a2691e",
+		"totalCost":1.0
+	},
+	{
+		"date":"16 julho 2021",
+		"canteenId":"99dfe80f-3445-4a90-9b0b-d01be9b8c4d8",
+		"id":"fe17a885-3fa3-4d36-8d7d-33bc56224927",
+		"totalCost":2.5
+	},
+	{
+		"date":"16 julho 2021",
+		"canteenId":"99dfe80f-3445-4a90-9b0b-d01be9b8c4d8",
+		"id":"78d6b070-935b-4542-b84a-a8a6a508861e",
+		"totalCost":13.0
 	}
 ]
