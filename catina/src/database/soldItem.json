@@ -88,5 +88,32 @@
 		"type":"Assado",
 		"qtty":2,
 		"totalCost":2.5
+	},
+	{
+		"unitaryPrice":1.25,
+		"saleId":"b4bcab55-c971-458d-8ff8-d526435bcf36",
+		"name":"Torta",
+		"id":"0a5cada1-1bb6-4595-9c7b-746065e0d1fb",
+		"type":"Assado",
+		"qtty":5,
+		"totalCost":6.25
+	},
+	{
+		"unitaryPrice":2.1,
+		"saleId":"b4bcab55-c971-458d-8ff8-d526435bcf36",
+		"name":"Bolo",
+		"id":"d1b93138-f25a-4b90-9361-0f0cf8a68643",
+		"type":"assado",
+		"qtty":2,
+		"totalCost":4.2
+	},
+	{
+		"unitaryPrice":1.5,
+		"saleId":"7f2f8533-346e-4971-817d-35add9cab719",
+		"name":"Laranja",
+		"id":"aa56223f-9e47-430a-b6aa-8f054a88f84c",
+		"type":"Fruta",
+		"qtty":2,
+		"totalCost":3.0
 	}
 ]

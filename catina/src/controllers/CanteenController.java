@@ -28,12 +28,15 @@ import java.util.Locale;
 import java.util.List;
 import java.util.Map;
 import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import net.sf.jasperreports.engine.util.JRXmlUtils;
 import net.sf.jasperreports.swing.JRViewer;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -141,40 +144,44 @@ public class CanteenController {
             salesArrayJSON.add(newSale);
         });                  
                  
-        try {                        
-            String rawJsonData = salesArrayJSON.toJSONString();                          
+        try {                                    
             JasperReport report;
-            
-            if(salesArrayJSON.isEmpty()){
-                 report = (JasperReport) JRLoader.loadObject(new File("src/report/EmptySalesReport.jasper"));
-            }
-            else{
-                report = (JasperReport) JRLoader.loadObject(new File("src/report/SalesReport.jasper"));
-            }
-            
-            ByteArrayInputStream jsonDataStream = new ByteArrayInputStream(rawJsonData.getBytes()); 
-            
-            JsonDataSource ds = new JsonDataSource(jsonDataStream);     
-           
-            Map parameters = new HashMap();      
+            JasperPrint jasperPrint;
+            Map parameters = new HashMap();     
+                        
+            var diaHoje = LocalDate.now();
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd LLLL yyyy");
             
             parameters.put("canteenName", canteen.getName());
             parameters.put("managerName", user.getName());
-            parameters.put("canteenId", canteen.getId()); 
+            parameters.put("canteenId", canteen.getId());     
+            parameters.put("date", diaHoje.format(dtf));     
             
-            JasperPrint jasperPrint = JasperFillManager.fillReport(report, parameters, ds);
-
-            var pdfView = new JDialog(new JFrame(), "Report", true);
+            if(salesArrayJSON.isEmpty()){    
+                var saleGhostObject = new JSONObject();
+                saleGhostObject.put("saleId", "");
+                saleGhostObject.put("date", "");
+                saleGhostObject.put("totalCost", "");
+                saleGhostObject.put("qttyItems", 0);             
+                salesArrayJSON.add(saleGhostObject);                
+                
+                report = (JasperReport) JRLoader.loadObject(new File("src/report/EmptySalesReport.jasper"));        
+            }
+            else{                                      
+                report = (JasperReport) JRLoader.loadObject(new File("src/report/SalesReport.jasper"));                
+            }
+            String rawJsonData = salesArrayJSON.toJSONString();  
+            ByteArrayInputStream jsonDataStream = new ByteArrayInputStream(rawJsonData.getBytes());             
+            JsonDataSource ds = new JsonDataSource(jsonDataStream);                                    
+            jasperPrint = JasperFillManager.fillReport(report, parameters, ds);                
             
-            pdfView.setSize(1080, 800);
-            
-            JRViewer reportView = new JRViewer(jasperPrint);
-            
-            pdfView.getContentPane().add(reportView);
-            
+            var pdfView = new JDialog(new JFrame(), "Report", true);            
+            pdfView.setSize(1080, 800);            
+            JRViewer reportView = new JRViewer(jasperPrint);            
+            pdfView.getContentPane().add(reportView);            
             pdfView.setVisible(true);
             
-            JasperExportManager.exportReportToPdfFile(jasperPrint, "src/assets/reports/pdf/jasperpdfexample.pdf");
+            // JasperExportManager.exportReportToPdfFile(jasperPrint, "src/assets/reports/pdf/jasperpdfexample.pdf");
             
         } catch (Exception ex) {
                 throw new RuntimeException(ex);

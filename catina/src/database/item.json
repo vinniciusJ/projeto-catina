@@ -9,7 +9,7 @@
 	},
 	{
 		"canteenId":"4231c04b-f8ba-43c5-866e-b5485d453d9f",
-		"quantity":20,
+		"quantity":17,
 		"price":1.75,
 		"name":"Batata",
 		"id":"412dc161-a3dc-4fc8-a364-6fd35c31abde",
@@ -25,7 +25,7 @@
 	},
 	{
 		"canteenId":"4231c04b-f8ba-43c5-866e-b5485d453d9f",
-		"quantity":18,
+		"quantity":16,
 		"price":2.1,
 		"name":"Bolo",
 		"id":"cc7170c7-e2b0-40fe-bab5-f5e0445216bf",
@@ -41,7 +41,7 @@
 	},
 	{
 		"canteenId":"4231c04b-f8ba-43c5-866e-b5485d453d9f",
-		"quantity":21,
+		"quantity":16,
 		"price":1.25,
 		"name":"Torta",
 		"id":"55bfc994-ecc1-4d4f-934e-7ea380d2b966",
@@ -56,11 +56,19 @@
 		"type":"Doce"
 	},
 	{
-		"id": "8bdd6604-8134-462b-8d53-0a4ea40d8688",
-		 "canteenId": "daf2ae78-84bf-4ab7-8fa0-453b2383fc22",
-		 "name": "Pizza",
-		 "price": 12.80,
-		 "type": "Assado",
+		"canteenId":"daf2ae78-84bf-4ab7-8fa0-453b2383fc22",
+		"quantity":3,
+		"price":12.8,
+		"name":"Pizza",
+		"id":"8bdd6604-8134-462b-8d53-0a4ea40d8688",
+		"type":"Assado"
+	},
+	{
+		"id": "9a009f87-a2b7-4b3b-b5c1-b055e0d2e3d3",
+		 "canteenId": "4231c04b-f8ba-43c5-866e-b5485d453d9f",
+		 "name": "Laranja",
+		 "price": 1.50,
+		 "type": "Fruta",
 		 "quantity": 3
 	}
 ]
