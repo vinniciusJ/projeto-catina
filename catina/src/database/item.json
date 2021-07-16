@@ -40,12 +40,12 @@
 		"type":"assado"
 	},
 	{
-		"id": "55bfc994-ecc1-4d4f-934e-7ea380d2b966",
-		 "canteenId": "4231c04b-f8ba-43c5-866e-b5485d453d9f",
-		 "name": "Torta",
-		 "price": 1.25,
-		 "type": "Assado",
-		 "quantity": 21
+		"canteenId":"4231c04b-f8ba-43c5-866e-b5485d453d9f",
+		"quantity":21,
+		"price":1.25,
+		"name":"Torta",
+		"id":"55bfc994-ecc1-4d4f-934e-7ea380d2b966",
+		"type":"Assado"
 	},
 	{
 		"canteenId":"daf2ae78-84bf-4ab7-8fa0-453b2383fc22",
@@ -54,5 +54,13 @@
 		"name":"Pão de mel",
 		"id":"486e8846-4c30-4a4b-ab09-fd8e5db6e4d3",
 		"type":"Doce"
+	},
+	{
+		"id": "8bdd6604-8134-462b-8d53-0a4ea40d8688",
+		 "canteenId": "daf2ae78-84bf-4ab7-8fa0-453b2383fc22",
+		 "name": "Pizza",
+		 "price": 12.80,
+		 "type": "Assado",
+		 "quantity": 3
 	}
 ]

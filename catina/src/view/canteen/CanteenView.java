@@ -111,7 +111,7 @@ public final class CanteenView extends JFrame implements ComponentInterface{
     
     public void syncItems(List<ItemOnSale> items){
         this.items = items;   
-        this.itemsTable = new CanteenTable(items);        
+        this.itemsTable.sync(items);
     }
     
     // Factory Pattern

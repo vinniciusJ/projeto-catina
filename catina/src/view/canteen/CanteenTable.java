@@ -20,7 +20,7 @@ import view.ComponentInterface;
  */
 public final class CanteenTable extends JTable implements ComponentInterface{
     private final String[] HEADERS = {"Nome: ", "Tipo: ", "Preço: ", "Quantidade: "};
-    private final Object[][] rows;
+    private Object[][] rows;
     private final DefaultTableModel model;
    
     public CanteenTable(List<ItemOnSale> rows){
@@ -49,6 +49,15 @@ public final class CanteenTable extends JTable implements ComponentInterface{
         var qtty = item.getQuantity();
         
         return new Object[]{name, type, price, qtty};
+    }
+    
+    public void sync(List<ItemOnSale> rows){
+       this.rows = CanteenTable.setRowsToObjectMatrix(rows);
+       
+       var currentDataModel = (DefaultTableModel) this.getModel();
+       
+       currentDataModel.setDataVector(this.rows, this.HEADERS);
+       currentDataModel.fireTableDataChanged();
     }
 
     @Override
