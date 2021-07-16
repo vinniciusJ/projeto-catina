@@ -1,34 +1,122 @@
 [
 	{
-		"id": "b9ca7b70-92ff-421e-9ed9-c10c96f26a8d",
-		 "canteenId": "99dfe80f-3445-4a90-9b0b-d01be9b8c4d8",
-		 "name": "Pão de Queijo",
-		 "price": 2.00,
-		 "type": "Assado",
-		 "quantity": 4
+		"canteenId":"99dfe80f-3445-4a90-9b0b-d01be9b8c4d8",
+		"quantity":1,
+		"price":2.0,
+		"name":"Pão de Queijo",
+		"id":"b9ca7b70-92ff-421e-9ed9-c10c96f26a8d",
+		"type":"Assado"
 	},
 	{
 		"canteenId":"99dfe80f-3445-4a90-9b0b-d01be9b8c4d8",
-		"quantity":20,
+		"quantity":19,
 		"price":3.0,
 		"name":"Bolo",
 		"id":"05df729e-6a73-4d6a-b189-17c3f1a37fcc",
 		"type":"Assado"
 	},
 	{
-		"canteenId":"99dfe80f-3445-4a90-9b0b-d01be9b8c4d8",
-		"quantity":49,
-		"price":1.0,
-		"name":"Maçã",
-		"id":"49e8daeb-d129-4aca-a2ce-ec4fc3123bd2",
-		"type":"Fruta"
+		"id": "49e8daeb-d129-4aca-a2ce-ec4fc3123bd2",
+		 "canteenId": "99dfe80f-3445-4a90-9b0b-d01be9b8c4d8",
+		 "name": "Maçã",
+		 "price": 1.00,
+		 "type": "Fruta",
+		 "quantity": 32
 	},
 	{
 		"canteenId":"99dfe80f-3445-4a90-9b0b-d01be9b8c4d8",
-		"quantity":14,
+		"quantity":11,
 		"price":1.5,
 		"name":"Suco de Laranja",
 		"id":"e0e9b7ca-3de3-4a08-8c64-b5ec16bf233a",
 		"type":"Suco"
+	},
+	{
+		"canteenId":"99dfe80f-3445-4a90-9b0b-d01be9b8c4d8",
+		"quantity":9,
+		"price":3.0,
+		"name":"Chá de Amendoim",
+		"id":"ab85f115-345f-425d-8007-a7005b49f794",
+		"type":"Bebida"
+	},
+	{
+		"canteenId":"99dfe80f-3445-4a90-9b0b-d01be9b8c4d8",
+		"quantity":14,
+		"price":3.5,
+		"name":"Coca Cola",
+		"id":"d926171f-3bbe-4fda-bd54-051cf79e3fc7",
+		"type":"Bebida"
+	},
+	{
+		"canteenId":"99dfe80f-3445-4a90-9b0b-d01be9b8c4d8",
+		"quantity":11,
+		"price":5.0,
+		"name":"Pizza",
+		"id":"6199b089-de34-441d-b3be-520a8cbf65b7",
+		"type":"Assado"
+	},
+	{
+		"canteenId":"99dfe80f-3445-4a90-9b0b-d01be9b8c4d8",
+		"quantity":14,
+		"price":6.0,
+		"name":"X-Tudo",
+		"id":"56e585cf-c508-4282-9f02-9b1822cbaa8c",
+		"type":"Assado"
+	},
+	{
+		"canteenId":"99dfe80f-3445-4a90-9b0b-d01be9b8c4d8",
+		"quantity":4,
+		"price":4.0,
+		"name":"Coxinha",
+		"id":"1ecf0bc4-80bf-4e6a-93d6-4d1189ea4cb7",
+		"type":"Fritura"
+	},
+	{
+		"canteenId":"99dfe80f-3445-4a90-9b0b-d01be9b8c4d8",
+		"quantity":9,
+		"price":2.75,
+		"name":"Risólis",
+		"id":"66b04da6-8430-4dcf-b4d1-afe346afefed",
+		"type":"Fritura"
+	},
+	{
+		"canteenId":"99dfe80f-3445-4a90-9b0b-d01be9b8c4d8",
+		"quantity":9,
+		"price":3.25,
+		"name":"Quibe",
+		"id":"6e6e3514-860e-4386-a9ad-c9f8ca60ea2e",
+		"type":"Fritura"
+	},
+	{
+		"canteenId":"99dfe80f-3445-4a90-9b0b-d01be9b8c4d8",
+		"quantity":57,
+		"price":0.5,
+		"name":"Pipoca",
+		"id":"66ea3571-870c-4220-bf2b-7815f20e5c6f",
+		"type":"Assado"
+	},
+	{
+		"canteenId":"99dfe80f-3445-4a90-9b0b-d01be9b8c4d8",
+		"quantity":18,
+		"price":1.25,
+		"name":"Café",
+		"id":"4915c7d1-d737-4a3f-9b5d-ca9ac84ae212",
+		"type":"Bebida"
+	},
+	{
+		"canteenId":"99dfe80f-3445-4a90-9b0b-d01be9b8c4d8",
+		"quantity":7,
+		"price":2.0,
+		"name":"Misto Quente",
+		"id":"8bcebb48-3876-449f-84a6-4f92c1f492c5",
+		"type":"Assado"
+	},
+	{
+		"canteenId":"99dfe80f-3445-4a90-9b0b-d01be9b8c4d8",
+		"quantity":8,
+		"price":4.25,
+		"name":"Pamonha",
+		"id":"ba3108b0-d30f-41d9-8529-b5c064c61ff0",
+		"type":"Assado"
 	}
 ]
