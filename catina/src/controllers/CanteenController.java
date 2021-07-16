@@ -110,12 +110,13 @@ public class CanteenController {
                 .map(item -> (SoldItem) item)                
                 .collect(Collectors.toList());
         
-        var saleItems = new HashMap <Sale, ArrayList<SoldItem>>();        
+        var saleQuantity = new HashMap <Sale, Integer>();        
         sales.forEach(sale -> {
-            saleItems.put(sale, new ArrayList<>());
+            saleQuantity.put(sale, 0);
             allSoldItems.forEach(item -> {
                if(item.getSale().getId().equals(sale.getId())){
-                   saleItems.get(sale).add(item);                   
+                   int newValue = (int) ((int) saleQuantity.get(sale) + item.getQuantity());                   
+                    saleQuantity.put(sale, newValue);
                }
             });
         });              
@@ -124,27 +125,16 @@ public class CanteenController {
         JSONObject salesJSON = new JSONObject();
         JSONArray salesArrayJSON = new JSONArray();        
         
-        for(Sale sale : saleItems.keySet()){            
+        saleQuantity.keySet().stream().map((sale) -> {            
             JSONObject newSale = new JSONObject();
             newSale.put("saleId", sale.getId());
             newSale.put("date", sale.getDate().toString());
             newSale.put("totalCost", sale.getTotalCost());
-            
-            var soldItemsInSale = saleItems.get(sale);
-            var newSoldItems = new JSONArray();                   
-            for(SoldItem soldItem : soldItemsInSale){                
-                var newSoldItem = new JSONObject();
-                newSoldItem.put("id", soldItem.getId());
-                newSoldItem.put("name", soldItem.getName());
-                newSoldItem.put("type", soldItem.getType());
-                newSoldItem.put("unitaryPrice", soldItem.getUnitaryPrice());
-                newSoldItem.put("qtty", soldItem.getQuantity());
-                newSoldItem.put("totalCost", soldItem.getTotalCost());
-                newSoldItems.add(newSoldItem);                
-            }                        
-            newSale.put("soldItems", newSoldItems);                                    
+            newSale.put("quantity", saleQuantity.get(sale));             
+            return newSale;
+        }).forEachOrdered((newSale) -> {
             salesArrayJSON.add(newSale);
-        }                
+        });                
         salesJSON.put("sales", salesArrayJSON);        
         reportJSON.put("report", salesJSON);
                 

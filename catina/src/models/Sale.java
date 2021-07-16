@@ -7,6 +7,7 @@ package models;
 
 import dao.DAO;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Locale;
 import org.json.simple.JSONObject;
@@ -19,10 +20,11 @@ public final class Sale extends ModelStandart{
     private LocalDate date;
     private Canteen canteen;
     private double totalCost;
+    private final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd LLLL yyyy");
     
     public Sale (JSONObject fields){
         this.id = (String) fields.get("id");        
-        this.date = LocalDate.parse(fields.get("date").toString());        
+        this.date = LocalDate.parse(fields.get("date").toString(), this.dtf);        
         String canteenId = (String) fields.get("canteenId");        
         this.setCanteen(canteenId);
         this.totalCost = (double) fields.get("totalCost");
@@ -90,7 +92,7 @@ public final class Sale extends ModelStandart{
     @Override
     public String toJSONString() {
          String s = String.format(Locale.ROOT, "{\"id\": \"%s\", \"canteenId\": \"%s\", \"totalCost\": %.2f, \"date\": \"%s\"}",
-                 this.id, this.canteen.getId(), this.totalCost, this.date.toString());        
+                 this.id, this.canteen.getId(), this.totalCost, this.date.format(dtf));        
         return s;
     }
     
