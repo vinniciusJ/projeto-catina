@@ -62,9 +62,7 @@ public final class Sale extends ModelStandart{
     public String toString() {
         return "Sale{" + "date=" + date + ", canteen=" + canteen + ", totalCost=" + totalCost + '}';
     }
-    
-    
-
+        
     public LocalDate getDate() {
         return date;
     }
@@ -88,6 +86,11 @@ public final class Sale extends ModelStandart{
     public void setTotalCost(double totalCost) {
         this.totalCost = totalCost;
     }
+    
+    public String getDateFormatted(){
+        return this.date.format(dtf);
+    }
+    
 
     @Override
     public String toJSONString() {

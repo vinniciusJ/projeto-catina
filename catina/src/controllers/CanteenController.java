@@ -133,13 +133,13 @@ public class CanteenController {
             JSONObject newSale = new JSONObject();
 
             newSale.put("saleId", sale.getId());
-            newSale.put("date", sale.getDate().toString());
+            newSale.put("date", sale.getDateFormatted());
             newSale.put("totalCost", sale.getTotalCost());
             newSale.put("qttyItems", saleQuantity.get(sale));             
             return newSale;
         }).forEachOrdered((newSale) -> {
             salesArrayJSON.add(newSale);
-        });                
+        });                  
                  
         try {                        
             String rawJsonData = salesArrayJSON.toJSONString();                          
