@@ -22,12 +22,18 @@ public final class Sale extends ModelStandart{
     private double totalCost;
     private final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd LLLL yyyy");
     
-    public Sale (JSONObject fields){
-        this.id = (String) fields.get("id");        
-        this.date = LocalDate.parse(fields.get("date").toString(), this.dtf);        
-        String canteenId = (String) fields.get("canteenId");        
-        this.setCanteen(canteenId);
-        this.totalCost = (double) fields.get("totalCost");
+    public Sale (JSONObject fields){ 
+        try{
+            this.id = (String) fields.get("id");        
+            this.date = LocalDate.parse(fields.get("date").toString(), this.dtf);        
+            
+            String canteenId = (String) fields.get("canteenId");        
+            this.setCanteen(canteenId);
+            this.totalCost = (double) fields.get("totalCost");
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
     }
     
     public Sale (String canteenId){

@@ -143,7 +143,14 @@ public class CanteenController {
                  
         try {                        
             String rawJsonData = salesArrayJSON.toJSONString();                          
-            JasperReport report = (JasperReport) JRLoader.loadObject(new File("src/report/SalesReport.jasper"));   
+            JasperReport report;
+            
+            if(salesArrayJSON.isEmpty()){
+                 report = (JasperReport) JRLoader.loadObject(new File("src/report/EmptySalesReport.jasper"));
+            }
+            else{
+                report = (JasperReport) JRLoader.loadObject(new File("src/report/SalesReport.jasper"));
+            }
             
             ByteArrayInputStream jsonDataStream = new ByteArrayInputStream(rawJsonData.getBytes()); 
             
