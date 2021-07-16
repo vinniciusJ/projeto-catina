@@ -15,7 +15,7 @@ public abstract class ModelStandart {
     protected String id;
 
     public String getId() {
-        return id;
+        return this.id;
     }
 
     public void setId() {

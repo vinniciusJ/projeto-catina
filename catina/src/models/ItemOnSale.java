@@ -14,12 +14,8 @@ import org.json.simple.JSONObject;
  *
  * @author Dyogo
  */
-public class ItemOnSale extends ModelStandart{    
-    String name;
-    double price;
-    long quantity;
-    String type;
-    Canteen canteen;    
+public class ItemOnSale extends Item{   
+    private Canteen canteen;   
     
     public ItemOnSale(JSONObject fields){
         String canteenId = (String) fields.get("canteenId");
@@ -50,49 +46,8 @@ public class ItemOnSale extends ModelStandart{
         return canteen;
     }
 
-    public long getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(long quantity) {
-        this.quantity = quantity;
-    }
-
     public void setCanteen(Canteen canteen) {
         this.canteen = canteen;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    @Override
-    public String getId() {
-        return id;
-    }        
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     @Override

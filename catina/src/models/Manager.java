@@ -16,7 +16,7 @@ import org.json.simple.JSONObject;
 public class Manager extends ModelStandart{    
     private String name;
     private String password;    
-    private Canteen canteen;
+    private Canteen canteen;  // relação de composição
     
     public Manager(JSONObject fields){
         this.id = (String) fields.get("id");

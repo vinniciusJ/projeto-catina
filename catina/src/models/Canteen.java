@@ -14,8 +14,8 @@ import org.json.simple.JSONObject;
  * @author Dyogo
  */
 public class Canteen extends ModelStandart{    
-    String name;
-    double balance;            
+    private String name;
+    private double balance;            
     
     public Canteen(JSONObject fields){
         this.id = (String) fields.get("id");
@@ -29,6 +29,11 @@ public class Canteen extends ModelStandart{
         this.name = name;
         this.balance = 0;
         this.setId();
+    }
+    
+    public Canteen(String name, double balance) {
+        this.name = name;
+        this.balance = balance;
     }
     
     public String getName() {
@@ -61,14 +66,5 @@ public class Canteen extends ModelStandart{
     public String toJSONString() {
         String s = String.format(Locale.ROOT, "{\"id\": \"%s\", \"name\": \"%s\", \"balance\": %.2f}", this.id, this.name, this.balance);        
         return s;
-    }
-
-    public Canteen(String name, double balance) {
-        this.name = name;
-        this.balance = balance;
-    }
-    
-    
-    
-    
+    }           
 }

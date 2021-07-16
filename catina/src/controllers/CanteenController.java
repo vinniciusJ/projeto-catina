@@ -138,7 +138,7 @@ public class CanteenController {
                 newSoldItem.put("name", soldItem.getName());
                 newSoldItem.put("type", soldItem.getType());
                 newSoldItem.put("unitaryPrice", soldItem.getUnitaryPrice());
-                newSoldItem.put("qtty", soldItem.getQtty());
+                newSoldItem.put("qtty", soldItem.getQuantity());
                 newSoldItem.put("totalCost", soldItem.getTotalCost());
                 newSoldItems.add(newSoldItem);                
             }                        
@@ -190,7 +190,7 @@ public void init() {
             var items = (ArrayList<ItemOnSale>) data.get("items");
             var itemsQtty = (HashMap<ItemOnSale, Integer>) data.get("itemsQtty");
             this.registerSale(items, itemsQtty);
-            // para acessar a qtty de um item -> itemsQtty.qtty(item); onde item é uma instancia de Item
+            // para acessar a quantity de um item -> itemsQtty.quantity(item); onde item é uma instancia de Item
                                     
         });
         

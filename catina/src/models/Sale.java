@@ -16,9 +16,9 @@ import org.json.simple.JSONObject;
  * @author Dyogo
  */
 public final class Sale extends ModelStandart{
-    LocalDate date;
-    Canteen canteen;
-    double totalCost;
+    private LocalDate date;
+    private Canteen canteen;
+    private double totalCost;
     
     public Sale (JSONObject fields){
         this.id = (String) fields.get("id");        
