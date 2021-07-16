@@ -16,9 +16,7 @@ import java.util.function.Consumer;
 public abstract class ClickEventHandler implements ActionListener{
     public Consumer<HashMap<String, Object>> callback;
     
-    public ClickEventHandler(){
-    
-    }
+    public ClickEventHandler(){}
     
     public ClickEventHandler(Consumer<HashMap<String, Object>> callback){
         this.callback = callback;

@@ -1,0 +1,5 @@
+{
+    "sales": [
+        {"date":"20 de Jan 2020","saleId":"05cb5772-423b-4276-a324-0dd9d6bd0718","qttyItems":3,"totalCost":5.6},{"date":"20 de Jan 2020","saleId":"211e8bc2-f1ac-4e26-a433-edd9ec7b9d20","qttyItems":1,"totalCost":1.75},{"date":"20 de Jan 2020","saleId":"c670fead-f14a-438d-aba9-9859c3bfa309","qttyItems":2,"totalCost":3.5},{"date":"20 de Jan 2020","saleId":"50e2074c-f9f8-4c14-a127-7a45f023b12d","qttyItems":1,"totalCost":2.1}
+    ]
+}

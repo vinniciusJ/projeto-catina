@@ -28,6 +28,10 @@ import java.util.Locale;
 import java.util.List;
 import java.util.Map;
 import java.io.*;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import net.sf.jasperreports.engine.util.JRXmlUtils;
+import net.sf.jasperreports.swing.JRViewer;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -103,7 +107,9 @@ public class CanteenController {
                 .stream()
                 .map(sale -> (Sale) sale)
                 .filter(sale -> sale.getCanteen().getId().equals(canteen.getId()))
-                .collect(Collectors.toList());        
+                .collect(Collectors.toList());      
+        
+        
         var allSoldItems = this.itemSoldDAO
                 .get()
                 .stream()
@@ -121,33 +127,49 @@ public class CanteenController {
             });
         });              
         
-        JSONObject reportJSON = new JSONObject();
-        JSONObject salesJSON = new JSONObject();
         JSONArray salesArrayJSON = new JSONArray();        
         
         saleQuantity.keySet().stream().map((sale) -> {            
             JSONObject newSale = new JSONObject();
+
             newSale.put("saleId", sale.getId());
             newSale.put("date", sale.getDate().toString());
             newSale.put("totalCost", sale.getTotalCost());
-            newSale.put("quantity", saleQuantity.get(sale));             
+            newSale.put("qttyItems", saleQuantity.get(sale));             
             return newSale;
         }).forEachOrdered((newSale) -> {
             salesArrayJSON.add(newSale);
         });                
-        salesJSON.put("sales", salesArrayJSON);        
-        reportJSON.put("report", salesJSON);
-                
+                 
         try {                        
-            String rawJsonData = reportJSON.toJSONString();                        
-            JasperReport report = (JasperReport) JRLoader.loadObject(new File("src/assets/reports/Report.jasper"));            
-            ByteArrayInputStream jsonDataStream = new ByteArrayInputStream(rawJsonData.getBytes());            
-            JsonDataSource ds = new JsonDataSource(jsonDataStream);            
-            Map parameters = new HashMap();            
+            String rawJsonData = salesArrayJSON.toJSONString();  
+
+            System.out.println(rawJsonData);
+            
+            JasperReport report = (JasperReport) JRLoader.loadObject(new File("src/report/SalesReport.jasper"));   
+            
+            ByteArrayInputStream jsonDataStream = new ByteArrayInputStream(rawJsonData.getBytes()); 
+            
+            JsonDataSource ds = new JsonDataSource(jsonDataStream);     
+           
+            Map parameters = new HashMap();      
+            
             parameters.put("canteenName", canteen.getName());
             parameters.put("managerName", user.getName());
-            parameters.put("canteenId", canteen.getId());            
-            JasperPrint jasperPrint = JasperFillManager.fillReport(report, parameters, ds);            
+            parameters.put("canteenId", canteen.getId()); 
+            
+            JasperPrint jasperPrint = JasperFillManager.fillReport(report, parameters, ds);
+
+            var pdfView = new JDialog(new JFrame(), "Report", true);
+            
+            pdfView.setSize(1080, 800);
+            
+            JRViewer reportView = new JRViewer(jasperPrint);
+            
+            pdfView.getContentPane().add(reportView);
+            
+            pdfView.setVisible(true);
+            
             JasperExportManager.exportReportToPdfFile(jasperPrint, "src/assets/reports/pdf/jasperpdfexample.pdf");
             
         } catch (Exception ex) {
@@ -155,7 +177,7 @@ public class CanteenController {
         } 
     }     
 
-public void init() {
+    public void init() {
         this.view.setRegisterItemHandler(data -> {
             var name = (String) data.get("name");
             var price = (Double) data.get("price");
@@ -185,7 +207,6 @@ public void init() {
         });
         
         this.view.setViewProfitHandler(data -> {
-            System.out.println("banana");
             this.viewProfit();
         });
     }   
@@ -197,6 +218,7 @@ public void init() {
                 .map(item -> (ItemOnSale) item)
                 .filter(item -> item.getCanteen().getId().equals(Environment.getCurrentCanteen().getId()))
                 .collect(Collectors.toList());
+        
         this.view.syncItems(itemsNow);
     }        
 

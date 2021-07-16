@@ -10,7 +10,6 @@ import view.canteen.popups.ItemPopup;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Consumer;
@@ -108,8 +107,9 @@ public final class CanteenView extends JFrame implements ComponentInterface{
     }
     
     public void syncItems(List<ItemOnSale> items){
+        this.items = items;
         this.itemsTable = new CanteenTable(items);
-        this.paint();
+        
     }
     
     // Factory Pattern
@@ -146,7 +146,7 @@ public final class CanteenView extends JFrame implements ComponentInterface{
     }
     
     public void showViewProfitPopup(Consumer onSubmit){
-        //this.showPopup(new ViewProfitPopup("Visualizar lucro", new Dimension(500, 280)), onSubmit);
+       onSubmit.accept(null);
     }
     
     public void setSaleRegisterHandler(Consumer<HashMap<String, Object>> callback){

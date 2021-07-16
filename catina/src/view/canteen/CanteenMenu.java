@@ -63,7 +63,7 @@ public final class CanteenMenu extends JPanel implements ComponentInterface{
         this.setBorder(new EmptyBorder(20, 0, 40, 0));
 
         this.registerSale.setText("Registrar venda");
-        this.viewProfit.setText("Visualizar lucro");
+        this.viewProfit.setText("Visualizar vendas");
         this.registerItem.setText("Cadastrar item");
         this.editItem.setText("Editar item");
         
