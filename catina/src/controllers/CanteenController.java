@@ -37,6 +37,7 @@ import net.sf.jasperreports.swing.JRViewer;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import view.report.ReportView;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -102,25 +103,22 @@ public class CanteenController {
         this.syncItems();
     }
 
-    public void viewProfit() {        
-        var canteen = Environment.getCurrentCanteen();
-        var user = Environment.getUser();        
-        var sales = this.saleDAO
-                .get()
-                .stream()
-                .map(sale -> (Sale) sale)
-                .filter(sale -> sale.getCanteen().getId().equals(canteen.getId()))
-                .collect(Collectors.toList());      
-        
+    public void viewProfit() {  
+        var salesData = this.saleDAO
+        .get()
+        .stream()
+        .map(sale -> (Sale) sale)
+        .filter(sale -> sale.getCanteen().getId().equals(Environment.getCurrentCanteen().getId()))
+        .collect(Collectors.toList());              
         
         var allSoldItems = this.itemSoldDAO
-                .get()
-                .stream()
-                .map(item -> (SoldItem) item)                
-                .collect(Collectors.toList());
+        .get()
+        .stream()
+        .map(item -> (SoldItem) item)                
+        .collect(Collectors.toList());
         
         var saleQuantity = new HashMap <Sale, Integer>();        
-        sales.forEach(sale -> {
+        salesData.forEach(sale -> {
             saleQuantity.put(sale, 0);
             allSoldItems.forEach(item -> {
                if(item.getSale().getId().equals(sale.getId())){
@@ -128,64 +126,12 @@ public class CanteenController {
                     saleQuantity.put(sale, newValue);
                }
             });
-        });              
-        
-        JSONArray salesArrayJSON = new JSONArray();        
-        
-        saleQuantity.keySet().stream().map((sale) -> {            
-            JSONObject newSale = new JSONObject();
-
-            newSale.put("saleId", sale.getId());
-            newSale.put("date", sale.getDateFormatted());
-            newSale.put("totalCost", sale.getFormattedTotalCost());
-            newSale.put("qttyItems", saleQuantity.get(sale));             
-            return newSale;
-        }).forEachOrdered((newSale) -> {
-            salesArrayJSON.add(newSale);
-        });                  
-                 
-        try {                                    
-            JasperReport report;
-            JasperPrint jasperPrint;
-            Map parameters = new HashMap();     
-                        
-            var diaHoje = LocalDate.now();
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd LLLL yyyy");
-            
-            parameters.put("canteenName", canteen.getName());
-            parameters.put("managerName", user.getName());
-            parameters.put("canteenId", canteen.getId());     
-            parameters.put("date", diaHoje.format(dtf));     
-            
-            if(salesArrayJSON.isEmpty()){    
-                var saleGhostObject = new JSONObject();
-                saleGhostObject.put("saleId", "");
-                saleGhostObject.put("date", "");
-                saleGhostObject.put("totalCost", "");
-                saleGhostObject.put("qttyItems", 0);             
-                salesArrayJSON.add(saleGhostObject);                
+        });        
                 
-                report = (JasperReport) JRLoader.loadObject(new File("src/report/EmptySalesReport.jasper"));        
-            }
-            else{                                      
-                report = (JasperReport) JRLoader.loadObject(new File("src/report/SalesReport.jasper"));                
-            }
-            String rawJsonData = salesArrayJSON.toJSONString();  
-            ByteArrayInputStream jsonDataStream = new ByteArrayInputStream(rawJsonData.getBytes());             
-            JsonDataSource ds = new JsonDataSource(jsonDataStream);                                    
-            jasperPrint = JasperFillManager.fillReport(report, parameters, ds);                
-            
-            var pdfView = new JDialog(new JFrame(), "Report", true);            
-            pdfView.setSize(1080, 800);            
-            JRViewer reportView = new JRViewer(jasperPrint);            
-            pdfView.getContentPane().add(reportView);            
-            pdfView.setVisible(true);
-            
-            // JasperExportManager.exportReportToPdfFile(jasperPrint, "src/assets/reports/pdf/jasperpdfexample.pdf");
-            
-        } catch (Exception ex) {
-                throw new RuntimeException(ex);
-        } 
+        
+        var report = new SalesReport(saleQuantity);        
+        var reportView = new ReportView(report.create());
+        
     }     
 
     public void init() {

@@ -90,8 +90,7 @@ public class DAO {
             
         } catch (InstantiationException | IllegalAccessException | NoSuchMethodException
                 | InvocationTargetException | NullPointerException |SecurityException ex) {
-            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("caiu aqui " + data);
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);            
         }                
         return convertedData;
     }

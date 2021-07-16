@@ -1,32 +1,7 @@
 [
 	{
-		"balance":575.2,
-		"name":"IFPR - Foz",
-		"id":"daf2ae78-84bf-4ab7-8fa0-453b2383fc22"
-	},
-	{
-		"balance":575.2,
-		"name":"CTG",
-		"id":"4231c04b-f8ba-43c5-866e-b5485d453d9f"
-	},
-	{
 		"balance":0.0,
-		"name":"Restaurante",
-		"id":"3b620d58-dd63-49f8-9288-5ecfca1af1ed"
-	},
-	{
-		"balance":0.0,
-		"name":"Restaurante no Fim do Universo",
-		"id":"02e97180-0869-43af-9bd5-73a94f06772b"
-	},
-	{
-		"balance":0.0,
-		"name":"Cantina da Tere",
-		"id":"f9b8d77c-1fc3-40e6-b46f-0338f03d2850"
-	},
-	{
-		"balance":0.0,
-		"name":"Alo IFPR",
-		"id":"2fd9e40a-b620-47b9-9a0e-6ee19cdf68c1"
+		"name":"Catina",
+		"id":"99dfe80f-3445-4a90-9b0b-d01be9b8c4d8"
 	}
 ]

@@ -66,8 +66,7 @@ public final class CanteenView extends JFrame implements ComponentInterface{
         @Override
         public void actionPerformed(ActionEvent e) {
             var selectedRow = getSelectedRow();
-            
-            System.out.println(selectedRow);
+                        
             if(selectedRow < 0){
                 showNoneItemSelectedMessage();
             }
@@ -104,8 +103,7 @@ public final class CanteenView extends JFrame implements ComponentInterface{
         this.paint();
     }
        
-    public int getSelectedRow(){
-        System.out.println(itemsTable.getRowCount());
+    public int getSelectedRow(){        
         return this.itemsTable.getSelectedRow();        
     }
     

@@ -1,44 +1,8 @@
 [
 	{
-		"canteenId":"daf2ae78-84bf-4ab7-8fa0-453b2383fc22",
-		"password":"abc",
-		"name":"Jimenez",
-		"id":"bfedc0a2-bb0c-4916-a52e-ba475108ad0d"
-	},
-	{
-		"canteenId":"ilustrativo",
-		"password":"abc123",
+		"canteenId":"99dfe80f-3445-4a90-9b0b-d01be9b8c4d8",
+		"password":"Catina123",
 		"name":"Matheus",
-		"id":"c1155d1a-7564-47d1-a460-481e39d7cdf0"
-	},
-	{
-		"canteenId":"4231c04b-f8ba-43c5-866e-b5485d453d9f",
-		"password":"123abc",
-		"name":"Dyogo",
-		"id":"8716ab18-3342-48f4-b4f1-4ee129fcdc36"
-	},
-	{
-		"canteenId":"3b620d58-dd63-49f8-9288-5ecfca1af1ed",
-		"password":"ioi",
-		"name":"david",
-		"id":"9b288e11-3384-4924-be83-5c4a8d86edae"
-	},
-	{
-		"canteenId":"02e97180-0869-43af-9bd5-73a94f06772b",
-		"password":"mochileiro",
-		"name":"Marvin",
-		"id":"cf79c904-f776-4e63-bae0-ee3c1db891e4"
-	},
-	{
-		"canteenId":"f9b8d77c-1fc3-40e6-b46f-0338f03d2850",
-		"password":"8486",
-		"name":"Tere123",
-		"id":"9d834c12-16bb-4484-a3f2-5e5d2e6a8456"
-	},
-	{
-		"canteenId":"2fd9e40a-b620-47b9-9a0e-6ee19cdf68c1",
-		"password":"aaaaaaaa",
-		"name":"Aauauauaua",
-		"id":"60105e5b-c2a5-4087-9c10-4656a5affeb5"
+		"id":"bfc6131c-f7ad-426a-8410-bde493d17167"
 	}
 ]

@@ -1,119 +1,47 @@
 [
 	{
-		"unitaryPrice":1.75,
-		"saleId":"05cb5772-423b-4276-a324-0dd9d6bd0718",
-		"name":"bolo",
-		"id":"ae16aab1-71bf-4432-8e55-cea3080597ec",
-		"type":"assado",
-		"qtty":2,
-		"totalCost":3.5
-	},
-	{
-		"unitaryPrice":2.1,
-		"saleId":"05cb5772-423b-4276-a324-0dd9d6bd0718",
-		"name":"bolo",
-		"id":"7a7a49e1-d2ee-40ba-813b-a9fb3f87125d",
-		"type":"assado",
-		"qtty":1,
-		"totalCost":2.1
-	},
-	{
-		"unitaryPrice":1.75,
-		"saleId":"c670fead-f14a-438d-aba9-9859c3bfa309",
-		"name":"bolo",
-		"id":"fce83e43-8ac9-4427-a6e8-f4b64aa6cba0",
-		"type":"assado",
-		"qtty":2,
-		"totalCost":3.5
-	},
-	{
-		"unitaryPrice":2.1,
-		"saleId":"50e2074c-f9f8-4c14-a127-7a45f023b12d",
-		"name":"bolo",
-		"id":"411044c4-a90a-47c8-81c9-8a746f138049",
-		"type":"assado",
-		"qtty":1,
-		"totalCost":2.1
-	},
-	{
-		"unitaryPrice":1.75,
-		"saleId":"211e8bc2-f1ac-4e26-a433-edd9ec7b9d20",
-		"name":"Batata",
-		"id":"87ac1dbc-94a3-439b-9d88-00d5cca1fcf8",
+		"unitaryPrice":2.0,
+		"saleId":"68c33c7d-16d2-42ae-8117-7b3b5e311d0e",
+		"name":"Pão de Queijo",
+		"id":"74a0c592-a899-4989-8f06-2a2b4afa8fb5",
 		"type":"Assado",
 		"qtty":1,
-		"totalCost":1.75
-	},
-	{
-		"unitaryPrice":1.75,
-		"saleId":"ff7d308b-48f8-4b42-80d7-c5a6f11ade7f",
-		"name":"Batata",
-		"id":"0f4c1a74-f402-4b9e-a6fa-2867626369ce",
-		"type":"Assado",
-		"qtty":3,
-		"totalCost":5.25
-	},
-	{
-		"unitaryPrice":2.1,
-		"saleId":"ff7d308b-48f8-4b42-80d7-c5a6f11ade7f",
-		"name":"Bolo",
-		"id":"31a3e1f1-885e-4434-a79e-8985925cc5e9",
-		"type":"assado",
-		"qtty":1,
-		"totalCost":2.1
-	},
-	{
-		"unitaryPrice":1.25,
-		"saleId":"c3cb36cb-695d-40c5-a4c3-dd82068fa182",
-		"name":"Torta",
-		"id":"e2afe3f1-1125-4300-a66d-742648a2ca5e",
-		"type":"Assado",
-		"qtty":2,
-		"totalCost":2.5
-	},
-	{
-		"unitaryPrice":1.75,
-		"saleId":"f18bcd0e-ced3-45af-ad6d-8eb0e68f0ed3",
-		"name":"Batata",
-		"id":"4c358dd0-f7de-470a-b5ff-d21d4a690769",
-		"type":"Assado",
-		"qtty":2,
-		"totalCost":3.5
-	},
-	{
-		"unitaryPrice":1.25,
-		"saleId":"cb3e82b2-1daf-4523-a41c-25d674f9c39a",
-		"name":"Torta",
-		"id":"c574e0c1-929e-4c19-a3ec-19f0a6db1b6b",
-		"type":"Assado",
-		"qtty":2,
-		"totalCost":2.5
-	},
-	{
-		"unitaryPrice":1.25,
-		"saleId":"b4bcab55-c971-458d-8ff8-d526435bcf36",
-		"name":"Torta",
-		"id":"0a5cada1-1bb6-4595-9c7b-746065e0d1fb",
-		"type":"Assado",
-		"qtty":5,
-		"totalCost":6.25
-	},
-	{
-		"unitaryPrice":2.1,
-		"saleId":"b4bcab55-c971-458d-8ff8-d526435bcf36",
-		"name":"Bolo",
-		"id":"d1b93138-f25a-4b90-9361-0f0cf8a68643",
-		"type":"assado",
-		"qtty":2,
-		"totalCost":4.2
+		"totalCost":2.0
 	},
 	{
 		"unitaryPrice":1.5,
-		"saleId":"7f2f8533-346e-4971-817d-35add9cab719",
-		"name":"Laranja",
-		"id":"aa56223f-9e47-430a-b6aa-8f054a88f84c",
+		"saleId":"68c33c7d-16d2-42ae-8117-7b3b5e311d0e",
+		"name":"Suco de Laranja",
+		"id":"b54f97bf-940c-43f1-b150-a35f499c48f7",
+		"type":"Suco",
+		"qtty":1,
+		"totalCost":1.5
+	},
+	{
+		"unitaryPrice":1.0,
+		"saleId":"68c33c7d-16d2-42ae-8117-7b3b5e311d0e",
+		"name":"Maçã",
+		"id":"103a22e9-7c40-4b3b-914f-d1402730beea",
 		"type":"Fruta",
+		"qtty":1,
+		"totalCost":1.0
+	},
+	{
+		"unitaryPrice":2.0,
+		"saleId":"2d0f0bf8-1ac9-44a9-9d8b-64abfd2607c3",
+		"name":"Pão de Queijo",
+		"id":"6a037f65-97c6-481d-9403-4f03cfb9b71a",
+		"type":"Assado",
 		"qtty":2,
-		"totalCost":3.0
+		"totalCost":4.0
+	},
+	{
+		"unitaryPrice":2.0,
+		"saleId":"85cdf296-0762-47ce-a11e-a7281f6735de",
+		"name":"Pão de Queijo",
+		"id":"8da0f1e3-bb3d-41b1-a924-17f7e9eb67ec",
+		"type":"Assado",
+		"qtty":3,
+		"totalCost":6.0
 	}
 ]
