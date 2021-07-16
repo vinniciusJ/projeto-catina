@@ -45,7 +45,7 @@ public final class CanteenTable extends JTable implements ComponentInterface{
     private static Object[] getCanteenItemsGroupsValues(ItemOnSale item){
         var name = item.getName();
         var type = item.getType();
-        var price = item.getPrice();
+        var price = String.format("R$ %.2f", item.getPrice());
         var qtty = item.getQuantity();
         
         return new Object[]{name, type, price, qtty};
